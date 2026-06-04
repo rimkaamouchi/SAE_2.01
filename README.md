@@ -14,3 +14,4 @@ Equipes de 4 étudiants
 Cette SAE est mutualisée avec SAE2.02 et SAE2.05
 
 Problématique Professionnelle:
+L'objectif est de pouvoir montrer sa capacité à développer une application permettant la création, la modification et la consultation des données d'une organisation.
