@@ -1,7 +1,9 @@
 src/Controleur.java
 src/metier/Jeu.java
 src/metier/Case.java
-src/metierPioche.java
+src/metier/Lien.java
+scr/metier/Cellule.java
+src/metier/Pioche.java
 src/ihm/FrameAppli.java
 src/ihm/FramePara.java
 src/ihm/FramePioche.java
