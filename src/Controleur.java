@@ -7,19 +7,19 @@ import src.metier.Jeu;
 //commentaire
 public class Controleur
 {
-    private Jeu         jeu;
+    private Jeu         metier;
     private FrameAppli  frameAppli;
     private FramePara   framePara;
     private FramePioche framePioche;
 
     public Controleur()
     {
-        this.jeu         = new Jeu();
+        this.metier      = new Jeu();
         this.framePara   = new FramePara( this );
     }
 
-    public int getNbLigne()  { return this.jeu.getNbLigne();   } // méthode appartenant à la class Jeu
-    public int getNbColonne(){ return this.jeu.getNbColonne(); } // méthode appartenant à la class Jeu
+    public int getNbLigne()  { return this.metier.getNbLigne();   } // méthode appartenant à la class Jeu
+    public int getNbColonne(){ return this.metier.getNbColonne(); } // méthode appartenant à la class Jeu
 
 
     public static void main(String[] args)
