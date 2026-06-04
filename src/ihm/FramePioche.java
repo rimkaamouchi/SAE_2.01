@@ -18,7 +18,7 @@ public class FramePioche extends JFrame
 
 		this.setTitle   ( "Pioche" );
 		this.setSize    ( 500, 500 );
-		this.setLocation(  20, 200 );
+		this.setLocation(  30, 200 );
 		this.setLayout  ( new BorderLayout() );
 
 		this.add( this.panelPioche);
