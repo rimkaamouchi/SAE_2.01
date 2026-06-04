@@ -1,4 +1,9 @@
+package src;
 
+import src.ihm.FrameAppli;
+import src.ihm.FramePara;
+import src.ihm.FramePioche;
+import src.metier.Jeu;
 
 public class Controleur
 {
@@ -10,21 +15,12 @@ public class Controleur
     public Controleur()
     {
         this.jeu         = new Jeu();
-        this.frameAppli  = new FrameAppli( this );
         this.framePara   = new FramePara( this );
-        this.framePioche = new FramePioche( this );
     }
 
-    public int getNbLigne()  { return this.jeu.getNbLigne();   }
-    public int getNbColonne(){ return this.jeu.getNbColonne(); }
+    public int getNbLigne()  { return this.jeu.getNbLigne();   } // méthode appartenant à la class Jeu
+    public int getNbColonne(){ return this.jeu.getNbColonne(); } // méthode appartenant à la class Jeu
 
-    public String getImage(int lig, int col)
-    {
-        switch (jeu.getVal(lig, col))
-        {
-            case : return 
-        }
-    }
 
     public static void main(String[] args)
     {
