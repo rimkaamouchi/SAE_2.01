@@ -16,7 +16,7 @@ public class Jeu
 
 	private Cellule[][] plateau;
 
-	private List<Symbole> lstSymbole;
+	private List<Cellule> lstSymbole;
 
 	public Jeu()
 	{
@@ -32,18 +32,18 @@ public class Jeu
 
 		this.plateau    = new Cellule[hauteur][largeur];
 
-		this.lstSymbole = new ArrayList<Symbole>();
+		this.lstSymbole = new ArrayList<Cellule>();
 	}
 
 
-	public boolean initPlat()
+	/*public boolean initPlat()
 	{
 		Cellule cel =  new Cellule(3,5,'X');
 		this.plateau[3][5] = cel;
 		Cellule cel2 =  new Cellule(5,5,'Y');
 		this.plateau[5][5] = cel2;
 		return true;
-	}
+	}*/
     private Cellule verifLien(char choix, Cellule cel1) 
 	{
 		int posX = cel1.getX();
@@ -148,6 +148,14 @@ public class Jeu
 		return result;
 	}
 
+	/*public Integer getIndiceSymbole( int x, int y )
+	{
+		for ( int cpt = 0; cpt < this.lstSymbole.size(); cpt++ )
+			if ( this.lstSymbole.get( cpt ).possede( x, y ) )
+				return cpt;
+		return null;
+	}
+	
 	public void deplacerSymbole( Integer numSymbole, int x, int y )
 	{
 		if ( numSymbole != null && numSymbole >= 0 && numSymbole < this.lstSymbole.size() )
@@ -155,10 +163,10 @@ public class Jeu
 			this.lstSymbole.get( numSymbole ).deplacerX(x);
 			this.lstSymbole.get( numSymbole ).deplacerY(y);
 		}
-	}
+	}*/
 
-	public int     getNbLigne()             { return this.plateau   .length ; }
-	public int     getNbColonne()           { return this.plateau[0].length ; }
-	public Cellule[][] getPlateau()         { return this.plateau;            }
+	public int             getNbLigne()     { return this.plateau   .length ; }
+	public int             getNbColonne()   { return this.plateau[0].length ; }
+	public Cellule[][ ]    getPlateau()     { return this.plateau;            }
 	public ArrayList<Lien> getRoutes()      { return this.routes;             }
 }

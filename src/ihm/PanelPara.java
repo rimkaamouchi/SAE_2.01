@@ -36,20 +36,20 @@ public class PanelPara extends JPanel implements ActionListener
 	private JButton    btnAnnuler;
 	private JButton    btnValider;
 
-	private JLabel     img1;
-	private JLabel     img2;
-	private JLabel     img3;
-	private JLabel     img4;
-	private JLabel     img5;
+	private JButton    img1;
+	private JButton    img2;
+	private JButton    img3;
+	private JButton    img4;
+	private JButton    img5;
 
 	private static final Color[] COULEURS_ZONES = 
 	{
-		new Color(206,203,246),
-		new Color(159,225,203),
-		new Color(250,199,179),
-		new Color(245,196,244),
-		new Color(181,212,151),
-		new Color(192,221,209),
+		new Color( 206,203,246 ),
+		new Color( 159,225,203 ),
+		new Color( 250,199,179 ),
+		new Color( 245,196,244 ),
+		new Color( 181,212,151 ),
+		new Color( 192,221,209 ),
 	};
 
 	public PanelPara( Controleur ctrl, PanelPlateau panelPlateau )
@@ -74,11 +74,11 @@ public class PanelPara extends JPanel implements ActionListener
 		this.btnAnnuler        = new JButton( "Annuler " );
 		this.btnValider        = new JButton( "Valider " );
 
-		this.img1              = new JLabel();
-		this.img2              = new JLabel();
-		this.img3              = new JLabel();
-		this.img4              = new JLabel();
-		this.img5              = new JLabel();
+		this.img1              = new JButton(); //new Icon
+		this.img2              = new JButton();
+		this.img3              = new JButton();
+		this.img4              = new JButton();
+		this.img5              = new JButton();
 
 		// this.panelLabel .setLayout( new GridLayout( 4, 3, 5, 5 ) ); // 5px d'écart entre cellules
 		// this.panelLabel .setPreferredSize( new Dimension( 300, 250 ) );
@@ -115,11 +115,21 @@ public class PanelPara extends JPanel implements ActionListener
 		this.btnAnnuler.addActionListener( this );
 		this.btnValider.addActionListener( this );
 
+		this.img1.addActionListener( this );
+		this.img2.addActionListener( this );
+		this.img3.addActionListener( this );
+		this.img4.addActionListener( this );
+		this.img5.addActionListener( this );
 
-		JLabel[] labels = { img1, img2, img3, img4, img5 };
-		String[] images = { "./Image/Symboles/apple.png", "./Image/Symboles/orange.png",  "./Image/Symboles/moto.png", "./Image/Symboles/pain.png", "./Image/Symboles/montre.png" };
+		//GereSouris gereSouris =  new GereSouris();
+		//this.addMouseListener      ( gereSouris );
+		//this.addMouseMotionListener( gereSouris );
 
-		for (int i = 0; i < labels.length; i++) //symboles misent dans les labels
+
+		JButton[] btn    = { img1, img2, img3, img4, img5 };
+		String[]  images = { "./Image/Symboles/apple.png", "./Image/Symboles/orange.png",  "./Image/Symboles/moto.png", "./Image/Symboles/pain.png", "./Image/Symboles/montre.png" };
+
+		for (int i = 0; i < btn.length; i++) //symboles misent dans les labels
 		{
 			ImageIcon icon = new ImageIcon( images[i] );
 			/*JCheckBox jcbTmp = new JCheckBox(icon);
@@ -127,12 +137,11 @@ public class PanelPara extends JPanel implements ActionListener
 		*/
 		
 			Image img  = icon.getImage().getScaledInstance( 80, 80, Image.SCALE_SMOOTH );
-			labels[i].setIcon( new ImageIcon( img ) );
-			labels[i].setHorizontalAlignment( JLabel.CENTER );
-			labels[i].setVerticalAlignment  ( JLabel.CENTER );
-			labels[i].setPreferredSize      ( new Dimension( 100, 100 ) ); // taille fixe du label
-			labels[i].setBorder( BorderFactory.createLineBorder( Color.LIGHT_GRAY ) ); // bordure autour de chaque image
-			labels[i].getText();
+			btn[i].setIcon( new ImageIcon( img ) );
+			btn[i].setHorizontalAlignment( JLabel.CENTER );
+			btn[i].setVerticalAlignment  ( JLabel.CENTER );
+			btn[i].setPreferredSize      ( new Dimension( 100, 100 ) ); // taille fixe du label
+			btn[i].setBorder( BorderFactory.createLineBorder( Color.LIGHT_GRAY ) ); // bordure autour de chaque image
 		
 		}
 
@@ -183,4 +192,29 @@ public class PanelPara extends JPanel implements ActionListener
 			}
 		}
 	}
+
+	/*private class GereSouris extends MouseAdapter
+	{
+		private Integer numSymbole = null;
+		private int     posX, posY;
+
+		public void mousePressed( MouseEvent e )
+		{
+			this.posX = e.Cellule.getX();
+			this.posY = e.Cellule.getY();
+			this.numSymbole = PanelPara.this.ctrl.getIndiceSymbole( this.posX, this.posY );
+		}
+
+		public void mouseDragged( MouseEvent e)
+		{
+			if ( numSymbole != null )
+			{
+				PanelPara.this.ctrl.deplacerSymbole( this.numSymbole, e.getX() - this.posX, e.getY() - this.posY );
+				this.posX = e.getX();
+				this.posY = e.getY();
+
+				PanelPara.this.repaint();
+			}
+		}
+	}*/
 }

@@ -38,10 +38,20 @@ public class Controleur
     public int getNbCouleurs()     { return this.nbCouleurs;     }
     public int getNbSymboles()     { return this.nbSymboles;     }
 
-    public void deplacerFigure( Integer numSymbole, int x, int y )
+   /* public void deplacerSymbole( Integer numSymbole, int x, int y )
     {
-        metier.deplacerFigure( numSymbole, x, y );
+        metier.deplacerSymbole( numSymbole, x, y );
     }
+
+    public int getX()
+	{
+		return this.metier.cellule.posX;
+	}
+
+	public int getY()
+	{
+		return this.metier.posY;
+	}*/
 
     public static void main(String[] args)
     {
