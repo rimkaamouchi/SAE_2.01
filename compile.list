@@ -1,12 +1,11 @@
 src/Controleur.java
 src/metier/Jeu.java
-src/metier/Case.java
 src/metier/Lien.java
-scr/metier/Cellule.java
+src/metier/Cellule.java
 src/metier/Pioche.java
-src/ihm/FrameAppli.java
-src/ihm/FramePara.java
+src/ihm/FrameConception.java
 src/ihm/FramePioche.java
-src/ihm/PanelAppli.java
+src/ihm/PanelPlateau.java
 src/ihm/PanelPara.java
 src/ihm/PanelPioche.java
+

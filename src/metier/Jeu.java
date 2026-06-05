@@ -1,6 +1,7 @@
 package src.metier;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Jeu
 {
@@ -15,6 +16,8 @@ public class Jeu
 
 	private Cellule[][] plateau;
 
+	private List<Symbole> lstSymbole;
+
 	public Jeu()
 	{
 		/*Création du plateau */
@@ -28,6 +31,8 @@ public class Jeu
 		this.symboles   = new char[4];
 
 		this.plateau    = new Cellule[hauteur][largeur];
+
+		this.lstSymbole = new ArrayList<Symbole>();
 	}
 
 
@@ -141,6 +146,15 @@ public class Jeu
 			if (l.getDepart() == cel || l.getArrivee() == cel) result.add(l);
 		}
 		return result;
+	}
+
+	public void deplacerSymbole( Integer numSymbole, int x, int y )
+	{
+		if ( numSymbole != null && numSymbole >= 0 && numSymbole < this.lstSymbole.size() )
+		{
+			this.lstSymbole.get( numSymbole ).deplacerX(x);
+			this.lstSymbole.get( numSymbole ).deplacerY(y);
+		}
 	}
 
 	public int     getNbLigne()             { return this.plateau   .length ; }

@@ -21,7 +21,7 @@ public class FramePioche extends JFrame
 		this.setLocation(  30, 200 );
 		this.setLayout  ( new BorderLayout() );
 
-		this.add( this.panelPioche);
+		this.add( this.panelPioche );
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );
