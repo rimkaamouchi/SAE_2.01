@@ -132,6 +132,7 @@ public class PanelPara extends JPanel implements ActionListener
 			labels[i].setVerticalAlignment  ( JLabel.CENTER );
 			labels[i].setPreferredSize      ( new Dimension( 100, 100 ) ); // taille fixe du label
 			labels[i].setBorder( BorderFactory.createLineBorder( Color.LIGHT_GRAY ) ); // bordure autour de chaque image
+			labels[i].getText();
 		
 		}
 
