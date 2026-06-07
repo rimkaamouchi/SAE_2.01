@@ -1,4 +1,4 @@
-package src.ihm;
+package jeu.src.ihm;
 
 import java.awt.Image;
 
@@ -6,11 +6,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import src.Controleur;
+import jeu.src.ControleurJeu;
 
 public class PanelPioche extends JPanel
 {
-	private Controleur ctrl;
+	private ControleurJeu ctrl;
 
 	private JPanel panelLight;
 	private JPanel panelDark;

@@ -1,4 +1,4 @@
-package src.metier;
+package conception.src.metier;
 
 public class Lien
 {

@@ -1,17 +1,17 @@
-package src.ihm;
+package jeu.src.ihm;
 
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 
-import src.Controleur;
+import jeu.src.ControleurJeu;
 
 public class FramePioche extends JFrame
 {
-	private Controleur  ctrl;
+	private ControleurJeu  ctrl;
 	private PanelPioche panelPioche;
 
-	public FramePioche( Controleur ctrl )
+	public FramePioche( ControleurJeu ctrl )
 	{
 		this.ctrl = ctrl;
 		this.panelPioche = new PanelPioche( this );

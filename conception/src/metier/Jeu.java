@@ -1,4 +1,4 @@
-package src.metier;
+package conception.src.metier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +27,22 @@ public class Jeu
 		this.nbSymboles = 4;
 		this.tailleCase = 50;
 
+		this.plateau = new Cellule[hauteur][largeur];
+
 		//this.val        = val; 
 		this.symboles   = new char[4];
 
-		this.plateau    = new Cellule[hauteur][largeur];
+
 
 		this.lstSymbole = new ArrayList<Cellule>();
 	}
+
+	public boolean setPlateau(int hauteur, int largeur)
+	{
+		this.plateau = new Cellule[hauteur][largeur];
+		return true;
+	}
+
 
 
 	public boolean initPlat()
@@ -163,10 +172,10 @@ public class Jeu
 			this.lstSymbole.get( numSymbole ).deplacerX(x);
 			this.lstSymbole.get( numSymbole ).deplacerY(y);
 		}
-	}*/
+	}*/	
 
 	public int             getNbLigne()     { return this.plateau   .length ; }
 	public int             getNbColonne()   { return this.plateau[0].length ; }
-	public Cellule[][ ]    getPlateau()     { return this.plateau;            }
+	public Cellule[][]    getPlateau()     { return this.plateau;            }
 	public ArrayList<Lien> getRoutes()      { return this.routes;             }
 }
