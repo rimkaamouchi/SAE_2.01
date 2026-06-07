@@ -3,7 +3,7 @@ package src;
 import src.ihm.FrameConception;
 import src.ihm.FramePioche;
 import src.metier.Jeu;
-//commentaire
+
 public class Controleur
 {
     private Jeu              metier;
@@ -37,21 +37,6 @@ public class Controleur
     public int getTaillePlateauY() { return this.taillePlateauY; }
     public int getNbCouleurs()     { return this.nbCouleurs;     }
     public int getNbSymboles()     { return this.nbSymboles;     }
-
-   /* public void deplacerSymbole( Integer numSymbole, int x, int y )
-    {
-        metier.deplacerSymbole( numSymbole, x, y );
-    }
-
-    public int getX()
-	{
-		return this.metier.cellule.posX;
-	}
-
-	public int getY()
-	{
-		return this.metier.posY;
-	}*/
 
     public static void main(String[] args)
     {

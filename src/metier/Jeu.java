@@ -36,14 +36,14 @@ public class Jeu
 	}
 
 
-	/*public boolean initPlat()
+	public boolean initPlat()
 	{
 		Cellule cel =  new Cellule(3,5,'X');
 		this.plateau[3][5] = cel;
 		Cellule cel2 =  new Cellule(5,5,'Y');
 		this.plateau[5][5] = cel2;
 		return true;
-	}*/
+	}
     private Cellule verifLien(char choix, Cellule cel1) 
 	{
 		int posX = cel1.getX();

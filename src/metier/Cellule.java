@@ -1,11 +1,7 @@
 package src.metier;
 
-import src.Controleur;
-
 public class Cellule
 {
-	private Controleur ctrl;
-
 	private int  posX;
 	private int  posY;
 	
@@ -13,18 +9,14 @@ public class Cellule
 	
 	private char couleur;
 
-	public Cellule(Controleur ctrl, int x, int y )
-	{
-	   this.ctrl = ctrl;
-	   
+	public Cellule( int x, int y )
+	{  
 	   this.posX = x;
 	   this.posY = y;
 	}
 
-	public Cellule( Controleur ctrl, int x, int y, char symbol )
-	{
-	   this.ctrl = ctrl;
-	   
+	public Cellule( int x, int y, char symbol )
+	{	   
 	   this.posX = x;
 	   this.posY = y;
 	   this.symbole = symbol;

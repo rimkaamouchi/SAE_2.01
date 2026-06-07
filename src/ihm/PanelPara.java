@@ -74,7 +74,7 @@ public class PanelPara extends JPanel implements ActionListener
 		this.btnAnnuler        = new JButton( "Annuler " );
 		this.btnValider        = new JButton( "Valider " );
 
-		this.img1              = new JButton(); //new Icon
+		this.img1              = new JButton();
 		this.img2              = new JButton();
 		this.img3              = new JButton();
 		this.img4              = new JButton();
