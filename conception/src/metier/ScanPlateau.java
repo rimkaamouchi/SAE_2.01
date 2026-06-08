@@ -40,10 +40,8 @@ public class ScanPlateau
                     String zone = (zones[l][c] != null) ? zones[l][c] : ".";
                     pw.print(zone + " ");
                 }
-                pw.println(); // Retour à la ligne à la fin de chaque rangée
+                pw.println(); 
             }
-
-            // Important : Fermer le fichier pour valider l'écriture
             pw.close();
             System.out.println("Plateau sauvegardé avec succès sous : " + nomFichier + ".data");
         }
