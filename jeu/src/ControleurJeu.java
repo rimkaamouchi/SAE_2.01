@@ -1,16 +1,16 @@
 package jeu.src;
 
-import conception.src.metier.Jeu;
+import conception.src.metier.Plateau;
 import jeu.src.ihm.FramePioche;
 
 public class ControleurJeu
 {
-    private Jeu              metier;
+    private Plateau          metier;
     private FramePioche      framePioche;
 
     public ControleurJeu()
     {
-        this.metier      = new Jeu();
+        this.metier      = new Plateau();
         this.framePioche = new FramePioche( this );
     }
 

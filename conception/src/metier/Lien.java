@@ -1,5 +1,7 @@
 package conception.src.metier;
 
+import java.util.ArrayList;
+
 public class Lien
 {
 	private Cellule depart;
@@ -12,6 +14,14 @@ public class Lien
 		this.arrivee   = arrivee;
 		this.direction = direction;
 	}
+	private ArrayList<int[]> chemin = new ArrayList<>();
+
+	public void ajouterCase( int x, int y ) 
+	{
+		chemin.add( new int[] { x, y } );
+	}
+
+	public ArrayList<int[]> getChemin() { return chemin; }
 
 	public Cellule getDepart()
 	{ 

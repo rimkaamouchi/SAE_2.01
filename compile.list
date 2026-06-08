@@ -1,5 +1,5 @@
 conception/src/ControleurConception.java
-conception/src/metier/Jeu.java
+conception/src/metier/Plateau.java
 conception/src/metier/Lien.java
 conception/src/metier/Cellule.java
 conception/src/ihm/FrameConception.java

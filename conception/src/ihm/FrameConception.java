@@ -26,7 +26,7 @@ public class FrameConception extends JFrame
 
 		this.setTitle   ( "L'Armateur étranger " );
 		this.setSize    ( 800, 800 );
-		this.setLocation(  50, 200 );
+		this.setLocation(  20, 0 );
 		this.setLayout  ( new BorderLayout() );
 		//this.setBackground( Color.ORANGE ); // test
 
@@ -35,6 +35,11 @@ public class FrameConception extends JFrame
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );
+	}
+
+	public PanelPara getPanelPara() 
+	{
+		return this.panelPara;
 	}
 }
 
