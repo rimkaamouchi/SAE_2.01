@@ -2,6 +2,7 @@ conception/src/ControleurConception.java
 conception/src/metier/Plateau.java
 conception/src/metier/Lien.java
 conception/src/metier/Cellule.java
+conception/src/metier/ScanPlateau.java
 conception/src/ihm/FrameConception.java
 conception/src/ihm/PanelPlateau.java
 conception/src/ihm/PanelPara.java
