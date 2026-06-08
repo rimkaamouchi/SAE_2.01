@@ -27,6 +27,7 @@ public class PanelPara extends JPanel implements ActionListener
 	private JPanel     panelBouton;
 	private JPanel     panelZone;
 	private JPanel     panelSymbole;
+	private JPanel     panelBouton2;
 	
 	private JTextField txtNomPlateau;
 	private JTextField txtTaillePlateauX;
@@ -38,6 +39,7 @@ public class PanelPara extends JPanel implements ActionListener
 	private JButton    btnValider;
 	private JButton    btnAddZone;
 	private JButton    btnMoinsZone;
+	private JButton    btnSauvegarder;
 
 	private int        indiceZoneSelectionnee = -1; 
 	private int        indiceImageSelectionnee = 0;
@@ -72,7 +74,7 @@ public class PanelPara extends JPanel implements ActionListener
 	{
 		this.ctrl = ctrl;
 		this.panelPlateau = panelPlateau; 
-		this.setLayout( new GridLayout( 4,1 ) );
+		this.setLayout( new GridLayout( 5,1 ) );
 
 		/*-------------------------------*/
 		/*    Création des composants    */
@@ -81,6 +83,7 @@ public class PanelPara extends JPanel implements ActionListener
 		this.panelBouton       = new JPanel( new FlowLayout() );
 		this.panelZone         = new JPanel( new GridLayout( 10,1 ) );
 		this.panelSymbole      = new JPanel( new GridLayout( 4, 3, 10, 10 ) ); // espacement entre cellules
+		this.panelBouton2      = new JPanel( new FlowLayout() );
 
 		this.txtNomPlateau     = new JTextField( 3 );
 		this.txtTaillePlateauX = new JTextField( 3 );
@@ -88,10 +91,11 @@ public class PanelPara extends JPanel implements ActionListener
 		this.txtNbCouleurs     = new JTextField( 3 );
 		this.txtNbSymboles     = new JTextField( 3 );
 
-		this.btnAnnuler        = new JButton( "Annuler" );
-		this.btnValider        = new JButton( "Valider" );
-		this.btnAddZone        = new JButton( "+"       );
-		this.btnMoinsZone      = new JButton( "-"       );
+		this.btnAnnuler        = new JButton( "Annuler"     );
+		this.btnValider        = new JButton( "Valider"     );
+		this.btnAddZone        = new JButton( "+"           );
+		this.btnMoinsZone      = new JButton( "-"           );
+		this.btnSauvegarder    = new JButton( "Sauvegarder" );
 		
 		/*-------------------------------*/
 		/* Positionnement des composants */
@@ -113,13 +117,17 @@ public class PanelPara extends JPanel implements ActionListener
 		this.panelZone   .add( this.btnAddZone  );
 		this.panelZone   .add( this.btnMoinsZone);
 
+		this.panelBouton2.add( this.btnSauvegarder );
+
 		this.add( this.panelCara    );
 		this.add( this.panelBouton  );
 		this.add( this.panelZone    );
 		this.add( this.panelSymbole );
+		this.add( this.panelBouton2 );
 
 		this.panelZone   .setVisible( false );
 		this.panelSymbole.setVisible( false );
+		this.panelBouton2.setVisible( false );
 
 		this.panelCara   .setBorder( BorderFactory.createTitledBorder( "Paramètres" ) );
 		this.panelZone   .setBorder( BorderFactory.createTitledBorder( "Zones"      ) );
@@ -128,10 +136,11 @@ public class PanelPara extends JPanel implements ActionListener
 		/*-------------------------------*/
 		/*   Activation des composants   */
 		/*-------------------------------*/
-		this.btnAnnuler  .addActionListener( this );
-		this.btnValider  .addActionListener( this );
-		this.btnAddZone  .addActionListener( this );
-		this.btnMoinsZone.addActionListener( this );
+		this.btnAnnuler    .addActionListener( this );
+		this.btnValider    .addActionListener( this );
+		this.btnAddZone    .addActionListener( this );
+		this.btnMoinsZone  .addActionListener( this );
+		this.btnSauvegarder.addActionListener( this );
 
 	}
 
@@ -245,6 +254,7 @@ public class PanelPara extends JPanel implements ActionListener
 				int lig        = Integer.parseInt( this.txtTaillePlateauX.getText() );
 				int col        = Integer.parseInt( this.txtTaillePlateauY.getText() );
 
+				this.ctrl.setParametres( lig, col, nbCouleurs, nbSymboles);
 				this.panelPlateau.setPlateau( lig, col );
 				this.Symbole( nbSymboles );
 			}
@@ -254,6 +264,7 @@ public class PanelPara extends JPanel implements ActionListener
 			}
 			this.panelZone   .setVisible( true );
 			this.panelSymbole.setVisible( true );
+			this.panelBouton2.setVisible( true );
 		}
 
 		if ( e.getSource() == this.btnAddZone )
@@ -280,13 +291,14 @@ public class PanelPara extends JPanel implements ActionListener
             	});
 
 			this.panelZone.add( btnZone );
+
 			this.cpt++;
 
 			this.panelZone.revalidate();
 			this.panelZone.repaint();
 		}
 
-		if( e.getSource() == this.btnMoinsZone )
+ 		if( e.getSource() == this.btnMoinsZone )
 		{
 			if ( this.cpt <= 0 )
 				return;
@@ -297,6 +309,14 @@ public class PanelPara extends JPanel implements ActionListener
 
 			this.panelZone.revalidate();
 			this.panelZone.repaint();
+			
+
+			if ( e.getSource() == this.btnSauvegarder )
+			{
+				this.ctrl.actionSauvegarder();
+
+				JOptionPane.showMessageDialog( this, "Scan réussi avec succès" );
+			}
 		}
 	}
 

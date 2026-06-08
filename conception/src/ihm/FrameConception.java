@@ -24,10 +24,9 @@ public class FrameConception extends JFrame
 		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, this.panelPara, this.panelPlateau ); //1
 		splitPane.setDividerLocation( 430 );
 
-		this.setTitle   ( "L'Armateur étranger " );
-		this.setSize    ( 800, 800 );
-		this.setLocation(  20, 0 );
-		this.setLayout  ( new BorderLayout() );
+		this.setTitle        ( "L'Armateur étranger " );
+		this.setExtendedState( JFrame.MAXIMIZED_BOTH  );
+		this.setLayout       ( new BorderLayout()     );
 		//this.setBackground( Color.ORANGE ); // test
 
 		this.add( this.panelPara, BorderLayout.WEST   );

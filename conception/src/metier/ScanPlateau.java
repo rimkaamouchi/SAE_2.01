@@ -8,6 +8,8 @@ import conception.src.ControleurConception;
 
 public class ScanPlateau
 {
+    private ControleurConception ctrl;
+
     public static void sauvegarder( ControleurConception ctrl )
     {
         // On remplace les espaces par des underscores pour le nom du fichier

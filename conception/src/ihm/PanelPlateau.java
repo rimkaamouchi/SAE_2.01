@@ -52,7 +52,7 @@ public class PanelPlateau extends JPanel
 		this.panelPara = panelPara;
 	}
 
-	// Méthode pour l'arrière-plan (les zones colorées)
+	// Méthode pour l'arrière-plan
 	public void placerZone(int lig, int col, Image image)
 	{
 		if ( lig >= 0 && lig < nbLig && col >= 0 && col < nbCol )
@@ -63,7 +63,7 @@ public class PanelPlateau extends JPanel
 		}
 	}
 
-	// Méthode pour le premier plan (les symboles / pions couleur)
+	// Méthode pour le premier plan
 	public void placerSymbole(int lig, int col, Image image)
 	{
 		if ( lig >= 0 && lig < nbLig && col >= 0 && col < nbCol )
@@ -74,7 +74,6 @@ public class PanelPlateau extends JPanel
 			this.ctrl.calculerRoutes(); 		}
 	}
 
-	// Conservée pour des raisons de compatibilité ascendante ou d'appels extérieurs
 	public void placerImage(int lig, int col, Image image)
 	{
 		this.placerSymbole(lig, col, image);
@@ -104,7 +103,6 @@ public class PanelPlateau extends JPanel
 		int largeurCase = this.getWidth()  / this.nbCol; 
 		int hauteurCase = this.getHeight() / this.nbLig; 
 
-		// ---- 1. DESSIN DES ZONES (Arrière-plan) ----
 		if ( this.matriceZones != null )
 		{
 			for ( int i = 0; i < nbLig; i++ )
@@ -114,8 +112,6 @@ public class PanelPlateau extends JPanel
 											j * largeurCase, i * hauteurCase,
 											largeurCase, hauteurCase, this );
 		}
-
-		// ---- 2. DESSIN DES SYMBOLES / COULEURS (Premier plan) ----
 		if ( this.matriceSymboles != null )
 		{
 			for ( int i = 0; i < nbLig; i++ )
@@ -180,7 +176,7 @@ public class PanelPlateau extends JPanel
 			int ligCliquee  = e.getY() / hauteurCase;
 
 			if ( ligCliquee >= 0 && ligCliquee < PanelPlateau.this.nbLig &&
-				 colCliquee >= 0 && colCliquee < PanelPlateau.this.nbCol    )
+				colCliquee >= 0 && colCliquee < PanelPlateau.this.nbCol    )
 			{
 				// CLIC GAUCHE ou CLIC MILIEU : Placement 
 				if ( e.getButton() == MouseEvent.BUTTON1 || e.getButton() == MouseEvent.BUTTON2 )
@@ -192,18 +188,16 @@ public class PanelPlateau extends JPanel
 						ImageIcon iconeZone = new ImageIcon( PanelPara.IMAGES_ZONES[ indiceZone ] );
 						Image img = iconeZone.getImage().getScaledInstance( largeurCase, hauteurCase, Image.SCALE_SMOOTH );
 						
-						// On dessine sur la couche arrière-plan
 						PanelPlateau.this.placerZone( ligCliquee, colCliquee, img );
 						
-						// Synchronisation Métier
 						String idZone = "" + (char)('A' + indiceZone);
 						PanelPlateau.this.ctrl.setZone( ligCliquee, colCliquee, idZone );
 					}
-					else // comportement habituel : symbole ou couleur de pion
+					else // symbole ou pion couleur
 					{
-						int indice  = PanelPlateau.this.panelPara.getIndiceImageSelectionnee();
+						int indice      = PanelPlateau.this.panelPara.getIndiceImageSelectionnee();
 						boolean couleur = PanelPlateau.this.panelPara.getModeEstCouleur();
-						ImageIcon icone   = PanelPlateau.this.ctrl.getImageSelectionnee( indice, couleur );
+						ImageIcon icone = PanelPlateau.this.ctrl.getImageSelectionnee( indice, couleur );
 
 						if ( icone != null )
 						{
@@ -213,15 +207,11 @@ public class PanelPlateau extends JPanel
 							}
 							else
 							{
-								// On dessine au premier plan
 								PanelPlateau.this.placerSymbole( ligCliquee, colCliquee, icone.getImage() );
-								
-								// Si c'est un symbole, on l'ajoute au métier
-								if ( !couleur )
-								{
-									char sym = (char) ('A' + indice);
-									PanelPlateau.this.ctrl.placerCellule( ligCliquee, colCliquee, sym );
-								}
+
+								// On place toujours la cellule, couleur ou symbole
+								char sym = (char) ('A' + indice);
+								PanelPlateau.this.ctrl.placerCellule( ligCliquee, colCliquee, sym );
 							}
 						}
 					}
@@ -229,13 +219,11 @@ public class PanelPlateau extends JPanel
 				// CLIC DROIT : Tout effacer sur cette case
 				else if ( e.getButton() == MouseEvent.BUTTON3 ) 
 				{
-					// Supprime l'affichage sur les deux couches visuelles
 					PanelPlateau.this.placerSymbole( ligCliquee, colCliquee, null );
-					PanelPlateau.this.placerZone( ligCliquee, colCliquee, null );
+					PanelPlateau.this.placerZone   ( ligCliquee, colCliquee, null );
 
-					// Supprime les données correspondantes dans le métier
 					PanelPlateau.this.ctrl.supprimerCellule( ligCliquee, colCliquee );
-					PanelPlateau.this.ctrl.supprimerZone( ligCliquee, colCliquee );
+					PanelPlateau.this.ctrl.supprimerZone   ( ligCliquee, colCliquee );
 				}
 			}
 		}

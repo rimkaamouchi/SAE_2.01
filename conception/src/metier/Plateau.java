@@ -45,17 +45,27 @@ public class Plateau
 
 	public void placerCellule(int lig, int col, char symbole) 
 	{
-		this.plateau[lig][col] = new Cellule(lig, col, symbole);
-	}
-
-	public void supprimerCellule(int lig, int col) 
-	{
-		this.plateau[lig][col] = null;
+		Cellule c = new Cellule(lig, col, symbole);
+		
+		// Lire zonesPlateau et l'affecter à la cellule
+		if (this.zonesPlateau[lig][col] != null)
+			c.setZone(this.zonesPlateau[lig][col].charAt(0));
+		
+		this.plateau[lig][col] = c;
 	}
 
 	public void setZone(int lig, int col, String zone) 
 	{
 		this.zonesPlateau[lig][col] = zone;
+		
+		// Mettre à jour la cellule si elle existe déjà
+		if (this.plateau[lig][col] != null && zone != null)
+			this.plateau[lig][col].setZone(zone.charAt(0));
+	}
+
+	public void supprimerCellule(int lig, int col) 
+	{
+		this.plateau[lig][col] = null;
 	}
 
 	public void supprimerZone(int lig, int col) 
@@ -310,6 +320,7 @@ public class Plateau
 
 		return somme;
 	}
+
 
 	// Accesseurs
 	public String[][]      getZonesPlateau() { return this.zonesPlateau;      }

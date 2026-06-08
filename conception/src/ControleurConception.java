@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import conception.src.ihm.FrameConception;
 import conception.src.metier.Lien;
 import conception.src.metier.Plateau;
+import conception.src.metier.ScanPlateau;
 
 public class ControleurConception
 {
@@ -28,20 +29,25 @@ public class ControleurConception
 	private int nbCouleurs;
 	private int nbSymboles;
 
-	public void setParametres( int nbCouleurs, int nbSymboles )
+	public void setParametres( int tailleX, int tailleY, int nbCouleurs, int nbSymboles )
 	{
+		this.taillePlateauX = tailleX;
+		this.taillePlateauY = tailleY;
 		this.nbCouleurs     = nbCouleurs;
 		this.nbSymboles     = nbSymboles;
+
+		// On réinitialise le métier avec les bonnes dimensions saisies
+		this.metier = new Plateau( tailleX, tailleY, nbCouleurs, nbSymboles );
 	}
 
 	//accesseurs
-	public int getNbLigne()        { return this.metier.getNbLigne();   } // méthode appartenant à la class Jeu
-	public int getNbColonne()      { return this.metier.getNbColonne(); } // méthode appartenant à la class Jeu
-	public String getNomPlateau()  { return this.frameConception.getPanelPara().getNomPlateau(); }
-	public int getTaillePlateauX() { return this.taillePlateauX; }
-	public int getTaillePlateauY() { return this.taillePlateauY; }
-	public int getNbCouleurs()     { return this.nbCouleurs;     }
-	public int getNbSymboles()     { return this.nbSymboles;     }
+	public int    getNbLigne()        { return this.metier.getNbLigne();   } // méthode appartenant à la class Plateau
+	public int    getNbColonne()      { return this.metier.getNbColonne(); } // méthode appartenant à la class Plateau
+	public String getNomPlateau()     { return this.frameConception.getPanelPara().getNomPlateau(); }
+	public int    getTaillePlateauX() { return this.taillePlateauX; }
+	public int    getTaillePlateauY() { return this.taillePlateauY; }
+	public int    getNbCouleurs()     { return this.nbCouleurs;     }
+	public int    getNbSymboles()     { return this.nbSymboles;     }
 
 	/*---- Méthode pour les icônes neutres ----*/
 	public ImageIcon getImageSymbole(int indice)   { return this.iconeSymbole[indice]; }
@@ -56,6 +62,11 @@ public class ControleurConception
 	{
 		if ( couleur ) return this.iconeCouleur[indice];
 		else           return this.iconeSymbole[indice];
+	}
+
+	public void actionSauvegarder()
+	{
+		ScanPlateau.sauvegarder( this );
 	}
 
 	/*----Méthode contenue dans Jeu----*/
