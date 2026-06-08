@@ -21,7 +21,6 @@ public class FrameConception extends JFrame
 		this.panelPara    = new PanelPara( ctrl, this.panelPlateau ); 
 		this.panelPlateau.setPanelPara( this.panelPara );
 
-
 		JSplitPane splitPane = new JSplitPane( JSplitPane.HORIZONTAL_SPLIT, this.panelPara, this.panelPlateau ); //1
 		splitPane.setDividerLocation( 430 );
 
@@ -33,7 +32,6 @@ public class FrameConception extends JFrame
 
 		this.add( this.panelPara, BorderLayout.WEST   );
 		this.add( splitPane,      BorderLayout.CENTER );
-
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );

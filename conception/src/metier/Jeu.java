@@ -29,10 +29,7 @@ public class Jeu
 
 		this.plateau = new Cellule[hauteur][largeur];
 
-		//this.val        = val; 
 		this.symboles   = new char[4];
-
-
 
 		this.lstSymbole = new ArrayList<Cellule>();
 	}
@@ -43,16 +40,15 @@ public class Jeu
 		return true;
 	}
 
-
-
 	public boolean initPlat()
 	{
-		Cellule cel =  new Cellule(3,5,'X');
-		this.plateau[3][5] = cel;
-		Cellule cel2 =  new Cellule(5,5,'Y');
-		this.plateau[5][5] = cel2;
+		Cellule cel        =  new Cellule(3,5,'X');
+		this.plateau[3][5] =  cel;
+		Cellule cel2       =  new Cellule(5,5,'Y');
+		this.plateau[5][5] =  cel2;
 		return true;
 	}
+
     private Cellule verifLien(char choix, Cellule cel1) 
 	{
 		int posX = cel1.getX();
@@ -93,6 +89,7 @@ public class Jeu
     	}
 
 	}
+	
 	private ArrayList<Lien> routes = new ArrayList<>();
 
 	public void calculerRoutes() 
@@ -176,6 +173,6 @@ public class Jeu
 
 	public int             getNbLigne()     { return this.plateau   .length ; }
 	public int             getNbColonne()   { return this.plateau[0].length ; }
-	public Cellule[][]    getPlateau()     { return this.plateau;            }
+	public Cellule[][]     getPlateau()     { return this.plateau;            }
 	public ArrayList<Lien> getRoutes()      { return this.routes;             }
 }

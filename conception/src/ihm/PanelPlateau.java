@@ -21,7 +21,6 @@ public class PanelPlateau extends JPanel implements MouseListener
 	private int nbLig;
 	private int nbCol;
 
-
 	public PanelPlateau( ControleurConception ctrl )
 	{
 		this.ctrl = ctrl;
@@ -35,9 +34,6 @@ public class PanelPlateau extends JPanel implements MouseListener
 		/*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
-        //btnCouleur.setPreferredSize      ( new Dimension( 100, 100 ) );
-
-		//this.add( new JLabel( "Titre") );*/
 
 		/*-------------------------------*/
 		/*   Activation des composants   */
@@ -110,7 +106,6 @@ public class PanelPlateau extends JPanel implements MouseListener
 
 	}
 
-	
 	/*---------------------------------------*/
     /* Méthodes de l'interface MouseListener */
     /*---------------------------------------*/
@@ -124,8 +119,8 @@ public class PanelPlateau extends JPanel implements MouseListener
 		int largeurCase = this.getWidth()  / this.nbCol;
 		int hauteurCase = this.getHeight() / this.nbLig;
 
-		int colCliquee = e.getX() / largeurCase;
-		int ligCliquee = e.getY() / hauteurCase;
+		int colCliquee  = e.getX() / largeurCase;
+		int ligCliquee  = e.getY() / hauteurCase;
 
 		if ( ligCliquee >= 0 && ligCliquee < this.nbLig &&
 			 colCliquee >= 0 && colCliquee < this.nbCol    )

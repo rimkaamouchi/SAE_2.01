@@ -37,9 +37,9 @@ public class PanelPioche extends JPanel
 		/*-------------------------------*/
 		/*    Création des composants    */
 		/*-------------------------------*/
+
 		this.panelLight = new JPanel();
 		this.panelDark  = new JPanel();
-		//this.panelImage.setLayout( new GridLayout( 4, 3, 10, 10 ) );
 
 		this.carteL1  = new JLabel();
 		this.carteL2  = new JLabel();
@@ -48,7 +48,6 @@ public class PanelPioche extends JPanel
 		this.carteL5  = new JLabel();
 		this.carteL6  = new JLabel();
 
-
 		this.carteD1  = new JLabel();
 		this.carteD2  = new JLabel();
 		this.carteD3  = new JLabel();
@@ -56,10 +55,10 @@ public class PanelPioche extends JPanel
 		this.carteD5  = new JLabel();
 		this.carteD6  = new JLabel();
 
-
 		/*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
+
 		this.panelLight.add( this.carteL1  );
 		this.panelLight.add( this.carteL2  );
 		this.panelLight.add( this.carteL3  );
@@ -67,14 +66,12 @@ public class PanelPioche extends JPanel
 		this.panelLight.add( this.carteL5  );
 		this.panelLight.add( this.carteL6  );
 
-
 		this.panelDark .add( this.carteD1  );
 		this.panelDark .add( this.carteD2  );
 		this.panelDark .add( this.carteD3  );
 		this.panelDark .add( this.carteD4  );
 		this.panelDark .add( this.carteD5  );
 		this.panelDark .add( this.carteD6  );
-
 
 		this.add( this.panelLight );
 		this.add( this.panelDark  );
@@ -85,6 +82,7 @@ public class PanelPioche extends JPanel
 
 		JLabel[] labels = { carteL1, carteL2, carteL3, carteL4, carteL5, carteL6,  
 							carteD1, carteD2, carteD3, carteD4, carteD5, carteD6 };
+
 		String[] images = {  "./Image/carte/light/france.PNG", "./Image/carte/light/japon.png", "./Image/carte/light/maroc.png", "./Image/carte/light/usa.png", "./Image/carte/light/suisse.png", "./Image/carte/light/suisse.png",
 							 "./Image/carte/dark/france.PNG" , "./Image/carte/dark/japon.png" , "./Image/carte/dark/maroc.png" , "./Image/carte/dark/usa.png" , "./Image/carte/dark/suisse.png" , "./Image/carte/dark/suisse.png"   };
 
@@ -95,7 +93,6 @@ public class PanelPioche extends JPanel
 			labels[i].setIcon( new ImageIcon( carte ) );
 			labels[i].setHorizontalAlignment( JLabel.CENTER );
 			labels[i].setVerticalAlignment  ( JLabel.CENTER );
-			// labels[i].setBorder( BorderFactory.createLineBorder( Color.LIGHT_GRAY ) ); // bordure autour de chaque image
 		}
 	}
 }

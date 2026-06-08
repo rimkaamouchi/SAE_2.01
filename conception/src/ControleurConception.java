@@ -27,10 +27,8 @@ public class ControleurConception
     private int nbCouleurs;
     private int nbSymboles;
 
-    public void setParametres( /*int taillePlateauX, int taillePlateauY,*/ int nbCouleurs, int nbSymboles )
+    public void setParametres( int nbCouleurs, int nbSymboles )
     {
-        //this.taillePlateauX = taillePlateauX;
-        //this.taillePlateauY = taillePlateauY;
         this.nbCouleurs     = nbCouleurs;
         this.nbSymboles     = nbSymboles;
     }

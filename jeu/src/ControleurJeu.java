@@ -6,7 +6,6 @@ import jeu.src.ihm.FramePioche;
 public class ControleurJeu
 {
     private Jeu              metier;
-    //private FrameConception  frameConception;
     private FramePioche      framePioche;
 
     public ControleurJeu()
@@ -18,16 +17,13 @@ public class ControleurJeu
     public int getNbLigne()  { return this.metier.getNbLigne();   } // méthode appartenant à la class Jeu
     public int getNbColonne(){ return this.metier.getNbColonne(); } // méthode appartenant à la class Jeu
 
-
     private int taillePlateauX;
     private int taillePlateauY;
     private int nbCouleurs;
     private int nbSymboles;
 
-    public void setParametres( /*int taillePlateauX, int taillePlateauY,*/ int nbCouleurs, int nbSymboles )
+    public void setParametres( int nbCouleurs, int nbSymboles )
     {
-        //this.taillePlateauX = taillePlateauX;
-        //this.taillePlateauY = taillePlateauY;
         this.nbCouleurs     = nbCouleurs;
         this.nbSymboles     = nbSymboles;
     }
