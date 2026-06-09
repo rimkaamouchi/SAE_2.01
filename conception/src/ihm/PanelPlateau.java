@@ -20,6 +20,7 @@ public class PanelPlateau extends JPanel
 {
 	private ControleurConception  ctrl;
 	private PanelPara             panelPara;
+	private PanelZone             panelZone;
 
 	private Image[][]             matriceZones;
 	private Image[][]             matriceSymboles;
@@ -28,13 +29,14 @@ public class PanelPlateau extends JPanel
 
 	public PanelPlateau( ControleurConception ctrl )
 	{
-		this.ctrl = ctrl;
+		this.ctrl  = ctrl;
 		this.nbLig = 0;
 		this.nbCol = 0;
 
 		this.addMouseListener(new GererSouris());
 	}
 
+	// setters
 	public void setPlateau(int nbLig, int nbCol)
 	{
 		this.nbLig = nbLig;
@@ -51,6 +53,11 @@ public class PanelPlateau extends JPanel
 		this.panelPara = panelPara;
 	}
 
+	public void setPanelZone( PanelZone panelZone )
+	{
+		this.panelZone = panelZone;
+	}
+
 	// Méthode pour l'arrière-plan
 	public void placerZone(int lig, int col, Image image)
 	{
@@ -61,7 +68,7 @@ public class PanelPlateau extends JPanel
 
 		}
 	}
-
+	
 	// Méthode pour le premier plan
 	public void placerSymbole(int lig, int col, Image image)
 	{
@@ -70,7 +77,7 @@ public class PanelPlateau extends JPanel
 			this.matriceSymboles[lig][col] = image;
 			this.repaint();
 
-			this.ctrl.calculerRoutes(); 		}
+		}
 	}
 
 	public void placerImage(int lig, int col, Image image)
@@ -121,9 +128,7 @@ public class PanelPlateau extends JPanel
 											largeurCase, hauteurCase, this );
 		}
 
-
-
-		// dessin les liens
+	// dessin les liens
 		ArrayList<Lien> routes = PanelPlateau.this.ctrl.getRoutes();
 		if ( routes != null )
 		{
@@ -155,7 +160,6 @@ public class PanelPlateau extends JPanel
 			graph.drawLine( x, 0, x, this.getHeight() );
 		}
 	}
-		
 	
 	/*-----------------------------------------*/
 	/* Définition de la classe interne Adapter */
@@ -184,7 +188,7 @@ public class PanelPlateau extends JPanel
 
 					if ( indiceZone >= 0 ) // une zone est sélectionnée dans le menu latéral
 					{
-						ImageIcon iconeZone = new ImageIcon( PanelPara.IMAGES_ZONES[ indiceZone ] );
+						ImageIcon iconeZone = new ImageIcon( PanelZone.IMAGES_ZONES[ indiceZone ] );
 						Image img = iconeZone.getImage().getScaledInstance( largeurCase, hauteurCase, Image.SCALE_SMOOTH );
 						
 						PanelPlateau.this.placerZone( ligCliquee, colCliquee, img );
@@ -211,6 +215,9 @@ public class PanelPlateau extends JPanel
 								// On place toujours la cellule, couleur ou symbole
 								char sym = (char) ('A' + indice);
 								PanelPlateau.this.ctrl.placerCellule( ligCliquee, colCliquee, sym );
+
+								PanelPlateau.this.ctrl.calculerRoutes();
+								PanelPlateau.this.repaint();
 							}
 						}
 					}

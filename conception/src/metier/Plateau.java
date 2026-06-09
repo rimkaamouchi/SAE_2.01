@@ -29,11 +29,10 @@ public class Plateau
 		this.zonesPlateau = new String[this.hauteur][this.largeur];
 	}
 
-	public Plateau(int hauteur,int largeur,int nbCoul, int nbSymboles)
+	public Plateau(int hauteur,int largeur,int nbSymboles)
 	{
 		this.hauteur      = hauteur;
 		this.largeur      = largeur;
-		this.nbCoul       = nbCoul;
 		this.nbSymboles   = nbSymboles;
 		this.tailleCase   = 50;
 

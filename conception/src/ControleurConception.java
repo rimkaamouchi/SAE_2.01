@@ -25,19 +25,17 @@ public class ControleurConception
 	}
 
 	private String txtNomPlateau;
-	private int taillePlateauX;
-	private int taillePlateauY;
-	private int nbCouleurs;
-	private int nbSymboles;
+	private int    taillePlateauX;
+	private int    taillePlateauY;
+	private int    nbSymboles;
 
-	public void setParametres( int tailleX, int tailleY, int nbCouleurs, int nbSymboles )
+	public void setParametres( int tailleX, int tailleY, int nbSymboles )
 	{
 		this.taillePlateauX = tailleX;
 		this.taillePlateauY = tailleY;
-		this.nbCouleurs     = nbCouleurs;
 		this.nbSymboles     = nbSymboles;
 
-		this.metier = new Plateau( tailleX, tailleY, nbCouleurs, nbSymboles );
+		this.metier = new Plateau( tailleX, tailleY, nbSymboles );
 	}
 
 	//accesseurs
@@ -46,7 +44,6 @@ public class ControleurConception
 	public String getNomPlateau()     { return this.frameConception.getPanelPara().getNomPlateau(); }
 	public int    getTaillePlateauX() { return this.taillePlateauX; }
 	public int    getTaillePlateauY() { return this.taillePlateauY; }
-	public int    getNbCouleurs()     { return this.nbCouleurs;     }
 	public int    getNbSymboles()     { return this.nbSymboles;     }
 
 	/*---- Méthode pour les icônes neutres ----*/
@@ -109,10 +106,6 @@ public class ControleurConception
 		return this.metier.getRoutes();
 	}
 
-	public static void main( String[] args )
-	{
-		new ControleurConception();
-	}
 	public boolean validerToutesLesZones() 
 	{
 		return this.metier.validerToutesLesZones();
@@ -121,5 +114,10 @@ public class ControleurConception
 	public boolean plateauEstComplet() 
 	{
 		return this.metier.plateauEstComplet();
+	}
+
+	public static void main( String[] args )
+	{
+		new ControleurConception();
 	}
 }

@@ -1,11 +1,17 @@
 conception/src/ControleurConception.java
+
 conception/src/metier/Plateau.java
 conception/src/metier/Lien.java
 conception/src/metier/Cellule.java
 conception/src/metier/ScanPlateau.java
+
 conception/src/ihm/FrameConception.java
 conception/src/ihm/PanelPlateau.java
 conception/src/ihm/PanelPara.java
+conception/src/ihm/PanelZone.java
+conception/src/ihm/PanelSymbole.java
+conception/src/ihm/PanelDimension.java
+
 
 jeu/src/ControleurJeu.java
 jeu/src/ihm/FramePioche.java
