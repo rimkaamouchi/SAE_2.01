@@ -40,7 +40,6 @@ public class PanelPlateau extends JPanel
 		this.nbLig = nbLig;
 		this.nbCol = nbCol;
 
-		// Initialisation cruciale des deux nouvelles matrices à la taille choisie
 		this.matriceZones    = new Image[nbLig][nbCol];
 		this.matriceSymboles = new Image[nbLig][nbCol];
 
@@ -124,11 +123,11 @@ public class PanelPlateau extends JPanel
 
 
 
-		// ---- 4. DESSIN DES LIENS ----
+		// dessin les liens
 		ArrayList<Lien> routes = PanelPlateau.this.ctrl.getRoutes();
 		if ( routes != null )
 		{
-			graph.setColor ( Color.RED          );
+			graph.setColor ( Color.LIGHT_GRAY         );
 			graph.setStroke( new BasicStroke(3) );
 
 			for ( Lien l : routes )

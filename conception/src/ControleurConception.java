@@ -11,8 +11,9 @@ import conception.src.metier.ScanPlateau;
 
 public class ControleurConception
 {
-	private Plateau              metier;
+	private Plateau          metier;
 	private FrameConception  frameConception;
+
 
 	private ImageIcon[]      iconeSymbole;
 	private ImageIcon[]      iconeCouleur;
@@ -36,7 +37,6 @@ public class ControleurConception
 		this.nbCouleurs     = nbCouleurs;
 		this.nbSymboles     = nbSymboles;
 
-		// On réinitialise le métier avec les bonnes dimensions saisies
 		this.metier = new Plateau( tailleX, tailleY, nbCouleurs, nbSymboles );
 	}
 

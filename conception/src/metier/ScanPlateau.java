@@ -38,7 +38,7 @@ public class ScanPlateau
             {
                 for (int c = 0; c < nbCol; c++)
                 {
-                    // Si la zone est vide ou nulle, on met un caractère par défaut (ex: '.')
+                    // Si zone vide ou nulle, on met un caractère par défaut 
                     String zone = (zones[l][c] != null) ? zones[l][c] : ".";
                     pw.print(zone + " ");
                 }
