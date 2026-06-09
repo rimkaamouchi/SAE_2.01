@@ -35,7 +35,7 @@ public class PanelZone extends JPanel implements ActionListener
 		"conception/src/Image/Zones/lila.png",
 		"conception/src/Image/Zones/orange_clair.png",
 		"conception/src/Image/Zones/rose_clair.png",
-		"conception/src/Image/Zones/rose_foncee.png",
+		//"conception/src/Image/Zones/rose_foncee.png",
 		"conception/src/Image/Zones/vert_clair.png"
 	};
 
@@ -47,7 +47,7 @@ public class PanelZone extends JPanel implements ActionListener
 		new Color( 204, 153, 255 ),
 		new Color( 255, 204, 153 ),
 		new Color( 255, 204, 204 ),
-		new Color( 255, 153, 204 ),
+		//new Color( 255, 153, 204 ),
 		new Color( 153, 255, 204 )
 	};
 
@@ -77,6 +77,8 @@ public class PanelZone extends JPanel implements ActionListener
         /*-------------------------------*/
         this.btnAddZone  .addActionListener( this );
         this.btnMoinsZone.addActionListener( this );
+
+		//this.setVisible( false );
     }
 
     public void actionPerformed( ActionEvent e )
@@ -102,7 +104,9 @@ public class PanelZone extends JPanel implements ActionListener
 			btnZone.addActionListener( ev ->
 			{          
                 this.indiceZoneSelectionnee  = indiceZone;
-                this.indiceImageSelectionnee = -1; // <-- Ajustement : évite le conflit avec un symbole déjà sélectionné
+				this.panelPara.indiceZoneSelectionnee = indiceZone;
+                this.indiceImageSelectionnee = -1; 
+				this.panelPara.indiceImageSelectionnee = -1;
             }  );
 
 			this.add( btnZone );

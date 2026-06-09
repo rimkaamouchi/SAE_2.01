@@ -14,7 +14,9 @@ public class Plateau
 	private char[]      symboles;
 	private String[][]  zonesPlateau;
 	private Cellule[][] plateau;
-
+	
+	private ArrayList<Lien> routes = new ArrayList<>();
+	
 	public Plateau()
 	{
 		this.hauteur      = 7;
@@ -72,23 +74,6 @@ public class Plateau
 		this.zonesPlateau[lig][col] = null;
 	}
 
-	/** Place les cellules de départ sur le plateau pour tester */
-	/*public boolean initPlat()
-	{
-		Cellule cel = new Cellule(3,4,'X');
-		this.plateau[3][4] = cel;
-		Cellule cel2 = new Cellule(5,0,'Y');
-		this.plateau[5][0] = cel2;
-		Cellule cel3 = new Cellule(0,1,'E');
-		this.plateau[0][1] = cel3;
-		Cellule cel4 = new Cellule(3,1,'5');
-		this.plateau[3][1] = cel4;
-		Cellule cel5 = new Cellule(5,3,'8');
-		this.plateau[5][3] = cel5;
-		return true;
-	}
-	*/
-
 	/**
 	 * Cherche la première cellule voisine dans la direction donnée (e/d/s/q)
 	 * et retourne le lien correspondant avec les cases intermédiaires, ou null si aucune.
@@ -144,7 +129,7 @@ public class Plateau
 		}
 	}
 
-	private ArrayList<Lien> routes = new ArrayList<>();
+	
 
 	/** Affiche le plateau en console avec le symbole de chaque cellule. */
 	public static void afficher( Cellule[][] plateau ) 
@@ -318,6 +303,14 @@ public class Plateau
 		somme += parcourirZone( l, c - 1, z, visite );
 
 		return somme;
+	}
+	public boolean toutesLesCasesOntUneZone()
+	{
+		for ( int lig = 0; lig < this.hauteur; lig++ )
+			for ( int col = 0; col < this.largeur; col++ )
+				if ( this.zonesPlateau[lig][col] == null )
+					return false;
+		return true;
 	}
 
 

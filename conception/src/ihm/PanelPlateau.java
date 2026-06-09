@@ -97,42 +97,33 @@ public class PanelPlateau extends JPanel
 	}
 
 	@Override // modifie une méthode dans JPanel
-	public void paintComponent( Graphics g)
+	public void paintComponent( Graphics g )
 	{
 		super.paintComponent(g);
 
 		if ( this.nbLig == 0 || this.nbCol == 0 ) return;
 
 		Graphics2D graph = (Graphics2D) g;
-		graph.setColor(Color.BLACK);
 
-		int largeurCase = this.getWidth()  / this.nbCol; 
-		int hauteurCase = this.getHeight() / this.nbLig; 
+		int largeurCase = this.getWidth()  / this.nbCol;
+		int hauteurCase = this.getHeight() / this.nbLig;
 
+		// Dessin des zones (arrière-plan)
 		if ( this.matriceZones != null )
 		{
 			for ( int i = 0; i < nbLig; i++ )
 				for ( int j = 0; j < nbCol; j++ )
 					if ( this.matriceZones[i][j] != null )
 						graph.drawImage( this.matriceZones[i][j],
-											j * largeurCase, i * hauteurCase,
-											largeurCase, hauteurCase, this );
-		}
-		if ( this.matriceSymboles != null )
-		{
-			for ( int i = 0; i < nbLig; i++ )
-				for ( int j = 0; j < nbCol; j++ )
-					if ( this.matriceSymboles[i][j] != null )
-						graph.drawImage( this.matriceSymboles[i][j],
-											j * largeurCase, i * hauteurCase,
-											largeurCase, hauteurCase, this );
+										j * largeurCase, i * hauteurCase,
+										largeurCase, hauteurCase, this );
 		}
 
-	// dessin les liens
+		// Dessin des liens EN GRIS (avant les symboles mais après les zones)
 		ArrayList<Lien> routes = PanelPlateau.this.ctrl.getRoutes();
 		if ( routes != null )
 		{
-			graph.setColor ( Color.LIGHT_GRAY         );
+			graph.setColor ( Color.LIGHT_GRAY  );
 			graph.setStroke( new BasicStroke(3) );
 
 			for ( Lien l : routes )
@@ -146,20 +137,27 @@ public class PanelPlateau extends JPanel
 			}
 		}
 
-		// Dessine les lignes horizontales
-		for ( int i = 0; i <= nbLig; i++ )
+		// Dessin des symboles (premier plan)
+		if ( this.matriceSymboles != null )
 		{
-			int y = i * hauteurCase;
-			graph.drawLine( 0, y, this.getWidth(), y );
+			for ( int i = 0; i < nbLig; i++ )
+				for ( int j = 0; j < nbCol; j++ )
+					if ( this.matriceSymboles[i][j] != null )
+						graph.drawImage( this.matriceSymboles[i][j],
+										j * largeurCase, i * hauteurCase,
+										largeurCase, hauteurCase, this );
 		}
 
-		// Dessine les lignes verticales
+		// Dessin de la grille EN NOIR (par-dessus tout)
+		graph.setColor ( Color.BLACK          );
+		graph.setStroke( new BasicStroke(1)   );
+
+		for ( int i = 0; i <= nbLig; i++ )
+			graph.drawLine( 0, i * hauteurCase, this.getWidth(), i * hauteurCase );
+
 		for ( int j = 0; j <= nbCol; j++ )
-		{
-			int x = j * largeurCase;
-			graph.drawLine( x, 0, x, this.getHeight() );
-		}
-	}
+			graph.drawLine( j * largeurCase, 0, j * largeurCase, this.getHeight() );
+}
 	
 	/*-----------------------------------------*/
 	/* Définition de la classe interne Adapter */

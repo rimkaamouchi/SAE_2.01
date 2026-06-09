@@ -37,6 +37,10 @@ public class ControleurConception
 
 		this.metier = new Plateau( tailleX, tailleY, nbSymboles );
 	}
+	public boolean toutesLesCasesOntUneZone()
+	{
+		return this.metier.toutesLesCasesOntUneZone();
+	}
 
 	//accesseurs
 	public int    getNbLigne()        { return this.metier.getNbLigne();   } // méthode appartenant à la class Plateau

@@ -27,6 +27,8 @@ public class PanelSymbole extends JPanel
         this.setLayout( new GridLayout( 4, 3, 10, 10 ) );
         
 		this.setBorder( BorderFactory.createTitledBorder( "Symboles" ) );
+
+        //this.setVisible( false );
     }
 
     /*---- Mise à jour des symboles ----*/
