@@ -113,4 +113,13 @@ public class ControleurConception
 	{
 		new ControleurConception();
 	}
+	public boolean validerToutesLesZones() 
+	{
+		return this.metier.validerToutesLesZones();
+	}
+
+	public boolean plateauEstComplet() 
+	{
+		return this.metier.plateauEstComplet();
+	}
 }

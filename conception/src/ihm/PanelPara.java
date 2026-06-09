@@ -316,7 +316,27 @@ public class PanelPara extends JPanel implements ActionListener
 				this.ctrl.actionSauvegarder();
 
 				JOptionPane.showMessageDialog( this, "Scan réussi avec succès" );
+			
+		////
+		if ( e.getSource() == this.btnSauvegarder )
+		{
+			boolean zonesValides   = this.ctrl.validerToutesLesZones();
+			boolean plateauComplet = this.ctrl.plateauEstComplet();
+
+			if ( !plateauComplet )
+			{
+				JOptionPane.showMessageDialog( this, "Certaines cellules n'ont pas de zone !" );
+				return;
 			}
+			if ( !zonesValides )
+			{
+				JOptionPane.showMessageDialog( this, "Certaines zones ne sont pas continues !" );
+				return;
+			}
+
+			this.ctrl.actionSauvegarder();
+			JOptionPane.showMessageDialog( this, "Sauvegarde réussie !" );
+		}}
 		}
 	}
 
