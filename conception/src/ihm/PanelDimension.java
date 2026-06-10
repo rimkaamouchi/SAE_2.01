@@ -34,6 +34,8 @@ public class PanelDimension extends JPanel implements ActionListener
 	private JButton    btnAnnuler;
 	private JButton    btnValider;
 
+	public void setPanelSymbole( PanelSymbole panelSymbole ) { this.panelSymbole = panelSymbole; }
+	public String getNomPlateau() { return this.txtNomPlateau.getText(); }
 
 	public PanelDimension( ControleurConception ctrl, PanelPara panelPara, PanelPlateau panelPlateau )
 	{
@@ -59,6 +61,7 @@ public class PanelDimension extends JPanel implements ActionListener
 		/*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
+
 		this.panelCara  .add( new JLabel( " Nom du plateau : "     ) );
 		this.panelCara  .add( this.txtNomPlateau                     );
 		this.panelCara  .add( new JLabel( " Lignes : "             ) );
@@ -71,7 +74,6 @@ public class PanelDimension extends JPanel implements ActionListener
 		this.panelBouton.add( this.btnAnnuler  );
 		this.panelBouton.add( this.btnValider  );
 
-
 		this.add( this.panelCara,   BorderLayout.CENTER );
 		this.add( this.panelBouton, BorderLayout.SOUTH  );
 
@@ -80,11 +82,10 @@ public class PanelDimension extends JPanel implements ActionListener
 		/*-------------------------------*/
 		/*   Activation des composants   */
 		/*-------------------------------*/
+
 		this.btnAnnuler.addActionListener( this );
 		this.btnValider.addActionListener( this );
 	}
-
-	public String getNomPlateau() { return this.txtNomPlateau.getText(); }
 
 	public void actionPerformed( ActionEvent e )
 	{
@@ -118,6 +119,4 @@ public class PanelDimension extends JPanel implements ActionListener
 			//this.panelPara.panelBoutonScan.setVisible( true );
 		}
 	}
-
-	public void setPanelSymbole( PanelSymbole panelSymbole ) { this.panelSymbole = panelSymbole; }
 }

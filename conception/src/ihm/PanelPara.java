@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import conception.src.ControleurConception;
 
+
 public class PanelPara extends JPanel implements ActionListener
 {
     private ControleurConception      ctrl;
@@ -19,13 +20,25 @@ public class PanelPara extends JPanel implements ActionListener
 	private PanelPlateau              panelPlateau;
 	private PanelDimension            panelDimension;
 
-	public  JPanel   panelBoutonScan;
+	public  JPanel   panelScan;
     
+	private JButton  btnModifier;
 	private JButton  btnSauvegarder;
 
 	public  int      indiceZoneSelectionnee  = -1; 
 	public  int      indiceImageSelectionnee =  0;
 	public  boolean  modeEstCouleur          = false;
+
+	//accesseurs
+	public int     getIndiceImageSelectionnee() { return this.indiceImageSelectionnee;        }
+	public boolean getModeEstCouleur()          { return this.modeEstCouleur;                 }
+	public int     getIndiceZoneSelectionnee()  { return this.indiceZoneSelectionnee;         }
+	public String  getNomPlateau()              { return this.panelDimension.getNomPlateau(); }
+
+	//modificateurs
+	public void setPanelZone     ( PanelZone      panelZone      ) { this.panelZone      = panelZone;      }
+	public void setPanelSymbole  ( PanelSymbole   panelSymbole   ) { this.panelSymbole   = panelSymbole;   }
+	public void setPanelDimension( PanelDimension panelDimension ) { this.panelDimension = panelDimension; }
 
     public PanelPara( ControleurConception ctrl )
 	{
@@ -36,27 +49,24 @@ public class PanelPara extends JPanel implements ActionListener
         /*-------------------------------*/
 		/*    Création des composants    */
 		/*-------------------------------*/
-		this.panelBoutonScan   = new JPanel( new FlowLayout() );
-		this.btnSauvegarder    = new JButton( "Sauvegarder" );
+		this.panelScan      = new JPanel( new FlowLayout() );
+		
+		this.btnModifier    = new JButton( "Modifier "   );
+		this.btnSauvegarder = new JButton( "Sauvegarder" );
 
 		/*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
-		
-		//this.add( this.panelDimension );
-		//this.add( this.panelZone       );
-		//this.add( this.panelSymbole    );
-		this.add( this.panelBoutonScan );
+		this.panelScan.add( this.btnModifier    );
+		this.panelScan.add( this.btnSauvegarder );
+
+		this.add( this.panelScan );
 
 		/*-------------------------------*/
 		/*   Activation des composants   */
-		/*-------------------------------*/		
-		this.btnSauvegarder.addActionListener( this );
-
-        /*-------------------------------*/
-		/* Positionnement des composants */
 		/*-------------------------------*/
-		this.panelBoutonScan.add( this.btnSauvegarder );
+		this.btnModifier   .addActionListener( this );		
+		this.btnSauvegarder.addActionListener( this );
 
 		//this.panelBoutonScan.setVisible( false );
 	}
@@ -89,6 +99,11 @@ public class PanelPara extends JPanel implements ActionListener
 				"Succès",
 				JOptionPane.INFORMATION_MESSAGE );
 		}
+
+		/*if ( e.getSource() == this.btnModifier )
+		{
+
+		}*/
 	}
 
 	public void init()
@@ -96,19 +111,9 @@ public class PanelPara extends JPanel implements ActionListener
 		this.add( this.panelDimension  );
 		this.add( this.panelZone       );
 		this.add( this.panelSymbole    );
-		this.add( this.panelBoutonScan );
+		this.add( this.panelScan );
 		this.revalidate();
 		this.repaint();
 	}
 
-	//accesseurs
-	public int     getIndiceImageSelectionnee() { return this.indiceImageSelectionnee;        }
-	public boolean getModeEstCouleur()          { return this.modeEstCouleur;                 }
-	public int     getIndiceZoneSelectionnee()  { return this.indiceZoneSelectionnee;         }
-	public String  getNomPlateau()              { return this.panelDimension.getNomPlateau(); }
-
-	//modificateurs
-	public void setPanelZone     ( PanelZone      panelZone      ) { this.panelZone      = panelZone;      }
-	public void setPanelSymbole  ( PanelSymbole   panelSymbole   ) { this.panelSymbole   = panelSymbole;   }
-	public void setPanelDimension( PanelDimension panelDimension ) { this.panelDimension = panelDimension; }
 }

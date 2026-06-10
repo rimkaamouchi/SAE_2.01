@@ -16,3 +16,6 @@ conception/src/ihm/PanelDimension.java
 jeu/src/ControleurJeu.java
 jeu/src/ihm/FramePioche.java
 jeu/src/ihm/PanelPioche.java
+jeu/src/metier/Chemin.java
+jeu/src/metier/Jeu.java
+jeu/src/metier/ScanJeu.java

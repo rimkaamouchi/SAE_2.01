@@ -16,6 +16,11 @@ public class FrameConception extends JFrame
 	private PanelSymbole           panelSymbole;
 	private PanelPlateau           panelPlateau;
 
+	public PanelPara getPanelPara() 
+	{
+		return this.panelPara;
+	}
+
 	public FrameConception( ControleurConception ctrl )
 	{
 		this.ctrl = ctrl;
@@ -45,11 +50,6 @@ public class FrameConception extends JFrame
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );
-	}
-
-	public PanelPara getPanelPara() 
-	{
-		return this.panelPara;
 	}
 }
 

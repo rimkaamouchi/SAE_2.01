@@ -4,10 +4,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import conception.src.ControleurConception;
-
-import java.util.ArrayList;
 
 public class ScanPlateau
 {
@@ -16,16 +15,16 @@ public class ScanPlateau
 	public static void sauvegarder(ControleurConception ctrl)
 	{
 		String nom = ctrl.getNomPlateau();
-		if (nom == null || nom.isBlank()) {
+		if (nom == null || nom.isBlank()) {  // isBlank: ne contient pas de caractère & méthode de String
 			System.err.println("Nom du plateau non défini.");
 			return;
 		}
 
-		String nomFichier = nom.replaceAll(" ", "_");
+		String nomFichier = nom.replaceAll(" ", "_"); // méthode de String qui va remplacer les espaces
 		try {
 			File dossier = new File("conception");
 			if (!dossier.exists()) {
-				dossier.mkdirs();
+				dossier.mkdirs(); // méthode qui crée un new dossier & qui appartient à Java.io.File 
 			}
 
 			PrintWriter pw = new PrintWriter(new OutputStreamWriter(
@@ -43,7 +42,7 @@ public class ScanPlateau
 
 			for (int l = 0; l < nbLig; l++) {
 				for (int c = 0; c < nbCol; c++) {
-					String zone = (zones[l][c] != null) ? zones[l][c] : ".";
+					String zone = (zones[l][c] != null) ? zones[l][c] : "."; // opération ternaire: si case = null alors on met un point
 					pw.print(zone + " ");
 				}
 				pw.println();
@@ -67,4 +66,9 @@ public class ScanPlateau
 		
 		}
 	}
+
+	/*public static void modifier( ControleurConception ctrl )
+	{
+
+	}*/
 }

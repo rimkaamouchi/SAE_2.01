@@ -315,6 +315,16 @@ public class Plateau
 					return false;
 		return true;
 	}
+	/**
+	 * Retourne la cellule existante en (x, y) si elle existe,
+	 * sinon en crée une nouvelle et la stocke dans le plateau.
+	 */
+	public Cellule getOuCreerCellule( int x, int y )
+	{
+		if ( this.plateau[x][y] == null )
+			this.plateau[x][y] = new Cellule( x, y );
+		return this.plateau[x][y];
+	}
 
 
 	// Accesseurs
