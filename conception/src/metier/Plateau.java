@@ -6,7 +6,7 @@ public class Plateau
 {
 	private int         hauteur;
 	private int         largeur;
-	private int         nbCoul = 4;
+	private int         nbCoul;
 	private int         nbSymboles;
 	private int         tailleCase;
 
@@ -15,7 +15,8 @@ public class Plateau
 	private String[][]  zonesPlateau;
 	private Cellule[][] plateau;
 	
-	private ArrayList<Lien> routes = new ArrayList<>();
+	
+	private ArrayList<Lien> routes;
 	
 	public Plateau()
 	{
@@ -27,6 +28,7 @@ public class Plateau
 
 		this.symboles     = new char[4];
 
+		this.routes = new ArrayList<>();
 		this.plateau      = new Cellule[hauteur][largeur];
 		this.zonesPlateau = new String[this.hauteur][this.largeur];
 	}
@@ -40,6 +42,7 @@ public class Plateau
 
 		this.symboles     = new char[4];
 
+		this.routes = new ArrayList<>();
 		this.plateau      = new Cellule[hauteur][largeur];
 		this.zonesPlateau = new String [this.hauteur][this.largeur];
 	}
