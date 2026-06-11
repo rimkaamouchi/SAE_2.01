@@ -1,12 +1,21 @@
 package jeu.src.metier;
 
-
 public class Cellule
 {
 	private int     posX;
 	private int     posY;
 	private char    zone;
 	private char    symbole;
+
+	//accesseurs
+	public char getSymbole()       { return this.symbole; }
+	public int  getX()             { return posX;         }
+	public int  getY()             { return posY;         }
+	public char getZone()          { return this.zone;    }
+
+	//modificateurs
+	public void setZone(char zone) { this.zone = zone;    }
+	public void setSymbole(char symbole) { this.symbole = symbole; }
 
 	public Cellule( int x,int y )
 	{
@@ -21,12 +30,4 @@ public class Cellule
 	   this.symbole = symbol;
 	}
 
-	//accesseurs
-	public char getSymbole()       { return this.symbole; }
-	public int  getX()             { return posX;         }
-	public int  getY()             { return posY;         }
-	public char getZone()          { return this.zone;    }
-
-	//modificateurs
-	public void setZone(char zone) { this.zone = zone;    }
 }

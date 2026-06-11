@@ -16,6 +16,12 @@ public class ControleurJeu
 	{
 		//this.metier      = ScanJeu.charger("le fichier qu'on veut");
 		//lecteurJeu = ScanJeu.charger("le fichier qu'on veut");       La méthode charger n'existe pas 
+		ScanJeu.LecteurJeu( this );
+
+		System.out.println( this.metier.getNom() );
+		System.out.println( this.metier.getNbLigne() );
+		System.out.println( this.metier.getNbColonne() );
+		System.out.println( this.metier.getRoutes().size() );
 		
 		this.framePioche = new FramePioche( this );
 	}
@@ -43,6 +49,8 @@ public class ControleurJeu
 	public int getTaillePlateauX() { return this.taillePlateauX; }
 	public int getTaillePlateauY() { return this.taillePlateauY; }
 	public int getNbSymboles()     { return this.nbSymboles;     }
+
+	public Plateau getPlateau()    { return this.metier;}
 
 	public static void main(String[] args)
 	{
