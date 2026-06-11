@@ -23,7 +23,7 @@ public class ControleurConception
 		this.metier          = new Plateau();
 		this.frameConception = new FrameConception( this );
 	}
-
+	
 	private String txtNomPlateau;
 	private int    taillePlateauX;
 	private int    taillePlateauY;

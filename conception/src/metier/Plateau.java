@@ -22,7 +22,6 @@ public class Plateau
 	{
 		this.hauteur      = 7;
 		this.largeur      = 7;
-		this.nbCoul       = 4;
 		this.nbSymboles   = 4;
 		this.tailleCase   = 50;
 

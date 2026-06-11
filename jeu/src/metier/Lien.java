@@ -14,6 +14,7 @@ public class Lien
 		this.arrivee   = arrivee;
 		this.direction = direction;
 	}
+	
 	private ArrayList<int[]> chemin = new ArrayList<>();
 
 	public void ajouterCase( int x, int y ) 

@@ -22,7 +22,6 @@ public class PanelPara extends JPanel implements ActionListener
 
 	public  JPanel   panelScan;
     
-	private JButton  btnModifier;
 	private JButton  btnSauvegarder;
 
 	public  int      indiceZoneSelectionnee  = -1; 
@@ -51,21 +50,18 @@ public class PanelPara extends JPanel implements ActionListener
 		/*-------------------------------*/
 		this.panelScan      = new JPanel( new FlowLayout() );
 		
-		this.btnModifier    = new JButton( "Modifier "   );
 		this.btnSauvegarder = new JButton( "Sauvegarder" );
 
 		/*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
-		this.panelScan.add( this.btnModifier    );
 		this.panelScan.add( this.btnSauvegarder );
 
 		this.add( this.panelScan );
 
 		/*-------------------------------*/
 		/*   Activation des composants   */
-		/*-------------------------------*/
-		this.btnModifier   .addActionListener( this );		
+		/*-------------------------------*/	
 		this.btnSauvegarder.addActionListener( this );
 
 		//this.panelBoutonScan.setVisible( false );
@@ -115,5 +111,4 @@ public class PanelPara extends JPanel implements ActionListener
 		this.revalidate();
 		this.repaint();
 	}
-
 }

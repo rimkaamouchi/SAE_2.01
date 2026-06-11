@@ -211,8 +211,13 @@ public class PanelPlateau extends JPanel
 								PanelPlateau.this.placerSymbole( ligCliquee, colCliquee, icone.getImage() );
 
 								// On place toujours la cellule, couleur ou symbole
-								char sym = (char) ('A' + indice);
+								char sym = (char) ('Q' + indice);
+								if (couleur)
+								{
+									sym += 5;
+								}
 								PanelPlateau.this.ctrl.placerCellule( ligCliquee, colCliquee, sym );
+								System.out.print(sym);
 
 								PanelPlateau.this.ctrl.calculerRoutes();
 								PanelPlateau.this.repaint();

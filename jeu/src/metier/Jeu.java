@@ -23,11 +23,11 @@ public class Jeu
 
 	public Jeu( Plateau plateau )
 	{
-		this.plateau       = plateau;
-		this.defausse      = new ArrayList<>();
-		this.chemins       = new ArrayList<>();
-		this.partieFinie   = false;
-		this.tourActuel    = 0;
+		this.plateau         = plateau;
+		this.defausse        = new ArrayList<>();
+		this.chemins         = new ArrayList<>();
+		this.partieFinie     = false;
+		this.tourActuel      = 0;
 		this.couleurActuelle = 0;
 
 		this.couleurs = plateau.getCouleurs(); // les symboles couleur placés sur le plateau
@@ -134,12 +134,12 @@ public class Jeu
 	/*            Accesseurs                 */
 	/*---------------------------------------*/
 
-	public boolean              isPartieFinie()    { return this.partieFinie;    }
-	public int                  getTourActuel()    { return this.tourActuel;     }
+	public boolean              isPartieFinie()     { return this.partieFinie;                    }
+	public int                  getTourActuel()     { return this.tourActuel;                     }
 	public char                 getCouleurActuelle(){ return this.couleurs[this.couleurActuelle]; }
-	public ArrayList<Chemin>    getChemins()       { return this.chemins;        }
-	public ArrayList<Character> getPioche()        { return this.pioche;         }
-	public Plateau              getPlateau()       { return this.plateau;        }
+	public ArrayList<Chemin>    getChemins()        { return this.chemins;                        }
+	public ArrayList<Character> getPioche()         { return this.pioche;                         }
+	public Plateau              getPlateau()        { return this.plateau;                        }
 
 	public Chemin getCheminPourCouleur( char couleur )
 	{
