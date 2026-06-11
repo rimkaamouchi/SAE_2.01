@@ -11,7 +11,6 @@ public class ScanJeu
 
 	public static void ScanJeu(ControleurJeu ctrl)
 	{
-
 		try 
 		{
 			Scanner sc = new Scanner(new FileInputStream( "conception/src/Test.data" ), "UTF8");
