@@ -1,5 +1,6 @@
 package jeu.src;
 
+import jeu.src.ihm.FrameJeu;
 import jeu.src.ihm.FramePioche;
 import jeu.src.metier.Jeu;
 import jeu.src.metier.Plateau;
@@ -9,8 +10,9 @@ public class ControleurJeu
 {
 	private Plateau          metier;
 	private FramePioche      framePioche;
+	private FrameJeu         frameJeu;
 	private Jeu              jeu;
-	private ScanJeu       lecteurJeu;
+	private ScanJeu          lecteurJeu;
 
 	public ControleurJeu()
 	{
@@ -23,6 +25,7 @@ public class ControleurJeu
 		System.out.println( this.metier.getNbColonne() );
 		System.out.println( this.metier.getRoutes().size() );
 		
+		this.frameJeu    = new FrameJeu   ( this );
 		this.framePioche = new FramePioche( this );
 	}
 
@@ -45,10 +48,10 @@ public class ControleurJeu
 	}
 
 	//getters
-	public String getNomPlateau()  { return this.nom;}
-	public int getTaillePlateauX() { return this.taillePlateauX; }
-	public int getTaillePlateauY() { return this.taillePlateauY; }
-	public int getNbSymboles()     { return this.nbSymboles;     }
+	public String getNomPlateau()     { return this.nom;}
+	public int    getTaillePlateauX() { return this.taillePlateauX; }
+	public int    getTaillePlateauY() { return this.taillePlateauY; }
+	public int    getNbSymboles()     { return this.nbSymboles;     }
 
 	public Plateau getPlateau()    { return this.metier;}
 

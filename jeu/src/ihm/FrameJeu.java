@@ -19,6 +19,9 @@ public class FrameJeu extends JFrame
 		this.setExtendedState( JFrame.MAXIMIZED_BOTH   );
 		this.setLayout       ( new BorderLayout()      );
 
+		this.panelJeu = new PanelJeu( ctrl );
+		this.panelJeu.setPlateau( ctrl.getTaillePlateauX(), ctrl.getTaillePlateauY() );
+
 		this.add( this.panelJeu );
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );

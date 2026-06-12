@@ -13,7 +13,6 @@ public class ScanJeu
 	{
 		try 
 		{
-			System.out.println( new java.io.File(".").getAbsolutePath() );
 			Scanner sc = new Scanner( new FileInputStream( "conception/Test.data" ), "UTF8" );
 
 			String nom = sc.nextLine();

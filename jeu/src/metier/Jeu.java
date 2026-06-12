@@ -1,7 +1,7 @@
 package jeu.src.metier;
 
 import java.util.ArrayList;
-import java.util.Collections;
+//import java.util.Collections;
 
 public class Jeu
 {
@@ -48,34 +48,16 @@ public class Jeu
 		}
 	}
 
-	/**
-	 * Construit la pioche : pour chaque couleur, NB_CARTES_PAR_COULEUR cartes
-	 * + 1 joker par couleur, puis mélange.
-	 * La pioche est organisée par "tour" : on tire NB_COULEURS cartes par tour,
-	 * une par couleur.
-	 */
 	private void initialiserPioche()
 	{
-		this.pioche = new ArrayList<>();
-
-		for ( char coul : this.couleurs )
-		{
-			for ( int i = 0; i < NB_CARTES_PAR_COULEUR; i++ )
-				this.pioche.add( coul );
-
-			this.pioche.add( JOKER ); // 1 joker par couleur
-		}
-
-		Collections.shuffle( this.pioche );
+		//voir avec la classe pioche
 	}
 
 	/** Tire la prochaine carte de la pioche */
 	public char tirerCarte()
 	{
-		if ( this.pioche.isEmpty() ) return '\0';
-		char carte = this.pioche.remove(0);
-		this.defausse.add( carte );
-		return carte;
+		//voir avec la classe pioche
+		return ' ';
 	}
 
 	/**
@@ -125,8 +107,7 @@ public class Jeu
 	public int calculerScore()
 	{
 		int score = 0;
-		for ( Chemin c : this.chemins )
-			score += c.getNbEtapes();
+		
 		return score;
 	}
 
@@ -138,7 +119,7 @@ public class Jeu
 	public int                  getTourActuel()     { return this.tourActuel;                     }
 	public char                 getCouleurActuelle(){ return this.couleurs[this.couleurActuelle]; }
 	public ArrayList<Chemin>    getChemins()        { return this.chemins;                        }
-	public ArrayList<Character> getPioche()         { return this.pioche;                         }
+	//public ArrayList<Character> getPioche()       { return this.pioche;                         }
 	public Plateau              getPlateau()        { return this.plateau;                        }
 
 	public Chemin getCheminPourCouleur( char couleur )

@@ -150,14 +150,14 @@ public class PanelPlateau extends JPanel
 
 		// Dessin de la grille EN NOIR (par-dessus tout)
 		graph.setColor ( Color.BLACK          );
-		graph.setStroke( new BasicStroke(1)   );
+		graph.setStroke( new BasicStroke(1)   ); // épaisseur du trait 
 
 		for ( int i = 0; i <= nbLig; i++ )
 			graph.drawLine( 0, i * hauteurCase, this.getWidth(), i * hauteurCase );
 
 		for ( int j = 0; j <= nbCol; j++ )
 			graph.drawLine( j * largeurCase, 0, j * largeurCase, this.getHeight() );
-}
+	}
 	
 	/*-----------------------------------------*/
 	/* Définition de la classe interne Adapter */
