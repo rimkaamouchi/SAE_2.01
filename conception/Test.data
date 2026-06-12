@@ -1,16 +1,21 @@
 Test
-3
-3
 5
-A A B 
-C C B 
-C E E 
-LIENS 8
-0 0 0 2 e V W
-0 0 1 1 d V X
-0 0 2 0 s V Y
-0 2 2 2 s W Z
-0 2 1 1 q W X
-1 1 2 2 d X Z
-1 1 2 0 q X Y
-2 0 2 2 e Y Z
+5
+3
+G G E A A 
+G G E B A 
+G D C B B 
+D D C F F 
+D D C F F 
+LIENS 11
+0 1 0 3 e S Q
+0 1 3 4 d S S
+0 1 3 1 s S R
+0 1 1 0 q S V
+0 3 1 4 d Q X
+1 0 1 4 e V X
+1 4 3 4 s X S
+2 2 4 2 s Q W
+2 2 3 1 q Q R
+3 1 3 4 e R S
+3 1 4 2 d R W

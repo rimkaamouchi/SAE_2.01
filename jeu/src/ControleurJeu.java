@@ -1,7 +1,6 @@
 package jeu.src;
 
 import jeu.src.ihm.FrameJeu;
-import jeu.src.ihm.FramePioche;
 import jeu.src.metier.Jeu;
 import jeu.src.metier.Plateau;
 import jeu.src.metier.ScanJeu;
@@ -9,7 +8,6 @@ import jeu.src.metier.ScanJeu;
 public class ControleurJeu
 {
 	private Plateau          metier;
-	private FramePioche      framePioche;
 	private FrameJeu         frameJeu;
 	private Jeu              jeu;
 	private ScanJeu          lecteurJeu;
@@ -20,13 +18,12 @@ public class ControleurJeu
 		//lecteurJeu = ScanJeu.charger("le fichier qu'on veut");       La méthode charger n'existe pas 
 		ScanJeu.LecteurJeu( this );
 
-		System.out.println( this.metier.getNom() );
-		System.out.println( this.metier.getNbLigne() );
-		System.out.println( this.metier.getNbColonne() );
+		System.out.println( this.metier.getNom()           );
+		System.out.println( this.metier.getNbLigne()       );
+		System.out.println( this.metier.getNbColonne()     );
 		System.out.println( this.metier.getRoutes().size() );
-		
-		this.frameJeu    = new FrameJeu   ( this );
-		this.framePioche = new FramePioche( this );
+
+		this.frameJeu = new FrameJeu ( this );
 	}
 
 	public int getNbLigne()  { return this.metier.getNbLigne();   } // méthode appartenant à la class Jeu
@@ -48,12 +45,12 @@ public class ControleurJeu
 	}
 
 	//getters
-	public String getNomPlateau()     { return this.nom;}
+	public String getNomPlateau()     { return this.nom;            }
 	public int    getTaillePlateauX() { return this.taillePlateauX; }
 	public int    getTaillePlateauY() { return this.taillePlateauY; }
 	public int    getNbSymboles()     { return this.nbSymboles;     }
 
-	public Plateau getPlateau()    { return this.metier;}
+	public Plateau getPlateau() { return this.metier; }
 
 	public static void main(String[] args)
 	{

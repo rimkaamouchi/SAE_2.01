@@ -5,10 +5,10 @@ import javax.swing.ImageIcon;
 public class Carte
 {
 	private char      teinte;
-	private String    symbole;
+	private char      symbole;
 	private ImageIcon img;
 
-	public Carte( char teinte, String symbole )
+	public Carte( char teinte, char symbole )
 	{
 		this.teinte  = teinte;
 		this.symbole = symbole;

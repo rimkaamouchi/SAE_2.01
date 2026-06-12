@@ -10,6 +10,8 @@ public class FrameJeu extends JFrame
 {
 	private ControleurJeu ctrl;
 	private PanelJeu      panelJeu;
+	//private PanelPioche   panelPioche;
+	//private PanelDefausse panelDefausse;
 
 	public FrameJeu( ControleurJeu ctrl )
 	{
@@ -22,7 +24,9 @@ public class FrameJeu extends JFrame
 		this.panelJeu = new PanelJeu( ctrl );
 		this.panelJeu.setPlateau( ctrl.getTaillePlateauX(), ctrl.getTaillePlateauY() );
 
-		this.add( this.panelJeu );
+		this.add( this.panelJeu      );
+		//this.add( this.panelPioche   );
+		//this.add( this.panelDefausse );
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );

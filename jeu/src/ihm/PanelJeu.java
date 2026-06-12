@@ -7,23 +7,28 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import conception.src.ihm.PanelPara;
-import conception.src.ihm.PanelZone;
 import jeu.src.ControleurJeu;
+import jeu.src.metier.Cellule;
 import jeu.src.metier.Lien;
 
 public class PanelJeu extends JPanel
 {
 	private ControleurJeu  ctrl;
-	private PanelPara      panelPara;
-	private PanelZone      panelZone;
 
 	private Image[][]      matriceZones;
 	private Image[][]      matriceSymboles;
 	private int            nbLig;
 	private int            nbCol;
+
+	private static final char  [] LETTRES_ZONES    = {'A','B','C','D','E','F','G'};
+	private static final String[] IMAGES_ZONES     = {"Zones/bleu_azur.png","Zones/bleuVert.png","Zones/lila.png","Zones/orange_clair.png","Zones/candy.png", "Zones/rose_clair.png", "Zones/vert_clair.png" };
+	private static final char  [] LETTRES_SYMBOLES = {'R','Q','U','S','T'};
+	private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png","Symboles/apple.png","Symboles/cafe.png","Symboles/moto.png","Symboles/pain.png"};
+	private static final char  [] LETTRES_COULEURS = {'V','W','X','Y','Z'};
+	private static final String[] IMAGES_COULEURS  = {"Symboles/bordeaux.png","Symboles/rose.png","Symboles/bleu_fonce.png","Symboles/marron.png","Symboles/bleu.png"};
 
 	//setters
 	public void setPlateau( int nbLig, int nbCol )
@@ -33,6 +38,41 @@ public class PanelJeu extends JPanel
 
 		this.matriceZones    = new Image[nbLig][nbCol];
 		this.matriceSymboles = new Image[nbLig][nbCol];
+
+		for( int i = 0; i < nbLig; i++ )
+		for( int j = 0; j < nbCol; j++ )
+		{
+			Cellule c = ctrl.getPlateau().getCellule(i, j);
+			if ( c != null )
+			{
+				// chercher la zone de c dans LETTRES_ZONES
+				for( int l = 0; l < LETTRES_ZONES.length; l++ )
+				{
+					if( LETTRES_ZONES[l] == c.getZone() )
+					{
+						ImageIcon icon = new ImageIcon( "conception/src/Image/" + IMAGES_ZONES[l] );
+						matriceZones[i][j] = icon.getImage();
+					}
+				}
+				// chercher le symbole de c dans LETTRES_SYMBOLES et LETTRES_COULEURS
+				for( int k = 0; k < LETTRES_SYMBOLES.length; k++ )
+				{
+					if( LETTRES_SYMBOLES[k] == c.getSymbole() )
+					{
+						ImageIcon icon = new ImageIcon( "conception/src/Image/" + IMAGES_SYMBOLES[k] );
+						matriceSymboles[i][j] = icon.getImage(); // charger l'image IMAGES_ZONES[k] dans matriceZones[i][j]
+					}
+				}
+				for( int k = 0; k < LETTRES_COULEURS.length; k++ )
+				{
+					if( LETTRES_COULEURS[k] == c.getSymbole() )
+					{
+						ImageIcon icon = new ImageIcon( "conception/src/Image/" + IMAGES_COULEURS[k] );
+						matriceSymboles[i][j] = icon.getImage();
+					}
+				}
+			}
+		}
 
 		this.repaint(); // redessine le plateau
 	}
@@ -107,13 +147,14 @@ public class PanelJeu extends JPanel
 		}
 
 		// Dessin de la grille EN NOIR (par-dessus tout)
-		graph.setColor ( Color.BLACK          );
-		graph.setStroke( new BasicStroke(1)   );
+		graph.setColor ( Color.BLACK        );
+		graph.setStroke( new BasicStroke(1) );
 
 		for ( int i = 0; i <= nbLig; i++ )
 			graph.drawLine( 0, i * hauteurCase, this.getWidth(), i * hauteurCase );
 
 		for ( int j = 0; j <= nbCol; j++ )
 			graph.drawLine( j * largeurCase, 0, j * largeurCase, this.getHeight() );
+
 	}
 }

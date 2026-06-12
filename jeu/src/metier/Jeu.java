@@ -2,14 +2,32 @@ package jeu.src.metier;
 
 import java.util.ArrayList;
 //import java.util.Collections;
+import java.util.Random;
 
 public class Jeu
 {
+	public static Carte[] ToutesLesCartes = new Carte[]{
+														new Carte('N','V'),
+														new Carte('N','W'),
+														new Carte('N','X'),
+														new Carte('N','Y'),
+														new Carte('N','Z'),
+														new Carte('B','V'),
+														new Carte('B','W'),
+														new Carte('B','X'),
+														new Carte('B','Y'),
+														new Carte('B','Z'),
+														new Carte('N','*'),
+														new Carte('B','*')
+																			};
+
+
+	
 	public static final char JOKER = '*';
 	public static final int  NB_CARTES_PAR_COULEUR = 5;
 
 	private Plateau        plateau;       // plateau chargé depuis le .data
-	private ArrayList<Character> pioche; // cartes restantes
+	private ArrayList<Character> piocheR; // cartes restantes
 	private ArrayList<Character> defausse;
 
 	// Chemins en cours : une liste de cellules parcourues par couleur
@@ -19,6 +37,7 @@ public class Jeu
 	private int     tourActuel;    // 0 à NB_CARTES_PAR_COULEUR - 1
 	private int     couleurActuelle; // indice de la couleur en cours de tracé
 	private char[]  couleurs;      // liste des couleurs/symboles du plateau
+	private Carte[] pioche;
 	private boolean partieFinie;
 
 	public Jeu( Plateau plateau )
@@ -48,9 +67,26 @@ public class Jeu
 		}
 	}
 
+
+	public static Carte[] Melanger(Carte[] cartes) 
+	{
+		Carte[] melange = cartes.clone();
+		Random rand = new Random();
+		
+		for (int i = melange.length - 1; i > 0; i--) 
+		{
+			int j = rand.nextInt(i + 1);
+			Carte temp = melange[i];
+			melange[i] = melange[j];
+			melange[j] = temp;
+		}
+		
+		return melange;
+	}
+
 	private void initialiserPioche()
 	{
-		//voir avec la classe pioche
+		this.pioche = Melanger(ToutesLesCartes);
 	}
 
 	/** Tire la prochaine carte de la pioche */
