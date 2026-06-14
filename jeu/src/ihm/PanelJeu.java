@@ -30,15 +30,28 @@ public class PanelJeu extends JPanel
     private Cellule   extremiteSelectionnee; // 1er clic
     private String    messageErreur;         // message affiché
 
-    private static final char  [] LETTRES_ZONES   = {'A','B','C','D','E','F','G'};
-    private static final String[] IMAGES_ZONES    = {"Zones/bleu_azur.png","Zones/bleuVert.png","Zones/lila.png","Zones/orange_clair.png","Zones/candy.png","Zones/rose_clair.png","Zones/vert_clair.png"};
-    private static final char  [] LETTRES_SYMBOLES = {'R','Q','U','S','T'};
-    private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png","Symboles/apple.png","Symboles/cafe.png","Symboles/moto.png","Symboles/pain.png"};
-    private static final char  [] LETTRES_COULEURS = {'V',                'W',              'X',                   'Y',              'Z'          };
-	private static final String[] IMAGES_COULEURS  = {"Symboles/bordeaux.png","Symboles/rose.png","Symboles/bleu_fonce.png","Symboles/marron.png","Symboles/bleu.png"};
+    //images & lettres correspondants aux zones
+    private static final char  [] LETTRES_ZONES    = {'A'                    ,'B'                 ,'C'                      ,'D'                     ,'E'              ,'F'                   ,'G'                   };
+    private static final String[] IMAGES_ZONES     = {"Zones/bleu_azur.png"  ,"Zones/bleuVert.png","Zones/lila.png"         ,"Zones/orange_clair.png","Zones/candy.png","Zones/rose_clair.png","Zones/vert_clair.png"};
+    //images & lettres correspondants aux symboles non-colorés
+    private static final char  [] LETTRES_SYMBOLES = {'R'                    ,'Q'                 ,'U'                      ,'S'                     ,'T'                                                            };
+    private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png"  ,"Symboles/apple.png","Symboles/cafe.png"      ,"Symboles/moto.png"     ,"Symboles/pain.png"                                            };
+   //images & lettres correspondants aux symboles colorés
+    private static final char  [] LETTRES_COULEURS = {'V'                    ,'W'                 ,'X'                      ,'Y'                     ,'Z'                                                            };
+	private static final String[] IMAGES_COULEURS  = {"Symboles/bordeaux.png","Symboles/rose.png" ,"Symboles/bleu_fonce.png","Symboles/marron.png"   ,"Symboles/bleu.png"                                            };
     // Couleurs des traits par couleur de chemin
-    private static final char [] CODES_COULEURS  = {'V',               'W',                    'X',              'Y',                  'Z'             };
-	private static final Color[] COULEURS_TRAITS = {new Color(139,0,0), new Color(255,105,180), new Color(0,0,139), new Color(139,69,19), new Color(70,130,180)};
+    private static final char [] CODES_COULEURS    = {'V',               'W',                    'X',              'Y',                  'Z'                                                                         };
+	private static final Color[] COULEURS_TRAITS   = {new Color(139,0,0), new Color(255,105,180), new Color(0,0,139), new Color(139,69,19), new Color(70,130,180)              };
+    
+    //getter
+    private Color getCouleurTrait( char couleur )
+    {
+        for ( int i = 0; i < CODES_COULEURS.length; i++ )
+            if ( CODES_COULEURS[i] == couleur ) return COULEURS_TRAITS[i];
+        return Color.BLACK;
+    }
+
+    //setter
     public void setPlateau( int nbLig, int nbCol )
     {
         this.nbLig = nbLig;
@@ -79,6 +92,7 @@ public class PanelJeu extends JPanel
         this.repaint();
     }
 
+    //constructeur
     public PanelJeu( ControleurJeu ctrl )
     {
         this.ctrl                  = ctrl;
@@ -95,6 +109,7 @@ public class PanelJeu extends JPanel
         });
     }
 
+    //remplace MouseListener
     private void gererClic( int px, int py )
     {
         if ( nbLig == 0 || nbCol == 0 ) return;
@@ -165,13 +180,7 @@ public class PanelJeu extends JPanel
         repaint();
     }
 
-    private Color getCouleurTrait( char couleur )
-    {
-        for ( int i = 0; i < CODES_COULEURS.length; i++ )
-            if ( CODES_COULEURS[i] == couleur ) return COULEURS_TRAITS[i];
-        return Color.BLACK;
-    }
-
+    //méthode pour dessiner 
     @Override
     public void paintComponent( Graphics g )
     {

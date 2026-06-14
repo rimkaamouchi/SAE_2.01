@@ -42,13 +42,19 @@ public class ControleurConception
 		return this.metier.toutesLesCasesOntUneZone();
 	}
 
-	//accesseurs
-	public int    getNbLigne()        { return this.metier.getNbLigne();   } // méthode appartenant à la class Plateau
-	public int    getNbColonne()      { return this.metier.getNbColonne(); } // méthode appartenant à la class Plateau
-	public String getNomPlateau()     { return this.frameConception.getPanelPara().getNomPlateau(); }
-	public int    getTaillePlateauX() { return this.taillePlateauX; }
-	public int    getTaillePlateauY() { return this.taillePlateauY; }
-	public int    getNbSymboles()     { return this.nbSymboles;     }
+	//accesseurs (getters)
+	public int             getNbLigne()        { return this.metier.getNbLigne();                            } // méthode appartenant à la class Plateau
+	public int             getNbColonne()      { return this.metier.getNbColonne();                          } // méthode appartenant à la class Plateau
+	public String          getNomPlateau()     { return this.frameConception.getPanelPara().getNomPlateau(); }
+	public int             getTaillePlateauX() { return this.taillePlateauX;                                 }
+	public int             getTaillePlateauY() { return this.taillePlateauY;                                 }
+	public int             getNbSymboles()     { return this.nbSymboles;                                     }
+	public ArrayList<Lien> getRoutes()         { return this.metier.getRoutes();                             }
+	public String[][]      getZonesPlateau()   { return this.metier.getZonesPlateau();                       }
+
+
+	//modificateurs (setters)
+	public void setZone(int lig, int col, String zone){ this.metier.setZone(lig, col, zone); }
 
 	/*---- Méthode pour les icônes neutres ----*/
 	public ImageIcon getImageSymbole(int indice)   { return this.iconeSymbole[indice]; }
@@ -65,60 +71,15 @@ public class ControleurConception
 		else           return this.iconeSymbole[indice];
 	}
 
-	public void actionSauvegarder()
-	{
-		ScanPlateau.sauvegarder( this );
-	}
-
+	public void    actionSauvegarder()                           { ScanPlateau.sauvegarder( this );              }
 	/*----Méthode contenue dans Jeu----*/
-	public boolean verifZone( char zone )
-	{
-		return this.metier.verifZone(zone);
-	}
-
-	public String[][] getZonesPlateau()
-	{
-		return this.metier.getZonesPlateau();
-	}
-
-	public void placerCellule(int lig, int col, char symbole) 
-	{
-		this.metier.placerCellule(lig, col, symbole);
-	}
-
-	public void supprimerCellule(int lig, int col) 
-	{
-		this.metier.supprimerCellule(lig, col);
-	}
-	public void setZone(int lig, int col, String zone) 
-	{
-		this.metier.setZone(lig, col, zone);
-	}
-
-	public void supprimerZone( int lig, int col ) 
-	{
-		this.metier.supprimerZone(lig, col);
-	}
-
-	public void calculerRoutes() 
-	{
-		this.metier.calculerRoutes();
-	}
-
-	public ArrayList<Lien> getRoutes() 
-	{
-		return this.metier.getRoutes();
-	}
-
-	public boolean validerToutesLesZones() 
-	{
-		return this.metier.validerToutesLesZones();
-	}
-
-	public boolean plateauEstComplet() 
-	{
-		return this.metier.plateauEstComplet();
-	}
+	public boolean verifZone( char zone )                        { return this.metier.verifZone(zone);           }
+	public void    placerCellule(int lig, int col, char symbole) { this.metier.placerCellule(lig, col, symbole); }
+	public void    supprimerCellule(int lig, int col)            { this.metier.supprimerCellule(lig, col);       }
+	public void    supprimerZone( int lig, int col )             { this.metier.supprimerZone(lig, col);          }
+	public void    calculerRoutes()                              { this.metier.calculerRoutes();                 }	
+	public boolean validerToutesLesZones()                       { return this.metier.validerToutesLesZones();   }
+	public boolean plateauEstComplet()                           { return this.metier.plateauEstComplet();       }
 
 	public static void main( String[] args )
 	{

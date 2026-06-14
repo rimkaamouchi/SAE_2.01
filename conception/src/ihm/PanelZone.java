@@ -29,13 +29,12 @@ public class PanelZone extends JPanel implements ActionListener
 
     public static final String[] IMAGES_ZONES = 
 	{
-		"conception/src/Image/Zones/bleu_azur.png",
-		"conception/src/Image/Zones/bleuVert.png",
-		"conception/src/Image/Zones/candy.png",
-		"conception/src/Image/Zones/lila.png",
+		"conception/src/Image/Zones/bleu_azur.png"   ,
+		"conception/src/Image/Zones/bleuVert.png"    ,
+		"conception/src/Image/Zones/candy.png"       ,
+		"conception/src/Image/Zones/lila.png"        ,
 		"conception/src/Image/Zones/orange_clair.png",
-		"conception/src/Image/Zones/rose_clair.png",
-		//"conception/src/Image/Zones/rose_foncee.png",
+		"conception/src/Image/Zones/rose_clair.png"  ,
 		"conception/src/Image/Zones/vert_clair.png"
 	};
 

@@ -33,6 +33,9 @@ public class Plateau
 	private String[][]  zonesPlateau;
 	/** Liste des liens (routes) reliant les cellules du plateau. */
 	private ArrayList<Lien> routes;
+	/** Retourne tous les symboles couleur présents sur le plateau 
+	 *  Tableau fixe répertoriant les caractères de symboles considérés comme des couleurs de chemin. */
+	private static final char[] SYMBOLES_COULEURS = {'V','W','X','Y','Z'};
 
 	/*---- getters ----*/
 	/**
@@ -88,27 +91,43 @@ public class Plateau
      */
 	public Cellule         getCellule( int x, int y ) { return this.plateau[x][y];     }
 
-	/*---------------------------------------*/
-	/*            Constructeur               */
-	/*---------------------------------------*/
+	/**
+	 * Parcourt le plateau pour identifier et lister toutes les couleurs uniques de chemins présentes.
+	 * @return Un tableau de caractères contenant les symboles de couleurs trouvés.
+	 */
+	public char[] getCouleurs()
+	{
+		ArrayList<Character> couleurs = new ArrayList<>();
+		for ( int l = 0; l < hauteur; l++ )
+			for ( int c = 0; c < largeur; c++ )
+				if ( plateau[l][c] != null )
+				{
+					char sym = plateau[l][c].getSymbole();
+					for ( char col : SYMBOLES_COULEURS )
+						if ( sym == col && !couleurs.contains(col) )
+							couleurs.add( sym );
+				}
+
+		char[] result = new char[couleurs.size()];
+		for ( int i = 0; i < couleurs.size(); i++ )
+			result[i] = couleurs.get(i);
+		return result;
+	}
 
 	/**
-	 * Crée une instance de Plateau initialisée avec ses dimensions et ses structures de données.
-	 * @param nom          Le nom du scénario du plateau.
-	 * @param hauteur      Le nombre de lignes.
-	 * @param largeur      Le nombre de colonnes.
-	 * @param nbSymboles   Le nombre de symboles uniques présents.
+	 * Retourne la cellule existante en (x, y) si elle existe,
+	 * sinon en crée une nouvelle et la stocke dans le plateau.
+	 * Récupère la cellule existante aux coordonnées spécifiées. 
+	 * Si aucune cellule n'existe à cet emplacement, en crée une nouvelle, la stocke et la renvoie.
+	 * @param x Coordonnée de la ligne.
+	 * @param y Coordonnée de la colonne.
+	 * @return La {@link Cellule} existante ou nouvellement créée.
 	 */
-	public Plateau( String nom, int hauteur, int largeur, int nbSymboles )
+	public Cellule getOuCreerCellule( int x, int y )
 	{
-		this.nom        = nom;
-		this.hauteur    = hauteur;
-		this.largeur    = largeur;
-		this.nbSymboles = nbSymboles;
-
-		this.plateau      = new Cellule[hauteur][largeur];
-		this.zonesPlateau = new String [hauteur][largeur];
-		this.routes       = new ArrayList<>();
+		if ( this.plateau[x][y] == null )
+			this.plateau[x][y] = new Cellule( x, y );
+		return this.plateau[x][y];
 	}
 
 	/** Retourne tous les voisins directs d'une cellule (cellules reliées par un lien) */
@@ -133,48 +152,6 @@ public class Plateau
 		return null;
 	}
 
-	/** Retourne tous les symboles couleur présents sur le plateau 
-	 *  Tableau fixe répertoriant les caractères de symboles considérés comme des couleurs de chemin. */
-	private static final char[] SYMBOLES_COULEURS = {'V','W','X','Y','Z'};
-
-	/**
-	 * Parcourt le plateau pour identifier et lister toutes les couleurs uniques de chemins présentes.
-	 * @return Un tableau de caractères contenant les symboles de couleurs trouvés.
-	 */
-	public char[] getCouleurs()
-	{
-		ArrayList<Character> couleurs = new ArrayList<>();
-		for ( int l = 0; l < hauteur; l++ )
-			for ( int c = 0; c < largeur; c++ )
-				if ( plateau[l][c] != null )
-				{
-					char sym = plateau[l][c].getSymbole();
-					for ( char col : SYMBOLES_COULEURS )
-						if ( sym == col && !couleurs.contains(col) )
-							couleurs.add( sym );
-				}
-
-		char[] result = new char[couleurs.size()];
-		for ( int i = 0; i < couleurs.size(); i++ )
-			result[i] = couleurs.get(i);
-		return result;
-	}
-	/**
-	 * Retourne la cellule existante en (x, y) si elle existe,
-	 * sinon en crée une nouvelle et la stocke dans le plateau.
-	 * Récupère la cellule existante aux coordonnées spécifiées. 
-	 * Si aucune cellule n'existe à cet emplacement, en crée une nouvelle, la stocke et la renvoie.
-	 * @param x Coordonnée de la ligne.
-	 * @param y Coordonnée de la colonne.
-	 * @return La {@link Cellule} existante ou nouvellement créée.
-	 */
-	public Cellule getOuCreerCellule( int x, int y )
-	{
-		if ( this.plateau[x][y] == null )
-			this.plateau[x][y] = new Cellule( x, y );
-		return this.plateau[x][y];
-	}
-
 	/*---- setter ----*/
 	/**
 	 * Attribue un identifiant de zone géographique à une case précise du plateau.
@@ -183,6 +160,29 @@ public class Plateau
 	 * @param zone La chaîne représentant l'identifiant de la zone.
 	 */
 	public void setZone( int lig, int col, String zone ){ this.zonesPlateau[lig][col] = zone; }
+
+	/*---------------------------------------*/
+	/*            Constructeur               */
+	/*---------------------------------------*/
+
+	/**
+	 * Crée une instance de Plateau initialisée avec ses dimensions et ses structures de données.
+	 * @param nom          Le nom du scénario du plateau.
+	 * @param hauteur      Le nombre de lignes.
+	 * @param largeur      Le nombre de colonnes.
+	 * @param nbSymboles   Le nombre de symboles uniques présents.
+	 */
+	public Plateau( String nom, int hauteur, int largeur, int nbSymboles )
+	{
+		this.nom        = nom;
+		this.hauteur    = hauteur;
+		this.largeur    = largeur;
+		this.nbSymboles = nbSymboles;
+
+		this.plateau      = new Cellule[hauteur][largeur];
+		this.zonesPlateau = new String [hauteur][largeur];
+		this.routes       = new ArrayList<>();
+	}
 
 	/*---- méthodes ----*/
 	public void ajouterLien( Lien lien )

@@ -13,15 +13,17 @@ public class FrameJeu extends JFrame
 	private PanelPioche   panelPioche;
 	//private PanelDefausse panelDefausse;
 
+	//getter
 	public PanelJeu getPanelJeu() { return this.panelJeu; }
 
 	public FrameJeu( ControleurJeu ctrl )
 	{
 		this.ctrl = ctrl;
 
-		this.setTitle        ( "L'aventurier étranger" );
+		this.setTitle        ( "L'armateur étranger" );
 		this.setExtendedState( JFrame.MAXIMIZED_BOTH   );
 		this.setLayout       ( new BorderLayout()      );
+		this.setJMenuBar(MenuBar.creerMenu(this, ctrl));
 
 		this.panelJeu    = new PanelJeu   ( ctrl );
 		this.panelPioche = new PanelPioche( ctrl );
@@ -33,5 +35,14 @@ public class FrameJeu extends JFrame
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );
+	}
+
+	//remets à jour l'ihm des cartes
+	public void resetGraphique()
+	{
+		// On demande au panelPioche de se réinitialiser graphiquement
+		this.panelPioche.reset();
+		// On demande aussi au plateau de jeu de se redessiner pour effacer les anciens chemins
+		this.panelJeu.repaint();
 	}
 }

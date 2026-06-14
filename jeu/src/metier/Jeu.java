@@ -5,20 +5,24 @@ import java.util.Random;
 
 public class Jeu
 {
-	public static Carte[] ToutesLesCartes = new Carte[]{
-	new Carte('N','R'),
-	new Carte('N','Q'),
-	new Carte('N','U'),
-	new Carte('N','S'),
-	new Carte('N','T'),
-	new Carte('B','R'),
-	new Carte('B','Q'),
-	new Carte('B','U'),
-	new Carte('B','S'),
-	new Carte('B','T'),
-	new Carte('N','*'),
-	new Carte('B','*')
+	public static Carte[] ToutesLesCartes = new Carte[]
+	{
+		new Carte('N','R'),
+		new Carte('N','Q'),
+		new Carte('N','U'),
+		new Carte('N','S'),
+		new Carte('N','T'),
+		new Carte('B','R'),
+		new Carte('B','Q'),
+		new Carte('B','U'),
+		new Carte('B','S'),
+		new Carte('B','T'),
+		new Carte('N','*'),
+		new Carte('B','*')
 	};
+
+	private static final char[] COULEURS_VERS_SYMBOLES_CLE = {'V', 'W', 'X', 'Y', 'Z'};
+	private static final char[] COULEURS_VERS_SYMBOLES_VAL = {'Q', 'R', 'S', 'T', 'U'};
 
 	private int indexPioche = 0;
 	public static final char JOKER = '*';
@@ -32,12 +36,46 @@ public class Jeu
 	// La clé est le symbole couleur (ex: 'A', 'B', ...)
 	private ArrayList<Chemin> chemins;
 
-	private int     tourActuel;    // 0 à NB_CARTES_PAR_COULEUR - 1
+	private int     tourActuel;      // 0 à NB_CARTES_PAR_COULEUR - 1
 	private int     couleurActuelle; // indice de la couleur en cours de tracé
-	private char[]  couleurs;      // liste des couleurs/symboles du plateau
+	private char[]  couleurs;        // liste des couleurs/symboles du plateau
 	private Carte[] pioche;
 	private boolean partieFinie;
+	private boolean aJoue = false; // a-t-on joué ce tour de carte ?
 
+	/*---------------------------------------*/
+	/*            Getters                    */
+	/*---------------------------------------*/
+	public int                  getTourActuel()        { return this.tourActuel;                                       }
+	public char                 getCouleurActuelle()   { return this.couleurs[this.couleurActuelle];                   }
+	public ArrayList<Chemin>    getChemins()           { return this.chemins;                                          }
+	//public ArrayList<Character> getPioche()          { return this.pioche;                                           }
+	public Plateau              getPlateau()           { return this.plateau;                                          }
+	public int                  getNbCartesRestantes() { return Math.max( 0, this.pioche.length - this.indexPioche );}
+	public char                 getSymbolePourCouleur( char couleur )
+	{
+		for ( int i = 0; i < COULEURS_VERS_SYMBOLES_CLE.length; i++ )
+			if ( COULEURS_VERS_SYMBOLES_CLE[i] == couleur )
+				return COULEURS_VERS_SYMBOLES_VAL[i];
+		return ' ';
+	}
+
+	public Carte getCarteActuelle()
+	{
+		if ( this.indexPioche == 0 ) return null;
+		return this.pioche[this.indexPioche - 1];
+	}
+
+	public Chemin getCheminPourCouleur( char couleur )
+	{
+		for ( Chemin c : this.chemins )
+			if ( c.getCouleur() == couleur ) return c;
+		return null;
+	}
+
+	/*---------------------------------------*/
+	/*            Constructeur               */
+	/*---------------------------------------*/
 	public Jeu( Plateau plateau )
 	{
 		this.plateau         = plateau;
@@ -52,6 +90,10 @@ public class Jeu
 		this.initialiserChemins();
 		this.initialiserPioche();
 	}
+
+	/*---------------------------------------*/
+	/*            Méthodes                   */
+	/*---------------------------------------*/
 	
 	public boolean deplacerExtremite( Cellule extremite, Cellule cible, char symboleCarte )
 	{
@@ -124,18 +166,6 @@ public class Jeu
 		return false;
 	}
 
-	private boolean aJoue = false; // a-t-on joué ce tour de carte ?
-
-	public boolean peutJouer()
-	{
-		return !aJoue;
-	}
-
-	public void signalerJoue()
-	{
-		aJoue = true;
-	}
-
 	public void passerAuTourSuivant()
 	{
 		// Remettre la pioche à zéro
@@ -149,23 +179,6 @@ public class Jeu
 			this.partieFinie = true;
 	}
 
-	public boolean isPiocheVide()
-	{
-		return this.indexPioche >= this.pioche.length;
-	}
-	public void reinitialiserJoue() { this.aJoue = false; }
-
-	private static final char[] COULEURS_VERS_SYMBOLES_CLE = {'V', 'W', 'X', 'Y', 'Z'};
-	private static final char[] COULEURS_VERS_SYMBOLES_VAL = {'Q', 'R', 'S', 'T', 'U'};
-
-	public char getSymbolePourCouleur( char couleur )
-	{
-		for ( int i = 0; i < COULEURS_VERS_SYMBOLES_CLE.length; i++ )
-			if ( COULEURS_VERS_SYMBOLES_CLE[i] == couleur )
-				return COULEURS_VERS_SYMBOLES_VAL[i];
-		return ' ';
-	}
-
 	/** Crée un chemin vide pour chaque couleur, démarrant au sommet correspondant */
 	private void initialiserChemins()
 	{
@@ -176,7 +189,6 @@ public class Jeu
 				this.chemins.add( new Chemin( coul, sommet ) );
 		}
 	}
-
 
 	public static Carte[] Melanger(Carte[] cartes) 
 	{
@@ -194,11 +206,6 @@ public class Jeu
 		return melange;
 	}
 
-	private void initialiserPioche()
-	{
-		this.pioche = Melanger(ToutesLesCartes);
-	}
-
 	/** Tire la prochaine carte de la pioche */
 	public Carte tirerCarte()
 	{
@@ -206,22 +213,6 @@ public class Jeu
 		Carte c = this.pioche[this.indexPioche];
 		this.indexPioche++;
 		return c;
-	}
-
-	public Carte getCarteActuelle()
-	{
-		if ( this.indexPioche == 0 ) return null;
-		return this.pioche[this.indexPioche - 1];
-	}
-
-	public boolean piocheVide()
-	{
-		return this.indexPioche >= this.pioche.length;
-	}
-
-	public int getNbCartesRestantes()
-	{
-		return Math.max( 0, this.pioche.length - this.indexPioche );
 	}
 
 	/**
@@ -247,13 +238,6 @@ public class Jeu
 		return true;
 	}
 
-	/** Le joueur passe son tour pour la couleur actuelle */
-	public void passerTour()
-	{
-		// On avance simplement sans déplacer
-		verifierFinTour();
-	}
-
 	/** Appelée après chaque action pour vérifier si le tour/la partie est finie */
 	private void verifierFinTour()
 	{
@@ -271,25 +255,38 @@ public class Jeu
 	public int calculerScore()
 	{
 		int score = 0;
-		
 		return score;
 	}
+	
+	public void reset()
+    {
+        // Remettre les symboles et les index à zéro
+        this.partieFinie     = false;
+        this.tourActuel      = 0;
+        this.couleurActuelle = 0;
+        this.indexPioche     = 0;
+        this.aJoue           = false;
 
-	/*---------------------------------------*/
-	/*            Accesseurs                 */
-	/*---------------------------------------*/
+        // Vider les listes de cartes
+        this.defausse.clear();
 
-	public boolean              isPartieFinie()     { return this.partieFinie;                    }
-	public int                  getTourActuel()     { return this.tourActuel;                     }
-	public char                 getCouleurActuelle(){ return this.couleurs[this.couleurActuelle]; }
-	public ArrayList<Chemin>    getChemins()        { return this.chemins;                        }
-	//public ArrayList<Character> getPioche()       { return this.pioche;                         }
-	public Plateau              getPlateau()        { return this.plateau;                        }
+        // Réinitialiser les chemins
+        this.chemins.clear();
+        this.initialiserChemins(); // Re-crée les chemins de départ depuis le plateau
 
-	public Chemin getCheminPourCouleur( char couleur )
-	{
-		for ( Chemin c : this.chemins )
-			if ( c.getCouleur() == couleur ) return c;
-		return null;
-	}
+        // Mélanger et distribuer une new pioche
+        this.pioche      = Melanger( ToutesLesCartes );
+    	this.indexPioche = 0;
+    }
+
+	public boolean isPartieFinie()     { return this.partieFinie;                       }
+	public boolean isPiocheVide()      { return this.indexPioche >= this.pioche.length; }
+	public void    reinitialiserJoue() { this.aJoue = false;                            }
+	public boolean piocheVide()        { return this.indexPioche >= this.pioche.length; }
+	/** Le joueur passe son tour pour la couleur actuelle */
+	public void    passerTour()        { verifierFinTour(); /*On avance simplement sans déplacer*/}
+	private void   initialiserPioche() { this.pioche = Melanger(ToutesLesCartes);       }
+	public boolean peutJouer()         { return !aJoue;                                 }
+	public void    signalerJoue()      { aJoue = true;                                  }
+
 }

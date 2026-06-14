@@ -8,6 +8,16 @@ public class Cellule
 	private char    zone;
 	private char    symbole;
 
+	//accesseurs (getters)
+	public char getSymbole()       { return this.symbole; }
+	public int  getX()             { return posX;         }
+	public int  getY()             { return posY;         }
+	public char getZone()          { return this.zone;    }
+
+	//modificateurs (setter)
+	public void setZone(char zone) { this.zone = zone;    }
+
+	//constructeurs
 	public Cellule( int x,int y )
 	{
 	   this.posX = x;
@@ -20,13 +30,4 @@ public class Cellule
 	   this.posY = y;
 	   this.symbole = symbol;
 	}
-
-	//accesseurs
-	public char getSymbole()       { return this.symbole; }
-	public int  getX()             { return posX;         }
-	public int  getY()             { return posY;         }
-	public char getZone()          { return this.zone;    }
-
-	//modificateurs
-	public void setZone(char zone) { this.zone = zone;    }
 }

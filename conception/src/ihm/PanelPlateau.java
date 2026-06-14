@@ -48,15 +48,8 @@ public class PanelPlateau extends JPanel
 		this.repaint(); // redessine le plateau
 	}
 
-	public void setPanelPara( PanelPara panelPara )
-	{
-		this.panelPara = panelPara;
-	}
-
-	public void setPanelZone( PanelZone panelZone )
-	{
-		this.panelZone = panelZone;
-	}
+	public void setPanelPara( PanelPara panelPara ){ this.panelPara = panelPara; }
+	public void setPanelZone( PanelZone panelZone ){ this.panelZone = panelZone; }
 
 	// Méthode pour l'arrière-plan
 	public void placerZone(int lig, int col, Image image)
@@ -80,10 +73,7 @@ public class PanelPlateau extends JPanel
 		}
 	}
 
-	public void placerImage(int lig, int col, Image image)
-	{
-		this.placerSymbole(lig, col, image);
-	}
+	public void placerImage(int lig, int col, Image image){ this.placerSymbole(lig, col, image); }
 
 	private boolean imagePresente( ImageIcon iconeSymbole )
 	{

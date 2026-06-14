@@ -40,28 +40,29 @@ public class PanelPioche extends JPanel
 		this.setPreferredSize( new Dimension( 220, 400 ) );
 		this.setBackground( new Color(40, 40, 50) );
 
-		// Clic sur la zone de la carte-dos → tirer une carte
+		// Clic sur la zone de la carte-dos -> tirer une carte
 		this.addMouseListener( new MouseAdapter()
-{
-    @Override
-    public void mouseClicked( MouseEvent e )
-    {
-			int x = MARGE;
-			int y = 80;
-			if ( e.getX() >= x && e.getX() <= x + CARTE_W
-			&& e.getY() >= y && e.getY() <= y + CARTE_H )
+		{
+			@Override
+			public void mouseClicked( MouseEvent e )
 			{
-				piocherCarte();
+				int x = MARGE;
+				int y = 80;
+				if ( e.getX() >= x && e.getX() <= x + CARTE_W
+				&& e.getY() >= y && e.getY() <= y + CARTE_H )
+				{
+					piocherCarte();
+				}
 			}
-		}
-	});
+		});
 	}
+
 
 	private void piocherCarte()
 	{
 		if ( ctrl.piocheVide() )
 		{
-			// Pioche vide → fin du tour
+			// Pioche vide -> fin du tour
 			JOptionPane.showMessageDialog( this,
 				"Tour terminé ! Passage à la couleur suivante.",
 				"Fin du tour", JOptionPane.INFORMATION_MESSAGE );
@@ -96,7 +97,7 @@ public class PanelPioche extends JPanel
 
 		int y = 80;
 
-		// ---- Carte DOS (pioche) ----
+		// Carte Dos (pioche)
 		int xDos = MARGE;
 		if ( !this.piocheVide )
 		{
@@ -116,7 +117,7 @@ public class PanelPioche extends JPanel
 			g2.drawString( "Vide", xDos + 22, y + CARTE_H/2 + 5 );
 		}
 
-		// ---- Carte RETOURNÉE (dernière tirée) ----
+		// Carte Retournée (dernière tirée)
 		int xRetournee = MARGE + CARTE_W + MARGE;
 		if ( this.carteActuelle != null )
 			dessinerCarteRetournee( g2, xRetournee, y, this.carteActuelle );
@@ -130,12 +131,12 @@ public class PanelPioche extends JPanel
 			g2.draw( new RoundRectangle2D.Float(xRetournee, y, CARTE_W, CARTE_H, 12, 12) );
 		}
 
-		// ---- Titre panneau ----
+		// Titre panneau
 		g2.setColor( Color.WHITE );
 		g2.setFont( new Font("SansSerif", Font.BOLD, 14) );
 		g2.drawString( "PIOCHE", MARGE, 40 );
 
-		// ---- Nombre de cartes restantes ----
+		// Nb de cartes restantes 
 		int restantes = ctrl.getJeu().getNbCartesRestantes();
 		g2.setColor( Color.LIGHT_GRAY );
 		g2.setFont( new Font("SansSerif", Font.PLAIN, 12) );
@@ -229,5 +230,12 @@ public class PanelPioche extends JPanel
 			if ( LETTRES_SYMBOLES[k] == symbole )
 				return new ImageIcon( "conception/src/Image/" + IMAGES_SYMBOLES[k] ).getImage();
 		return null;
+	}
+
+	public void reset()
+	{
+		this.carteActuelle = null;  // On efface la carte du visuel
+		this.piocheVide    = false; // On remet le drapeau de la pioche à faux
+		this.repaint();             // On force Swing à redessiner le panel tout propre
 	}
 }

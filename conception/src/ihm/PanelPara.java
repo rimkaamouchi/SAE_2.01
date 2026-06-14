@@ -28,13 +28,13 @@ public class PanelPara extends JPanel implements ActionListener
 	public  int      indiceImageSelectionnee =  0;
 	public  boolean  modeEstCouleur          = false;
 
-	//accesseurs
+	//accesseurs (getters)
 	public int     getIndiceImageSelectionnee() { return this.indiceImageSelectionnee;        }
 	public boolean getModeEstCouleur()          { return this.modeEstCouleur;                 }
 	public int     getIndiceZoneSelectionnee()  { return this.indiceZoneSelectionnee;         }
 	public String  getNomPlateau()              { return this.panelDimension.getNomPlateau(); }
 
-	//modificateurs
+	//modificateurs (setters)
 	public void setPanelZone     ( PanelZone      panelZone      ) { this.panelZone      = panelZone;      }
 	public void setPanelSymbole  ( PanelSymbole   panelSymbole   ) { this.panelSymbole   = panelSymbole;   }
 	public void setPanelDimension( PanelDimension panelDimension ) { this.panelDimension = panelDimension; }

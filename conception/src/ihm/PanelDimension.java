@@ -34,8 +34,10 @@ public class PanelDimension extends JPanel implements ActionListener
 	private JButton    btnAnnuler;
 	private JButton    btnValider;
 
-	public void setPanelSymbole( PanelSymbole panelSymbole ) { this.panelSymbole = panelSymbole; }
+	//getter
 	public String getNomPlateau() { return this.txtNomPlateau.getText(); }
+	//setter
+	public void setPanelSymbole( PanelSymbole panelSymbole ) { this.panelSymbole = panelSymbole; }
 
 	public PanelDimension( ControleurConception ctrl, PanelPara panelPara, PanelPlateau panelPlateau )
 	{
@@ -113,10 +115,6 @@ public class PanelDimension extends JPanel implements ActionListener
 			{
 				JOptionPane.showMessageDialog( this, "Entrez des nombres valides !" );
 			}
-
-			//this.panelZone      .setVisible( true );
-			//this.panelSymbole   .setVisible( true );
-			//this.panelPara.panelBoutonScan.setVisible( true );
 		}
 	}
 }

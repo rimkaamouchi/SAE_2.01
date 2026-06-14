@@ -36,7 +36,103 @@ public class Plateau
 	
 	/** Liste de toutes les routes (liens) calculées entre les cellules du plateau. */
 	private ArrayList<Lien> routes;
+
+	/**
+	 * Cherche la première cellule voisine dans la direction donnée (e/d/s/q)
+	 * et retourne le lien correspondant avec les cases intermédiaires, ou null si aucune.
+	 */
+		/** Deltas (dx=ligne, dy=col) pour e, d, s, q */
+	private static final int[][] DELTAS = 	{
+												{0, 1},   // e → droite
+												{1, 1},   // d → diagonale bas-droite
+												{1, 0},   // s → bas
+												{1, -1}   // q → diagonale bas-gauche
+											};
+	/** Liste des caractères représentant les directions de recherche de liens. */
+	private static final char[] DIRECTIONS = {'e', 'd', 's', 'q'};
 	
+	//getter
+	/**
+     * Accesseur pour obtenir la matrice des zones du plateau.
+     * @return Un tableau bidimensionnel de chaînes représentant les zones.
+     */
+	public String[][]      getZonesPlateau() { return this.zonesPlateau;      }
+
+	/**
+     * Obtient le nombre total de lignes du plateau de cellules.
+     * @return La hauteur de la grille.
+     */
+	public int             getNbLigne()      { return this.plateau   .length; }
+
+	/**
+     * Obtient le nombre total de colonnes du plateau de cellules.
+     * @return La largeur de la grille.
+     */
+	public int             getNbColonne()    { return this.plateau[0].length; }
+
+	/**
+     * Accesseur pour obtenir la grille contenant l'ensemble des cellules du plateau.
+     * @return La matrice de {@link Cellule}.
+     */
+	public Cellule[][]     getPlateau()      { return this.plateau;           }
+
+	/**
+     * Récupère la liste de l'ensemble des routes calculées sur le plateau.
+     * @return Une {@link ArrayList} de {@link Lien}.
+     */
+	public ArrayList<Lien> getRoutes()       { return this.routes;            }
+	
+	/** 
+     * Récupère la liste de tous les liens (routes) connectés à une cellule spécifique.
+     * 
+     * @param cel La cellule cible.
+     * @return Une {@link ArrayList} contenant tous les liens connectés à cette cellule.
+	 * Retourne tous les liens connectés à une cellule donnée. */
+	public ArrayList<Lien> getLiens(Cellule cel) 
+	{
+		ArrayList<Lien> result = new ArrayList<>();
+		for ( Lien l : routes ) 
+		{
+			if ( l.getDepart() == cel || l.getArrivee() == cel ) result.add(l);
+		}
+		return result;
+	}
+
+	/**
+     * Récupère la cellule présente aux coordonnées demandées. Si aucune cellule 
+     * n'existe à cet endroit, elle est instanciée, stockée sur le plateau puis retournée.
+     * 
+     * @param x L'indice de la ligne (coordonnée X).
+     * @param y L'indice de la colonne (coordonnée Y).
+     * @return La {@link Cellule} existante ou celle fraîchement créée.
+	 * Retourne la cellule existante en (x, y) si elle existe,
+	 * sinon en crée une nouvelle et la stocke dans le plateau.
+	 */
+	public Cellule getOuCreerCellule( int x, int y )
+	{
+		if ( this.plateau[x][y] == null )
+			this.plateau[x][y] = new Cellule( x, y );
+		return this.plateau[x][y];
+	}
+
+	//setter
+	/**
+     * Associe un identifiant de zone à une coordonnée précise du plateau.
+     * Si une cellule est déjà présente à cet emplacement, sa zone est mise à jour.
+     * 
+     * @param lig  L'indice de la ligne.
+     * @param col  L'indice de la colonne.
+     * @param zone Le nom ou identifiant de la zone sous forme de chaîne.
+     */
+	public void setZone(int lig, int col, String zone) 
+	{
+		this.zonesPlateau[lig][col] = zone;
+		
+		// Mettre à jour la cellule si elle existe déjà
+		if (this.plateau[lig][col] != null && zone != null)
+			this.plateau[lig][col].setZone(zone.charAt(0));
+	}
+
 	/**
      * Constructeur par défaut.
      * Initialise un plateau standard de dimension 7x7 avec 4 symboles.
@@ -97,32 +193,12 @@ public class Plateau
 	}
 
 	/**
-     * Associe un identifiant de zone à une coordonnée précise du plateau.
-     * Si une cellule est déjà présente à cet emplacement, sa zone est mise à jour.
-     * 
-     * @param lig  L'indice de la ligne.
-     * @param col  L'indice de la colonne.
-     * @param zone Le nom ou identifiant de la zone sous forme de chaîne.
-     */
-	public void setZone(int lig, int col, String zone) 
-	{
-		this.zonesPlateau[lig][col] = zone;
-		
-		// Mettre à jour la cellule si elle existe déjà
-		if (this.plateau[lig][col] != null && zone != null)
-			this.plateau[lig][col].setZone(zone.charAt(0));
-	}
-
-	/**
      * Supprime la cellule située aux coordonnées spécifiées.
      * 
      * @param lig L'indice de la ligne.
      * @param col L'indice de la colonne.
      */
-	public void supprimerCellule(int lig, int col) 
-	{
-		this.plateau[lig][col] = null;
-	}
+	public void supprimerCellule(int lig, int col) { this.plateau[lig][col] = null; }
 
 	/**
      * Supprime la zone définie aux coordonnées spécifiées.
@@ -130,24 +206,7 @@ public class Plateau
      * @param lig L'indice de la ligne.
      * @param col L'indice de la colonne.
      */
-	public void supprimerZone(int lig, int col) 
-	{
-		this.zonesPlateau[lig][col] = null;
-	}
-
-	/**
-	 * Cherche la première cellule voisine dans la direction donnée (e/d/s/q)
-	 * et retourne le lien correspondant avec les cases intermédiaires, ou null si aucune.
-	 */
-		/** Deltas (dx=ligne, dy=col) pour e, d, s, q */
-	private static final int[][] DELTAS = 	{
-												{0, 1},   // e → droite
-												{1, 1},   // d → diagonale bas-droite
-												{1, 0},   // s → bas
-												{1, -1}   // q → diagonale bas-gauche
-											};
-	/** Liste des caractères représentant les directions de recherche de liens. */
-	private static final char[] DIRECTIONS = {'e', 'd', 's', 'q'};
+	public void supprimerZone(int lig, int col) { this.zonesPlateau[lig][col] = null; }
 
 	/**
      * Cherche en ligne droite ou diagonale la première cellule voisine existante 
@@ -243,22 +302,6 @@ public class Plateau
 			if ( l.getDepart() == cel || l.getArrivee() == cel ) return true;
 		}
 		return false;
-	}
-
-	/** 
-     * Récupère la liste de tous les liens (routes) connectés à une cellule spécifique.
-     * 
-     * @param cel La cellule cible.
-     * @return Une {@link ArrayList} contenant tous les liens connectés à cette cellule.
-	 * Retourne tous les liens connectés à une cellule donnée. */
-	public ArrayList<Lien> getLiens(Cellule cel) 
-	{
-		ArrayList<Lien> result = new ArrayList<>();
-		for ( Lien l : routes ) 
-		{
-			if ( l.getDepart() == cel || l.getArrivee() == cel ) result.add(l);
-		}
-		return result;
 	}
 
 	/**
@@ -436,54 +479,4 @@ public class Plateau
 					return false;
 		return true;
 	}
-
-	/**
-     * Récupère la cellule présente aux coordonnées demandées. Si aucune cellule 
-     * n'existe à cet endroit, elle est instanciée, stockée sur le plateau puis retournée.
-     * 
-     * @param x L'indice de la ligne (coordonnée X).
-     * @param y L'indice de la colonne (coordonnée Y).
-     * @return La {@link Cellule} existante ou celle fraîchement créée.
-	 * Retourne la cellule existante en (x, y) si elle existe,
-	 * sinon en crée une nouvelle et la stocke dans le plateau.
-	 */
-	public Cellule getOuCreerCellule( int x, int y )
-	{
-		if ( this.plateau[x][y] == null )
-			this.plateau[x][y] = new Cellule( x, y );
-		return this.plateau[x][y];
-	}
-
-
-	// Accesseurs
-
-	/**
-     * Accesseur pour obtenir la matrice des zones du plateau.
-     * @return Un tableau bidimensionnel de chaînes représentant les zones.
-     */
-	public String[][]      getZonesPlateau() { return this.zonesPlateau;      }
-
-	/**
-     * Obtient le nombre total de lignes du plateau de cellules.
-     * @return La hauteur de la grille.
-     */
-	public int             getNbLigne()      { return this.plateau   .length; }
-
-	/**
-     * Obtient le nombre total de colonnes du plateau de cellules.
-     * @return La largeur de la grille.
-     */
-	public int             getNbColonne()    { return this.plateau[0].length; }
-
-	/**
-     * Accesseur pour obtenir la grille contenant l'ensemble des cellules du plateau.
-     * @return La matrice de {@link Cellule}.
-     */
-	public Cellule[][]     getPlateau()      { return this.plateau;           }
-
-	/**
-     * Récupère la liste de l'ensemble des routes calculées sur le plateau.
-     * @return Une {@link ArrayList} de {@link Lien}.
-     */
-	public ArrayList<Lien> getRoutes()       { return this.routes;            }
 }
