@@ -1,28 +1,26 @@
 package jeu.src.metier;
 
 import java.util.ArrayList;
-//import java.util.Collections;
 import java.util.Random;
 
 public class Jeu
 {
 	public static Carte[] ToutesLesCartes = new Carte[]{
-														new Carte('N','V'),
-														new Carte('N','W'),
-														new Carte('N','X'),
-														new Carte('N','Y'),
-														new Carte('N','Z'),
-														new Carte('B','V'),
-														new Carte('B','W'),
-														new Carte('B','X'),
-														new Carte('B','Y'),
-														new Carte('B','Z'),
-														new Carte('N','*'),
-														new Carte('B','*')
-																			};
+	new Carte('N','R'),
+	new Carte('N','Q'),
+	new Carte('N','U'),
+	new Carte('N','S'),
+	new Carte('N','T'),
+	new Carte('B','R'),
+	new Carte('B','Q'),
+	new Carte('B','U'),
+	new Carte('B','S'),
+	new Carte('B','T'),
+	new Carte('N','*'),
+	new Carte('B','*')
+	};
 
-
-	
+	private int indexPioche = 0;
 	public static final char JOKER = '*';
 	public static final int  NB_CARTES_PAR_COULEUR = 5;
 
@@ -54,7 +52,119 @@ public class Jeu
 		this.initialiserChemins();
 		this.initialiserPioche();
 	}
+	
+	public boolean deplacerExtremite( Cellule extremite, Cellule cible, char symboleCarte )
+	{
+		char couleur = getCouleurActuelle();
+		Chemin chemin = getCheminPourCouleur( couleur );
+		if ( chemin == null ) return false;
 
+		ArrayList<Cellule> etapes = chemin.getEtapes();
+		Cellule debut = etapes.get( 0 );
+		Cellule fin   = chemin.getExtremite();
+		if ( extremite != debut && extremite != fin ) return false;
+
+		// Vérifier lien direct
+		if ( !this.plateau.lienExiste( extremite, cible ) ) return false;
+
+		// Vérifier symbole (joker ou symbole correspondant)
+		// Pour les sommets de couleur, on vérifie le symbole équivalent
+		char symboleReel = cible.getSymbole();
+		if ( estSommetCouleur( cible ) )
+			symboleReel = getSymbolePourCouleur( cible.getSymbole() );
+
+		if ( symboleCarte != JOKER && symboleReel != symboleCarte ) return false;
+
+		// Vérifier que le lien n'est pas déjà utilisé par n'importe quel chemin
+		if ( lienDejaUtilise( extremite, cible ) ) return false;
+
+		// Si on étend depuis le début, on insère en tête
+		if ( extremite == debut )
+			etapes.add( 0, cible );
+		else
+			chemin.ajouterEtape( cible );
+
+		return true;
+	}
+
+	private boolean estSommetCouleur( Cellule c )
+	{
+		for ( char couleur : COULEURS_VERS_SYMBOLES_CLE )
+			if ( c.getSymbole() == couleur ) return true;
+		return false;
+	}
+
+	private boolean lienDejaUtilise( Cellule a, Cellule b )
+	{
+		for ( Chemin chemin : this.chemins )
+		{
+			ArrayList<Cellule> etapes = chemin.getEtapes();
+			for ( int i = 0; i < etapes.size() - 1; i++ )
+			{
+				Cellule c1 = etapes.get(i);
+				Cellule c2 = etapes.get(i + 1);
+
+				// Lien identique ou inverse
+				if ( (c1 == a && c2 == b) || (c1 == b && c2 == a) )
+					return true;
+
+				// Croisement en diagonale
+				// Deux liens (a,b) et (c1,c2) se croisent si :
+				// a=(r1,col1) b=(r2,col2) et c1=(r1,col2) c2=(r2,col1)
+				// ou c1=(r2,col1) c2=(r1,col2)
+				if ( a.getX() == c1.getX() && b.getX() == c2.getX()
+				&& a.getY() == c2.getY() && b.getY() == c1.getY() )
+					return true;
+
+				if ( a.getX() == c2.getX() && b.getX() == c1.getX()
+				&& a.getY() == c1.getY() && b.getY() == c2.getY() )
+					return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean aJoue = false; // a-t-on joué ce tour de carte ?
+
+	public boolean peutJouer()
+	{
+		return !aJoue;
+	}
+
+	public void signalerJoue()
+	{
+		aJoue = true;
+	}
+
+	public void passerAuTourSuivant()
+	{
+		// Remettre la pioche à zéro
+		this.pioche      = Melanger( ToutesLesCartes );
+		this.indexPioche = 0;
+		this.aJoue       = false;
+		
+		// Passer à la couleur suivante
+		this.couleurActuelle++;
+		if ( this.couleurActuelle >= this.couleurs.length )
+			this.partieFinie = true;
+	}
+
+	public boolean isPiocheVide()
+	{
+		return this.indexPioche >= this.pioche.length;
+	}
+	public void reinitialiserJoue() { this.aJoue = false; }
+
+	private static final char[] COULEURS_VERS_SYMBOLES_CLE = {'V', 'W', 'X', 'Y', 'Z'};
+	private static final char[] COULEURS_VERS_SYMBOLES_VAL = {'Q', 'R', 'S', 'T', 'U'};
+
+	public char getSymbolePourCouleur( char couleur )
+	{
+		for ( int i = 0; i < COULEURS_VERS_SYMBOLES_CLE.length; i++ )
+			if ( COULEURS_VERS_SYMBOLES_CLE[i] == couleur )
+				return COULEURS_VERS_SYMBOLES_VAL[i];
+		return ' ';
+	}
 
 	/** Crée un chemin vide pour chaque couleur, démarrant au sommet correspondant */
 	private void initialiserChemins()
@@ -90,10 +200,28 @@ public class Jeu
 	}
 
 	/** Tire la prochaine carte de la pioche */
-	public char tirerCarte()
+	public Carte tirerCarte()
 	{
-		//voir avec la classe pioche
-		return ' ';
+		if ( this.indexPioche >= this.pioche.length ) return null;
+		Carte c = this.pioche[this.indexPioche];
+		this.indexPioche++;
+		return c;
+	}
+
+	public Carte getCarteActuelle()
+	{
+		if ( this.indexPioche == 0 ) return null;
+		return this.pioche[this.indexPioche - 1];
+	}
+
+	public boolean piocheVide()
+	{
+		return this.indexPioche >= this.pioche.length;
+	}
+
+	public int getNbCartesRestantes()
+	{
+		return Math.max( 0, this.pioche.length - this.indexPioche );
 	}
 
 	/**

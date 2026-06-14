@@ -67,4 +67,3 @@ public class ScanJeu
 
 // l7 + nbLigneZone + 1 : x y départ, x y arrivée, direction lien,
 // 						  symbole départ, symbole d'arrivée
-// autant de lignes que de liens puteeeeee pro max c roxane

@@ -6,7 +6,13 @@ public class Lien
 {
 	private Cellule depart;
 	private Cellule arrivee;
-	private char direction;
+	private char    direction;
+
+	/*---- getters ----*/
+	public Cellule          getDepart()   { return depart;    }
+	public Cellule          getArrivee()  { return arrivee;   }
+	public char             getDirection(){ return direction; }
+	public ArrayList<int[]> getChemin()   { return chemin;    }
 
 	public Lien( Cellule depart, Cellule arrivee, char direction ) 
 	{
@@ -20,20 +26,5 @@ public class Lien
 	public void ajouterCase( int x, int y ) 
 	{
 		chemin.add( new int[] { x, y } );
-	}
-
-	public ArrayList<int[]> getChemin() { return chemin; }
-
-	public Cellule getDepart()
-	{ 
-		return depart; 
-	}
-	public Cellule getArrivee()
-	{ 
-		return arrivee; 
-	}
-	public char    getDirection()
-	{ 
-		return direction;
 	}
 }

@@ -8,6 +8,12 @@ public class Chemin
 	private ArrayList<Cellule> etapes;   // liste des sommets traversés dans l'ordre
 	private boolean           termine;
 
+	/*---- getters ----*/
+	public int     getNbEtapes()          { return this.etapes.size(); }
+	public char    getCouleur()           { return this.couleur;       }
+	public boolean estTermine()           { return this.termine;       }
+	public ArrayList<Cellule> getEtapes() { return this.etapes;        }
+
 	public Chemin( char couleur, Cellule depart )
 	{
 		this.couleur  = couleur;
@@ -17,26 +23,13 @@ public class Chemin
 		this.etapes.add( depart );
 	}
 
-	public void ajouterEtape( Cellule c )
-	{
-		this.etapes.add( c );
-	}
-
-	public boolean contient( Cellule c )
-	{
-		return this.etapes.contains( c );
-	}
+	public void ajouterEtape( Cellule c ){ this.etapes.add( c );            }
+	public boolean contient ( Cellule c ){ return this.etapes.contains( c );}
 
 	/** L'extrémité est toujours le dernier élément ajouté */
 	public Cellule getExtremite()
 	{
 		return this.etapes.get( this.etapes.size() - 1 );
 	}
-
-	public int     getNbEtapes() { return this.etapes.size();  }
-	public char    getCouleur()  { return this.couleur;        }
-	public boolean estTermine()  { return this.termine;        }
-	public ArrayList<Cellule> getEtapes() { return this.etapes; }
-
-	public void terminer()       { this.termine = true;        }
+	public void terminer(){ this.termine = true;       }
 }

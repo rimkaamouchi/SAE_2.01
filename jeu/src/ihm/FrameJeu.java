@@ -10,8 +10,10 @@ public class FrameJeu extends JFrame
 {
 	private ControleurJeu ctrl;
 	private PanelJeu      panelJeu;
-	//private PanelPioche   panelPioche;
+	private PanelPioche   panelPioche;
 	//private PanelDefausse panelDefausse;
+
+	public PanelJeu getPanelJeu() { return this.panelJeu; }
 
 	public FrameJeu( ControleurJeu ctrl )
 	{
@@ -21,12 +23,13 @@ public class FrameJeu extends JFrame
 		this.setExtendedState( JFrame.MAXIMIZED_BOTH   );
 		this.setLayout       ( new BorderLayout()      );
 
-		this.panelJeu = new PanelJeu( ctrl );
+		this.panelJeu    = new PanelJeu   ( ctrl );
+		this.panelPioche = new PanelPioche( ctrl );
+		
 		this.panelJeu.setPlateau( ctrl.getTaillePlateauX(), ctrl.getTaillePlateauY() );
 
-		this.add( this.panelJeu      );
-		//this.add( this.panelPioche   );
-		//this.add( this.panelDefausse );
+		this.add( this.panelPioche, BorderLayout.WEST   );
+		this.add( this.panelJeu,    BorderLayout.CENTER );
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );

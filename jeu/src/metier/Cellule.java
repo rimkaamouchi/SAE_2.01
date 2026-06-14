@@ -14,7 +14,7 @@ public class Cellule
 	public char getZone()          { return this.zone;    }
 
 	//modificateurs
-	public void setZone(char zone) { this.zone = zone;    }
+	public void setZone(char zone)       { this.zone = zone;       }
 	public void setSymbole(char symbole) { this.symbole = symbole; }
 
 	public Cellule( int x,int y )

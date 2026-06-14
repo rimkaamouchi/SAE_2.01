@@ -16,6 +16,18 @@ public class Plateau
 	private String[][]  zonesPlateau;
 	private ArrayList<Lien> routes;
 
+	/*---- getters ----*/
+	public String          getNom()                   { return this.nom;               }
+	public int             getHauteur()               { return this.hauteur;           }
+	public int             getLargeur()               { return this.largeur;           }
+	public int             getNbSymboles()            { return this.nbSymboles;        }
+	public Cellule[][]     getPlateau()               { return this.plateau;           }
+	public String[][]      getZonesPlateau()          { return this.zonesPlateau;      }
+	public ArrayList<Lien> getRoutes()                { return this.routes;            }
+	public int             getNbLigne()               { return this.plateau   .length; }
+	public int             getNbColonne()             { return this.plateau[0].length; }
+	public Cellule         getCellule( int x, int y ) { return this.plateau[x][y];     }
+
 	/*---------------------------------------*/
 	/*            Constructeur               */
 	/*---------------------------------------*/
@@ -29,28 +41,6 @@ public class Plateau
 		this.plateau      = new Cellule[hauteur][largeur];
 		this.zonesPlateau = new String [hauteur][largeur];
 		this.routes       = new ArrayList<>();
-	}
-
-
-	public void setZone( int lig, int col, String zone )
-	{
-		this.zonesPlateau[lig][col] = zone;
-	}
-
-	public void ajouterLien( Lien lien )
-	{
-		this.routes.add( lien );
-	}
-
-	/** Retourne true si un lien direct existe entre les deux cellules */
-	public boolean lienExiste( Cellule depart, Cellule arrivee )
-	{
-		for ( Lien l : this.routes )
-		{
-			if ( l.getDepart()  == depart  && l.getArrivee() == arrivee ) return true;
-			if ( l.getDepart()  == arrivee && l.getArrivee() == depart  ) return true;
-		}
-		return false;
 	}
 
 	/** Retourne tous les voisins directs d'une cellule (cellules reliées par un lien) */
@@ -76,13 +66,20 @@ public class Plateau
 	}
 
 	/** Retourne tous les symboles couleur présents sur le plateau */
+	private static final char[] SYMBOLES_COULEURS = {'V','W','X','Y','Z'};
+
 	public char[] getCouleurs()
 	{
 		ArrayList<Character> couleurs = new ArrayList<>();
 		for ( int l = 0; l < hauteur; l++ )
 			for ( int c = 0; c < largeur; c++ )
 				if ( plateau[l][c] != null )
-					couleurs.add( plateau[l][c].getSymbole() );
+				{
+					char sym = plateau[l][c].getSymbole();
+					for ( char col : SYMBOLES_COULEURS )
+						if ( sym == col && !couleurs.contains(col) )
+							couleurs.add( sym );
+				}
 
 		char[] result = new char[couleurs.size()];
 		for ( int i = 0; i < couleurs.size(); i++ )
@@ -100,14 +97,24 @@ public class Plateau
 		return this.plateau[x][y];
 	}
 
-	public String          getNom()          { return this.nom;          }
-	public int             getHauteur()      { return this.hauteur;      }
-	public int             getLargeur()      { return this.largeur;      }
-	public int             getNbSymboles()   { return this.nbSymboles;   }
-	public Cellule[][]     getPlateau()      { return this.plateau;      }
-	public String[][]      getZonesPlateau() { return this.zonesPlateau; }
-	public ArrayList<Lien> getRoutes()       { return this.routes;       }
-	public int             getNbLigne()      { return this.plateau   .length; }
-	public int             getNbColonne()    { return this.plateau[0].length; }
-	public Cellule         getCellule( int x, int y ) { return this.plateau[x][y]; }
+	/*---- setter ----*/
+	public void setZone( int lig, int col, String zone ){ this.zonesPlateau[lig][col] = zone; }
+
+	/*---- méthodes ----*/
+	public void ajouterLien( Lien lien )
+	{
+		this.routes.add( lien );
+	}
+
+	/** Retourne true si un lien direct existe entre les deux cellules */
+	public boolean lienExiste( Cellule depart, Cellule arrivee )
+	{
+		for ( Lien l : this.routes )
+		{
+			if ( l.getDepart()  == depart  && l.getArrivee() == arrivee ) return true;
+			if ( l.getDepart()  == arrivee && l.getArrivee() == depart  ) return true;
+		}
+		return false;
+	}
+
 }
