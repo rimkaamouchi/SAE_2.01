@@ -1,23 +1,46 @@
 package conception.src.metier;
 
 import java.util.ArrayList;
-
+/**
+ * Représente le plateau de jeu composé de cellules, de zones géographiques
+ * et de routes reliant ces cellules.
+ * <p>
+ * Le plateau gère la logique de positionnement des cellules, la validation 
+ * de la connectivité au sein des zones ainsi que le calcul des chemins (routes).
+ * </p>
+ * 
+ * @author Groupe 11: Quentin Deshayes, Roxane Sidolle, Manon Rigoult, Rim Kaamouchi et Mykhailo Liapin
+ * @version 1.0
+ */
 public class Plateau
 {
+	/** Hauteur (nombre de lignes) du plateau. */
 	private int         hauteur;
+	/** Largeur (nombre de colonnes) du plateau. */
 	private int         largeur;
+	/** Nombre de couleurs utilisées dans le jeu. */
 	private int         nbCoul;
+	/** Nombre de symboles distincts sur le plateau. */
 	private int         nbSymboles;
+	/** Taille graphique en pixels d'une case. */
 	private int         tailleCase;
 
+	/** Valeur de caractère temporaire ou utilitaire. */
 	private char        val;
+	/** Tableau répertoriant les symboles disponibles. */
 	private char[]      symboles;
+	/** Matrice stockant l'identifiant de la zone (ex: "A", "B") pour chaque coordonnée. */
 	private String[][]  zonesPlateau;
+	/** Matrice représentant la grille des cellules réelles posées sur le plateau. */
 	private Cellule[][] plateau;
 	
-	
+	/** Liste de toutes les routes (liens) calculées entre les cellules du plateau. */
 	private ArrayList<Lien> routes;
 	
+	/**
+     * Constructeur par défaut.
+     * Initialise un plateau standard de dimension 7x7 avec 4 symboles.
+     */
 	public Plateau()
 	{
 		this.hauteur      = 7;
@@ -32,6 +55,14 @@ public class Plateau
 		this.zonesPlateau = new String[this.hauteur][this.largeur];
 	}
 
+	/**
+     * Constructeur personnalisé.
+     * Permet de spécifier les dimensions du plateau et le nombre de symboles.
+     * 
+     * @param hauteur    Le nombre de lignes du plateau.
+     * @param largeur    Le nombre de colonnes du plateau.
+     * @param nbSymboles Le nombre de symboles différents à utiliser.
+     */
 	public Plateau(int hauteur,int largeur,int nbSymboles)
 	{
 		this.hauteur      = hauteur;
@@ -46,6 +77,14 @@ public class Plateau
 		this.zonesPlateau = new String [this.hauteur][this.largeur];
 	}
 
+	/**
+     * Place une nouvelle cellule sur le plateau à des coordonnées spécifiques.
+     * Si une zone est déjà définie à cet emplacement, elle est automatiquement associée à la cellule.
+     * 
+     * @param lig     L'indice de la ligne.
+     * @param col     L'indice de la colonne.
+     * @param symbole Le symbole de la cellule à créer.
+     */
 	public void placerCellule(int lig, int col, char symbole) 
 	{
 		Cellule c = new Cellule(lig, col, symbole);
@@ -57,6 +96,14 @@ public class Plateau
 		this.plateau[lig][col] = c;
 	}
 
+	/**
+     * Associe un identifiant de zone à une coordonnée précise du plateau.
+     * Si une cellule est déjà présente à cet emplacement, sa zone est mise à jour.
+     * 
+     * @param lig  L'indice de la ligne.
+     * @param col  L'indice de la colonne.
+     * @param zone Le nom ou identifiant de la zone sous forme de chaîne.
+     */
 	public void setZone(int lig, int col, String zone) 
 	{
 		this.zonesPlateau[lig][col] = zone;
@@ -66,11 +113,23 @@ public class Plateau
 			this.plateau[lig][col].setZone(zone.charAt(0));
 	}
 
+	/**
+     * Supprime la cellule située aux coordonnées spécifiées.
+     * 
+     * @param lig L'indice de la ligne.
+     * @param col L'indice de la colonne.
+     */
 	public void supprimerCellule(int lig, int col) 
 	{
 		this.plateau[lig][col] = null;
 	}
 
+	/**
+     * Supprime la zone définie aux coordonnées spécifiées.
+     * 
+     * @param lig L'indice de la ligne.
+     * @param col L'indice de la colonne.
+     */
 	public void supprimerZone(int lig, int col) 
 	{
 		this.zonesPlateau[lig][col] = null;
@@ -87,8 +146,18 @@ public class Plateau
 												{1, 0},   // s → bas
 												{1, -1}   // q → diagonale bas-gauche
 											};
+	/** Liste des caractères représentant les directions de recherche de liens. */
 	private static final char[] DIRECTIONS = {'e', 'd', 's', 'q'};
 
+	/**
+     * Cherche en ligne droite ou diagonale la première cellule voisine existante 
+     * dans la direction spécifiée, en enregistrant les cases vides intermédiaires.
+     * 
+     * @param dirIndex L'indice de la direction dans les tableaux {@link #DELTAS} et {@link #DIRECTIONS}.
+     * @param depart   La cellule de départ de la recherche.
+     * @return Un objet {@link Lien} contenant le chemin tracé si une cellule voisine est trouvée, 
+     *         ou {@code null} si le bord du plateau est atteint sans rencontre.
+     */
 	private Lien verifLien(int dirIndex, Cellule depart) 
 	{
 		int dx = DELTAS[dirIndex][0];
@@ -114,6 +183,10 @@ public class Plateau
 		return null;
 	}
 
+	/**
+     * Parcourt l'ensemble du plateau pour recalculer et lister toutes les routes 
+     * valides reliant les cellules entre elles. Les anciennes routes sont effacées.
+     */
 	public void calculerRoutes() {
 		routes.clear();
 		for (int lig = 0; lig < this.hauteur; lig++) 
@@ -132,8 +205,12 @@ public class Plateau
 	}
 
 	
-
-	/** Affiche le plateau en console avec le symbole de chaque cellule. */
+	/** 
+     * Affiche une représentation textuelle du plateau dans la console.
+     * Les cases contenant une cellule affichent leur symbole, les cases vides affichent "[ ]".
+     * 
+     * @param plateau La matrice de cellules à afficher.
+     * Affiche le plateau en console avec le symbole de chaque cellule. */
 	public static void afficher( Cellule[][] plateau ) 
 	{
 		for ( int lig = 0; lig < plateau.length; lig++ ) 
@@ -153,7 +230,12 @@ public class Plateau
 		}
 	}
 
-	/** Vérifie si une cellule est reliée à au moins un lien (départ ou arrivée). */
+	/** 
+     * Vérifie si une cellule donnée est impliquée dans au moins une route du plateau.
+     * 
+     * @param cel La cellule à tester.
+     * @return {@code true} si la cellule est un point de départ ou d'arrivée d'un lien, {@code false} sinon.
+	 * Vérifie si une cellule est reliée à au moins un lien (départ ou arrivée). */
 	public boolean existeLien(Cellule cel) 
 	{
 		for ( Lien l : routes ) 
@@ -163,7 +245,12 @@ public class Plateau
 		return false;
 	}
 
-	/** Retourne tous les liens connectés à une cellule donnée. */
+	/** 
+     * Récupère la liste de tous les liens (routes) connectés à une cellule spécifique.
+     * 
+     * @param cel La cellule cible.
+     * @return Une {@link ArrayList} contenant tous les liens connectés à cette cellule.
+	 * Retourne tous les liens connectés à une cellule donnée. */
 	public ArrayList<Lien> getLiens(Cellule cel) 
 	{
 		ArrayList<Lien> result = new ArrayList<>();
@@ -175,6 +262,16 @@ public class Plateau
 	}
 
 	/**
+     * Vérifie la validité d'une zone en s'assurant que toutes ses cellules sont interconnectées.
+     * Règles de validation :
+     * <ul>
+     *   <li>Une zone vide est invalide (retourne false).</li>
+     *   <li>Une zone contenant une seule cellule est toujours valide (retourne true).</li>
+     *   <li>Pour plus d'une cellule, chaque cellule de la zone doit être liée à une autre cellule de la même zone.</li>
+     * </ul>
+     * 
+     * @param zone Le caractère identifiant la zone à vérifier.
+     * @return {@code true} si la zone respecte les règles d'interconnexion, {@code false} sinon.
 	 * Vérifie que toutes les cellules d'une zone sont bien connectées entre elles.
 	 * Une zone isolée à une seule cellule est toujours valide.
 	 */
@@ -221,7 +318,11 @@ public class Plateau
 		return true;
 	}
 
-	/** Retourne vrai si toutes les cellules du plateau ont une zone attribuée. */
+	/** 
+     * Vérifie si toutes les cellules posées sur le plateau possèdent une zone attribuée.
+     * 
+     * @return {@code true} si aucune cellule n'a de zone par défaut ('\u0000'), {@code false} sinon.
+	 * Retourne vrai si toutes les cellules du plateau ont une zone attribuée. */
 	public boolean plateauEstComplet()
 	{
 		for ( int lig = 0; lig < this.hauteur; lig++ )
@@ -241,8 +342,12 @@ public class Plateau
 	}
 
 	
-
 	/**
+     * Valide la cohérence morphologique des zones du plateau.
+     * Vérifie que chaque zone ("A", "B", "C", "D") forme un bloc d'un seul tenant (continu).
+     * Si une zone est scindée en morceaux distants, la validation échoue.
+     * 
+     * @return {@code true} si toutes les zones sont d'un seul bloc, {@code false} si une zone est fragmentée.
 	 * Vérifie que chaque zone utilisée dans zonesPlateau forme un bloc continu
 	 * (pas de morceaux séparés). Utilise un parcours récursif.
 	 */
@@ -288,6 +393,16 @@ public class Plateau
 	}
 
 	/**
+     * Méthode utilitaire récursive effectuant un parcours en profondeur (Flood Fill) 
+     * pour compter les cases contiguës appartenant à une même zone.
+     * 
+     * @param l      Ligne actuelle de l'exploration.
+     * @param c      Colonne actuelle de l'exploration.
+     * @param z      Identifiant de la zone ciblée.
+     * @param visite Matrice de suivi des cases déjà comptabilisées.
+     * @return Le nombre de cases connectées trouvées depuis le point de départ.
+     */
+	/**
 	 * Parcours récursif en 4 pour compter les cases d'une zone atteignables
 	 * depuis (l, c). Retourne le nombre de cases visitées.
 	 */
@@ -306,6 +421,13 @@ public class Plateau
 
 		return somme;
 	}
+
+	/**
+     * Vérifie si l'intégralité de la grille du plateau possède une zone définie 
+     * (aucune case à null dans la matrice des zones).
+     * 
+     * @return {@code true} si toutes les cases possèdent une zone, {@code false} sinon.
+     */
 	public boolean toutesLesCasesOntUneZone()
 	{
 		for ( int lig = 0; lig < this.hauteur; lig++ )
@@ -314,7 +436,14 @@ public class Plateau
 					return false;
 		return true;
 	}
+
 	/**
+     * Récupère la cellule présente aux coordonnées demandées. Si aucune cellule 
+     * n'existe à cet endroit, elle est instanciée, stockée sur le plateau puis retournée.
+     * 
+     * @param x L'indice de la ligne (coordonnée X).
+     * @param y L'indice de la colonne (coordonnée Y).
+     * @return La {@link Cellule} existante ou celle fraîchement créée.
 	 * Retourne la cellule existante en (x, y) si elle existe,
 	 * sinon en crée une nouvelle et la stocke dans le plateau.
 	 */
@@ -327,9 +456,34 @@ public class Plateau
 
 
 	// Accesseurs
+
+	/**
+     * Accesseur pour obtenir la matrice des zones du plateau.
+     * @return Un tableau bidimensionnel de chaînes représentant les zones.
+     */
 	public String[][]      getZonesPlateau() { return this.zonesPlateau;      }
+
+	/**
+     * Obtient le nombre total de lignes du plateau de cellules.
+     * @return La hauteur de la grille.
+     */
 	public int             getNbLigne()      { return this.plateau   .length; }
+
+	/**
+     * Obtient le nombre total de colonnes du plateau de cellules.
+     * @return La largeur de la grille.
+     */
 	public int             getNbColonne()    { return this.plateau[0].length; }
+
+	/**
+     * Accesseur pour obtenir la grille contenant l'ensemble des cellules du plateau.
+     * @return La matrice de {@link Cellule}.
+     */
 	public Cellule[][]     getPlateau()      { return this.plateau;           }
+
+	/**
+     * Récupère la liste de l'ensemble des routes calculées sur le plateau.
+     * @return Une {@link ArrayList} de {@link Lien}.
+     */
 	public ArrayList<Lien> getRoutes()       { return this.routes;            }
 }

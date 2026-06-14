@@ -63,11 +63,11 @@ public class PanelJeu extends JPanel
 						matriceSymboles[i][j] = icon.getImage(); // charger l'image IMAGES_ZONES[k] dans matriceZones[i][j]
 					}
 				}
-				for( int k = 0; k < LETTRES_COULEURS.length; k++ )
+				for( int h = 0; h < LETTRES_COULEURS.length; h++ )
 				{
-					if( LETTRES_COULEURS[k] == c.getSymbole() )
+					if( LETTRES_COULEURS[h] == c.getSymbole() )
 					{
-						ImageIcon icon = new ImageIcon( "conception/src/Image/" + IMAGES_COULEURS[k] );
+						ImageIcon icon = new ImageIcon( "conception/src/Image/" + IMAGES_COULEURS[h] );
 						matriceSymboles[i][j] = icon.getImage();
 					}
 				}
