@@ -44,9 +44,14 @@ public class ScanPlateau
 
 			for (int l = 0; l < nbLig; l++) 
 			{
-				for (int c = 0; c < nbCol; c++) {
-					String zone = (zones[l][c] != null) ? zones[l][c] : "."; // opération ternaire: si case = null alors on met un point
-					pw.print(zone + " ");
+				for ( int c = 0; c < nbCol; c++ )
+				{
+					String zone;
+					if ( zones[l][c] != null )
+						zone = zones[l][c];
+					else
+						zone = ".";
+					pw.print( zone + " " );
 				}
 				pw.println();
 			}

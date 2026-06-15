@@ -35,7 +35,8 @@ public class PanelZone extends JPanel implements ActionListener
 		"conception/src/Image/Zones/lila.png"        ,
 		"conception/src/Image/Zones/orange_clair.png",
 		"conception/src/Image/Zones/rose_clair.png"  ,
-		"conception/src/Image/Zones/vert_clair.png"
+		"conception/src/Image/Zones/vert_clair.png"  ,
+		"conception/src/Image/Zones/jaune_clair.png"
 	};
 
 	private static final Color[] COULEURS_ZONES =
@@ -46,8 +47,8 @@ public class PanelZone extends JPanel implements ActionListener
 		new Color( 204, 153, 255 ),
 		new Color( 255, 204, 153 ),
 		new Color( 255, 204, 204 ),
-		//new Color( 255, 153, 204 ),
-		new Color( 153, 255, 204 )
+		new Color( 153, 255, 204 ),
+		new Color( 255, 255, 204)
 	};
 
     public PanelZone( ControleurConception ctrl, PanelPara panelPara )

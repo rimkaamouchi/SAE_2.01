@@ -5,21 +5,7 @@ import java.util.Random;
 
 public class Jeu
 {
-	public static Carte[] ToutesLesCartes = new Carte[]
-	{
-		new Carte('N','R'),
-		new Carte('N','Q'),
-		new Carte('N','U'),
-		new Carte('N','S'),
-		new Carte('N','T'),
-		new Carte('B','R'),
-		new Carte('B','Q'),
-		new Carte('B','U'),
-		new Carte('B','S'),
-		new Carte('B','T'),
-		new Carte('N','*'),
-		new Carte('B','*')
-	};
+	public static Carte[] ToutesLesCartes;
 
 	private static final char[] COULEURS_VERS_SYMBOLES_CLE = {'V', 'W', 'X', 'Y', 'Z'};
 	private static final char[] COULEURS_VERS_SYMBOLES_VAL = {'Q', 'R', 'S', 'T', 'U'};
@@ -220,6 +206,37 @@ public class Jeu
 				this.chemins.add( new Chemin( coul, sommet ) );
 		}
 	}
+	
+	private void initialiserPioche()
+	{
+		ArrayList<Carte> cartes    = new ArrayList<>();
+		ArrayList<Character> dejavu = new ArrayList<>();
+		
+		for ( char sym : this.plateau.getSymbolesPresents() )
+		{
+			// Convertir le symbole couleur en symbole carte si nécessaire
+			char symCarte = sym;
+			for ( int i = 0; i < COULEURS_VERS_SYMBOLES_CLE.length; i++ )
+				if ( COULEURS_VERS_SYMBOLES_CLE[i] == sym )
+					symCarte = COULEURS_VERS_SYMBOLES_VAL[i];
+			
+			// N'ajouter que si pas déjà vu après conversion
+			if ( !dejavu.contains( symCarte ) )
+			{
+				dejavu.add( symCarte );
+				cartes.add( new Carte( 'N', symCarte ) );
+				cartes.add( new Carte( 'B', symCarte ) );
+			}
+		}
+		
+		// Jokers fixes
+		cartes.add( new Carte( 'N', '*' ) );
+		cartes.add( new Carte( 'B', '*' ) );
+		
+		Carte[] tableau = cartes.toArray( new Carte[0] );
+		ToutesLesCartes = tableau;
+		this.pioche     = Melanger( tableau );
+	}
 
 	public static Carte[] Melanger(Carte[] cartes) 
 	{
@@ -380,7 +397,6 @@ public class Jeu
 	public boolean piocheVide()        { return this.indexPioche >= this.pioche.length; }
 	/* Le joueur passe son tour pour la couleur actuelle */
 	public void    passerTour()        { verifierFinTour(); /*On avance simplement sans déplacer*/}
-	private void   initialiserPioche() { this.pioche = Melanger(ToutesLesCartes);       }
 	public boolean peutJouer()         { return !aJoue;                                 }
 	public void    signalerJoue()      { aJoue = true;                                  }
 	public boolean isModeTriche()      { return this.modeTriche;                        }

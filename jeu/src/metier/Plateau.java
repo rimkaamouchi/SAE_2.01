@@ -114,6 +114,26 @@ public class Plateau
 		return result;
 	}
 
+	public char[] getSymbolesPresents()
+	{
+		ArrayList<Character> symboles = new ArrayList<>();
+		
+		for ( int l = 0; l < hauteur; l++ )
+			for ( int c = 0; c < largeur; c++ )
+				if ( plateau[l][c] != null )
+				{
+					char sym = plateau[l][c].getSymbole();
+					if ( sym != 0 && !symboles.contains( sym ) )
+						symboles.add( sym );
+				}
+		
+		// Convertir les couleurs en leurs symboles équivalents
+		char[] result = new char[symboles.size()];
+		for ( int i = 0; i < symboles.size(); i++ )
+			result[i] = symboles.get(i);
+		return result;
+	}
+
 	/**
 	 * Retourne la cellule existante en (x, y) si elle existe,
 	 * sinon en crée une nouvelle et la stocke dans le plateau.

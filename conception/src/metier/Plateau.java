@@ -396,7 +396,7 @@ public class Plateau
 	 */
 	public boolean validerToutesLesZones()
 	{
-		String[] toutesZones = { "A", "B", "C", "D" };
+		String[] toutesZones = { "A", "B", "C", "D", "E", "F", "G", "H" };
 
 		for ( String z : toutesZones )
 		{

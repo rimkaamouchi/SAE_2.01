@@ -31,17 +31,17 @@ public class PanelJeu extends JPanel
 	private String    messageErreur;         // message affiché
 
 	//images & lettres correspondants aux zones
-	private static final char  [] LETTRES_ZONES    = {'A'                    ,'B'                 ,'C'                      ,'D'                     ,'E'              ,'F'                   ,'G'                   };
-	private static final String[] IMAGES_ZONES     = {"Zones/bleu_azur.png"  ,"Zones/bleuVert.png","Zones/lila.png"         ,"Zones/orange_clair.png","Zones/candy.png","Zones/rose_clair.png","Zones/vert_clair.png"};
+	private static final char  [] LETTRES_ZONES    = {'A'                    ,'B'                 ,'C'                      ,'D'                     ,'E'              ,'F'                   ,'G'                   ,'H'};
+	private static final String[] IMAGES_ZONES     = {"Zones/bleu_azur.png"  ,"Zones/bleuVert.png","Zones/lila.png"         ,"Zones/orange_clair.png","Zones/candy.png","Zones/rose_clair.png","Zones/vert_clair.png","Zones/jaune_clair.png"};
 	//images & lettres correspondants aux symboles non-colorés
-	private static final char  [] LETTRES_SYMBOLES = {'R'                    ,'Q'                 ,'U'                      ,'S'                     ,'T'                                                            };
-	private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png"  ,"Symboles/apple.png","Symboles/cafe.png"      ,"Symboles/moto.png"     ,"Symboles/pain.png"                                            };
+	private static final char  [] LETTRES_SYMBOLES = {'R'                    ,'Q'                 ,'S'                      /* ,'U'                     ,'T'               */                                             };
+	private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png"  ,"Symboles/apple.png","Symboles/moto.png"      /* ,"Symboles/cafe.png"     ,"Symboles/pain.png"*/                                           };
 //images & lettres correspondants aux symboles colorés
-	private static final char  [] LETTRES_COULEURS = {'V'                    ,'W'                 ,'X'                      ,'Y'                     ,'Z'                                                            };
-	private static final String[] IMAGES_COULEURS  = {"Symboles/bordeaux.png","Symboles/rose.png" ,"Symboles/bleu_fonce.png","Symboles/marron.png"   ,"Symboles/bleu.png"                                            };
+	private static final char  [] LETTRES_COULEURS = {'V'                    ,'W'                 ,'X'                      /* ,'Y'                     ,'Z'              */                                              };
+private static final String[] IMAGES_COULEURS  = {"Symboles/bordeaux.png","Symboles/rose.png" ,"Symboles/bleu_fonce.png"/* ,"Symboles/marron.png"   ,"Symboles/bleu.png" */                                           };
 	// Couleurs des traits par couleur de chemin
 	private static final char [] CODES_COULEURS    = {'V',               'W',                    'X',              'Y',                  'Z'                                                                         };
-	private static final Color[] COULEURS_TRAITS   = {new Color(139,0,0), new Color(255,105,180), new Color(0,0,139), new Color(139,69,19), new Color(70,130,180)              };
+	private static final Color[] COULEURS_TRAITS   = {new Color(139,0,0), new Color(255,105,180), new Color(0,0,139)/* , new Color(139,69,19), new Color(70,130,180)*/              };
 	
 	//getter
 	private Color getCouleurTrait( char couleur )
