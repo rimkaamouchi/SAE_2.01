@@ -2,6 +2,14 @@ package jeu.src.metier;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Représente les cartes du jeu utilisé lors de la partie. Les cartes sont des ressources liées à chaque continent. 
+ * <p>
+ * Cette classe gère l'apparence des cartes: teinte et symbole de la carte.
+ * </p>
+ * * @author Groupe 11: Quentin Deshayes, Roxane Sidolle, Manon Rigoult, Rim Kaamouchi et Mykhailo Liapin
+ * @version 1.0
+ */
 public class Carte
 {
 	private char      teinte;

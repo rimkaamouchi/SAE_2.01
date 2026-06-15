@@ -8,22 +8,27 @@ import java.awt.FontMetrics; //mesure aux pixels prés
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D; // coin rectangle arrondi
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import jeu.src.ControleurJeu;
 import jeu.src.metier.Carte;
 
-public class PanelPioche extends JPanel
+public class PanelPioche extends JPanel implements ActionListener
 {
 	private ControleurJeu ctrl;
 	private Carte         carteActuelle;   // dernière carte tirée (null au départ)
 	private boolean       piocheVide;
+
+	private JButton btnPasse;
 
 	// Dimensions des cartes
 	private static final int CARTE_W = 80;
@@ -32,13 +37,30 @@ public class PanelPioche extends JPanel
 
 	public PanelPioche( ControleurJeu ctrl )
 	{
-		System.out.println("PanelPioche créé");
 		this.ctrl          = ctrl;
 		this.carteActuelle = null;
 		this.piocheVide    = false;
 
 		this.setPreferredSize( new Dimension( 220, 400 ) );
 		this.setBackground( new Color(40, 40, 50) );
+
+		/*-------------------------------*/
+		/*    Création des composants    */
+		/*-------------------------------*/
+
+		this.btnPasse = new JButton( "Passez mon tour" );
+
+        /*-------------------------------*/
+		/* Positionnement des composants */
+		/*-------------------------------*/
+
+		this.add( this.btnPasse   );
+
+        /*-------------------------------*/
+		/*   Activation des composants   */
+		/*-------------------------------*/ 
+
+		this.btnPasse.addActionListener( this );
 
 		// Clic sur la zone de la carte-dos -> tirer une carte
 		this.addMouseListener( new MouseAdapter()
@@ -57,6 +79,11 @@ public class PanelPioche extends JPanel
 		});
 	}
 
+	@Override
+    public void actionPerformed(ActionEvent e)
+	{
+        System.out.println("Un clic a été détecté !");
+	}
 
 	private void piocherCarte()
 	{

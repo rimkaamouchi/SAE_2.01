@@ -99,6 +99,20 @@ public class PanelJeu extends JPanel
         this.extremiteSelectionnee = null;
         this.messageErreur         = null;
 
+        /*-------------------------------*/
+		/*    Création des composants    */
+		/*-------------------------------*/
+
+
+        /*-------------------------------*/
+		/* Positionnement des composants */
+		/*-------------------------------*/
+
+
+        /*-------------------------------*/
+		/*   Activation des composants   */
+		/*-------------------------------*/ 
+
         this.addMouseListener( new MouseAdapter()
         {
             @Override
