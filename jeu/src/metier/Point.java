@@ -1,6 +1,14 @@
 package jeu.src.metier;
 import java.util.ArrayList;
 
+/**
+ * Calcul les points de la partie.
+ * <p>
+ * Cette classe les calculs du jeu.
+ * </p>
+ * * @author Groupe 11: Quentin Deshayes, Roxane Sidolle, Manon Rigoult, Rim Kaamouchi et Mykhailo Liapin
+ * @version 1.0
+ */
 public class Point
 {
 	private Jeu jeu;

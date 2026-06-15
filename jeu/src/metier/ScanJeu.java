@@ -5,6 +5,14 @@ import java.util.Scanner;
 
 import jeu.src.ControleurJeu;
 
+/**
+ * Scanneur du Jeu.
+ * <p>
+ * Ce Scanneur lit le dossier .data fait par la partie conception.
+ * </p>
+ * * @author Groupe 11: Quentin Deshayes, Roxane Sidolle, Manon Rigoult, Rim Kaamouchi et Mykhailo Liapin
+ * @version 1.0
+ */
 public class ScanJeu
 {
 	private ControleurJeu ctrl;
