@@ -195,16 +195,17 @@ public class Jeu
 
 	public void passerAuTourSuivant()
 	{
-		// Remettre la pioche à zéro
-		this.pioche      = Melanger( ToutesLesCartes );
+		if ( this.modeTriche )
+			this.pioche = PiocheTriche.clone();
+		else
+			this.pioche = Melanger( ToutesLesCartes );
 		this.indexPioche = 0;
 		this.aJoue       = false;
 		
-		// Passer à la couleur suivante
 		this.couleurActuelle++;
 		if ( this.couleurActuelle >= this.couleurs.length )
 		{
-			this.partieFinie = true;
+			this.partieFinie     = true;
 			this.couleurActuelle = this.couleurs.length - 1; 
 		}
 	}
@@ -366,6 +367,11 @@ public class Jeu
 		// Mélanger et distribuer une new pioche
 		this.pioche      = Melanger( ToutesLesCartes );
 		this.indexPioche = 0;
+
+		if ( this.modeTriche )
+			this.pioche = PiocheTriche.clone();
+		else
+			this.pioche = Melanger( ToutesLesCartes );
 	}
 
 	public boolean isPartieFinie()     { return this.partieFinie;                       }
