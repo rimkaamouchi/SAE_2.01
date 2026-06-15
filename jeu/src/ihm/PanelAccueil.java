@@ -6,55 +6,73 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class PanelAccueil extends JPanel
-{
-	private FrameAccueil frameAccueil;
-	private JButton      btnAccueil;
-	private JLabel       lblTitre;
-	private Image        imageDeFond;
+import jeu.src.ControleurJeu;
 
-	public PanelAccueil( FrameAccueil frameAccueil )
+public class PanelAccueil extends JPanel implements ActionListener
+{
+	private ControleurJeu ctrl;
+	private FrameJeu      frameJeu;
+
+	private JLabel  lblTitre;
+	private JButton btnJouer;
+	private Image   imageDeFond;
+
+	public PanelAccueil( ControleurJeu ctrl )
 	{
-		this.frameAccueil = frameAccueil;
+		this.ctrl = ctrl;
 		
 		this.setLayout( new BorderLayout() );
 
-		ImageIcon icon = new ImageIcon("Accueil.png");
+		/*-------------------------------*/
+		/* Création des composants       */
+		/*-------------------------------*/
+		JPanel panelBoutonCentrer = new JPanel();
+
+		ImageIcon icon   = new ImageIcon( "jeu/src/Image/Accueil.png" );
 		this.imageDeFond = icon.getImage();
 
-		/*-------------------------------*/
-		/* Création des composants    */
-		/*-------------------------------*/
-		this.lblTitre   = new JLabel("L'ARMATEUR ÉTRANGER", JLabel.CENTER);
-		this.btnAccueil = new JButton("Planifier Route");
+		this.lblTitre    = new JLabel ( "L'ARMATEUR ÉTRANGER", JLabel.CENTER );
+		this.btnJouer    = new JButton( "Lancer la partie" );
 
-		this.lblTitre.setFont(new Font("Serif", Font.BOLD, 36));
-		this.lblTitre.setForeground(Color.WHITE);
+		this.lblTitre.setFont( new Font( "Serif", Font.BOLD, 36 ) );
+		this.lblTitre.setForeground( Color.WHITE );
 
-
-		this.btnAccueil.setPreferredSize(new Dimension(200, 50));
+		this.btnJouer.setPreferredSize( new Dimension( 200, 50 ) );
 
 		/*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
-		this.add( this.lblTitre,   BorderLayout.NORTH  );
+		this.add( this.lblTitre, BorderLayout.NORTH  );
 		
-		JPanel panelBoutonCentrer = new JPanel();
-		panelBoutonCentrer.setOpaque(false); // Rend le panel transparent pour voir l'image derrière
-		panelBoutonCentrer.add(this.btnAccueil);
+		panelBoutonCentrer.add( this.btnJouer );
 		
 		this.add( panelBoutonCentrer, BorderLayout.SOUTH );
 
 		/*-------------------------------*/
-		/* Activation des composants   */
+		/*   Activation des composants   */
 		/*-------------------------------*/	
-		//  ajouteras un actionListener pour basculer vers FrameConception quand on clique 
+		this.btnJouer.addActionListener( this );
+
+		panelBoutonCentrer.setOpaque(false); // Rend le panel transparent pour voir l'image derrière
+	}
+
+	public void actionPerformed( ActionEvent e )
+	{
+		if ( e.getSource() == this.btnJouer )
+		{
+			if ( this.frameJeu == null )
+				this.frameJeu = new FrameJeu( this.ctrl );
+			else
+				this.frameJeu.setVisible( true );			
+		}
 	}
 
 	@Override
@@ -64,7 +82,7 @@ public class PanelAccueil extends JPanel
 		// Dessine l'image de fond 
 		if (this.imageDeFond != null) 
 		{
-			g.drawImage(this.imageDeFond, 0, 0, this.getWidth(), this.getHeight(), this);
+			g.drawImage( this.imageDeFond, 0, 0, this.getWidth(), this.getHeight(), this );
 		}
 	}
 }

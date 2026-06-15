@@ -1,27 +1,28 @@
 package jeu.src.ihm;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
+
+import jeu.src.ControleurJeu;
 
 public class FrameAccueil extends JFrame
 {
-	private PanelAccueil panelAccueil; 
+	private ControleurJeu ctrl;
+	private PanelAccueil  panelAccueil; 
 
-	public FrameAccueil()
+	public FrameAccueil( ControleurJeu ctrl )
 	{
+		this.ctrl = ctrl;
+
 		this.setTitle        ( "L'Armateur étranger - Accueil" );
 		this.setExtendedState( JFrame.MAXIMIZED_BOTH       ); // Plein écran
-		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		this.setLayout       ( new BorderLayout() );
 
-		// Initialisation et ajout du panel d'accueil
-		this.panelAccueil = new PanelAccueil( this );
+		this.panelAccueil = new PanelAccueil( ctrl );
 		this.add( this.panelAccueil );
 
+		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );
-	}
-
-	// Un petit main pour tester directement ton écran d'accueil
-	public static void main(String[] args) 
-	{
-		new FrameAccueil();
 	}
 }

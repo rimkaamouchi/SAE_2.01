@@ -9,28 +9,23 @@ import java.awt.FontMetrics; //mesure aux pixels prés
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.RoundRectangle2D; // coin rectangle arrondi
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import jeu.src.ControleurJeu;
 import jeu.src.metier.Carte;
 
-public class PanelPioche extends JPanel implements ActionListener
+public class PanelPioche extends JPanel 
 {
 	private ControleurJeu ctrl;
 	private Carte         carteActuelle;   // dernière carte tirée (null au départ)
 	private boolean       piocheVide;
 
-	private JButton btnPasse;
-	private JPanel  panelBtn;
 
 	// Dimensions des cartes
 	private static final int CARTE_W = 80;
@@ -60,22 +55,15 @@ public class PanelPioche extends JPanel implements ActionListener
 		/*-------------------------------*/
 		/*    Création des composants    */
 		/*-------------------------------*/
-
-		this.panelBtn = new JPanel();
-		this.btnPasse = new JButton( "Passez mon tour" );
-		this.panelBtn.setBackground(new Color(40, 40, 50) );
 		this.setLayout(new BorderLayout());
 
         /*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
-		this.panelBtn.add( this.btnPasse, BorderLayout.SOUTH);
-		this.add( this.panelBtn, BorderLayout.SOUTH);
 
         /*-------------------------------*/
 		/*   Activation des composants   */
-		/*-------------------------------*/ 
-		this.btnPasse.addActionListener( this );
+		/*-------------------------------*/
 
 		// Clic sur la zone de la carte-dos -> tirer une carte
 		this.addMouseListener( new MouseAdapter() 
@@ -94,32 +82,34 @@ public class PanelPioche extends JPanel implements ActionListener
 		});
 	}
 
-    public void actionPerformed(ActionEvent e)
+	public void reinitialiserAffichage()
 	{
-        if ( e.getSource() == this.btnPasse )
-		{
-			JOptionPane.showMessageDialog( this, "Vous avez passé votre tour." );
-		}
-		
+		this.carteActuelle = null;
+		this.piocheVide    = false;
+		this.repaint();
 	}
 
 	private void piocherCarte()
 	{
-		if ( ctrl.piocheVide() )
+		if ( ctrl.getJeu().toutesCartesNoiresTirees() )
 		{
-			// Pioche vide -> fin du tour
+			// Fin du tour
+			char couleurFinie = ctrl.getCouleurActuelle();
+			int  scoreTour    = ctrl.calculerScoreCouleur( couleurFinie );
 			JOptionPane.showMessageDialog( this,
-				"Tour terminé ! Passage à la couleur suivante.",
+				"Tour terminé ! Score pour cette couleur : " + scoreTour,
 				"Fin du tour", JOptionPane.INFORMATION_MESSAGE );
 			ctrl.passerAuTourSuivant();
-			if ( ctrl.getJeu().isPartieFinie() )
-			{
-    			ctrl.getFrameJeu().getPanelPoint().afficherBtnFin();
-			}
 			this.piocheVide    = false;
 			this.carteActuelle = null;
 			this.repaint();
 			ctrl.getFrameJeu().getPanelJeu().repaint();
+
+			if ( ctrl.getJeu().isPartieFinie() )
+			{
+				ctrl.getFrameJeu().getPanelPoint().setVisible( true );
+				ctrl.getFrameJeu().getPanelPoint().afficherBtnFin();
+			}
 			return;
 		}
 
@@ -136,6 +126,27 @@ public class PanelPioche extends JPanel implements ActionListener
 		}
 		this.repaint();
 		ctrl.getFrameJeu().getPanelJeu().repaint();
+
+		// Vérifier après tirage
+		if ( ctrl.getJeu().toutesCartesNoiresTirees() )
+		{
+			char couleurFinie = ctrl.getCouleurActuelle();
+			int  scoreTour    = ctrl.calculerScoreCouleur( couleurFinie );
+			JOptionPane.showMessageDialog( this,
+				"Tour terminé ! Score pour cette couleur : " + scoreTour,
+				"Fin du tour", JOptionPane.INFORMATION_MESSAGE );
+			ctrl.passerAuTourSuivant();
+			this.piocheVide    = false;
+			this.carteActuelle = null;
+			this.repaint();
+			ctrl.getFrameJeu().getPanelJeu().repaint();
+
+			if ( ctrl.getJeu().isPartieFinie() )
+			{
+				ctrl.getFrameJeu().getPanelPoint().setVisible( true );
+				ctrl.getFrameJeu().getPanelPoint().afficherBtnFin();
+			}
+		}
 	}
 
 	@Override
@@ -178,6 +189,12 @@ public class PanelPioche extends JPanel implements ActionListener
 										BasicStroke.JOIN_ROUND, 0,
 										new float[]{6,4}, 0) );
 			g2.draw( new RoundRectangle2D.Float(xRetournee, y, CARTE_W, CARTE_H, 12, 12) );
+		}
+		if ( ctrl.isModeTriche() )
+		{
+			g2.setColor( new Color(255, 50, 50) );
+			g2.setFont( new Font("SansSerif", Font.BOLD, 13) );
+			g2.drawString( "MODE TRICHE", MARGE, 60 );
 		}
 
 		// Titre panneau

@@ -29,6 +29,7 @@ public class Jeu
 	public static final int  NB_CARTES_PAR_COULEUR = 5;
 
 	private Plateau        plateau;       // plateau chargé depuis le .data
+	private Carte          carteActuelle;
 	private ArrayList<Character> piocheR; // cartes restantes
 	private ArrayList<Character> defausse;
 
@@ -42,6 +43,25 @@ public class Jeu
 	private Carte[] pioche;
 	private boolean partieFinie;
 	private boolean aJoue = false; // a-t-on joué ce tour de carte ?
+	private boolean modeTriche = false;
+
+
+	public static Carte[] PiocheTriche = new Carte[]{
+		new Carte('B','R'),
+		new Carte('B','Q'),
+		new Carte('B','U'),
+		new Carte('B','S'),
+		new Carte('B','T'),
+		new Carte('B','*'),
+		new Carte('N','R'),
+		new Carte('N','Q'),
+		new Carte('N','U'),
+		new Carte('N','S'),
+		new Carte('N','T'),
+		new Carte('N','*')
+	};
+
+
 
 	/*---------------------------------------*/
 	/*            Getters                    */
@@ -58,6 +78,13 @@ public class Jeu
 			if ( COULEURS_VERS_SYMBOLES_CLE[i] == couleur )
 				return COULEURS_VERS_SYMBOLES_VAL[i];
 		return ' ';
+	}
+
+	public void activerModeTriche()
+	{
+		this.modeTriche  = !this.modeTriche;
+		this.pioche      = this.modeTriche ? PiocheTriche.clone() : Melanger( ToutesLesCartes );
+		this.indexPioche = 0;
 	}
 
 	public Carte getCarteActuelle()
@@ -254,6 +281,25 @@ public class Jeu
 		}
 	}
 
+	public boolean toutesCartesNoiresTirees()
+	{
+		for ( int i = 0; i < this.indexPioche; i++ )
+			if ( this.pioche[i].getTeinte() == 'N' && this.pioche[i].getSymbole() != JOKER )
+				// on compte les noires tirées
+				;
+		
+		int noiresTirees = 0;
+		int noiresTotal  = 0;
+		for ( Carte c : this.pioche )
+			if ( c.getTeinte() == 'N' && c.getSymbole() != JOKER )
+				noiresTotal++;
+		for ( int i = 0; i < this.indexPioche; i++ )
+			if ( this.pioche[i].getTeinte() == 'N' && this.pioche[i].getSymbole() != JOKER )
+				noiresTirees++;
+
+		return noiresTirees >= noiresTotal;
+	}
+
 	public int calculerScoreCouleur( char couleur )
 	{
 		Chemin chemin = getCheminPourCouleur( couleur );
@@ -331,5 +377,7 @@ public class Jeu
 	private void   initialiserPioche() { this.pioche = Melanger(ToutesLesCartes);       }
 	public boolean peutJouer()         { return !aJoue;                                 }
 	public void    signalerJoue()      { aJoue = true;                                  }
+	public boolean isModeTriche()      { return this.modeTriche;                        }
+
 
 }

@@ -15,12 +15,15 @@ public class FrameJeu extends JFrame
 	//private PanelDefausse panelDefausse;
 
 	//getter
-	public PanelJeu   getPanelJeu()   { return this.panelJeu;   }
-	public PanelPoint getPanelPoint() { return this.panelPoint; }
+	public PanelJeu   getPanelJeu()    { return this.panelJeu;    }
+	public PanelPoint getPanelPoint()  { return this.panelPoint;  }
+	public PanelPioche getPanelPioche(){ return this.panelPioche; }
 
 	public FrameJeu( ControleurJeu ctrl )
 	{
 		this.ctrl = ctrl;
+
+		ctrl.setFrameJeu( this );
 
 		this.setTitle        ( "L'armateur étranger" );
 		this.setExtendedState( JFrame.MAXIMIZED_BOTH );
