@@ -269,14 +269,6 @@ public class PanelPioche extends JPanel
 		g2.setStroke( new BasicStroke(2) );
 		g2.draw( new RoundRectangle2D.Float(x, y, CARTE_W, CARTE_H, 12, 12) );
 
-		// Teinte (N / B) en petit en haut à gauche — seulement pour joker
-		if ( carte.getSymbole() == '*' )
-		{
-			g2.setColor( texte );
-			g2.setFont( new Font("SansSerif", Font.BOLD, 11) );
-			g2.drawString( String.valueOf(carte.getTeinte()), x + 8, y + 18 );
-			g2.drawString( String.valueOf(carte.getTeinte()), x + CARTE_W - 18, y + CARTE_H - 8 );
-		}
 
 		// Image du symbole au centre
 		Image img = getImageSymbole( carte.getSymbole() );
@@ -291,9 +283,6 @@ public class PanelPioche extends JPanel
 			g2.drawString( sym, x + (CARTE_W - fm.stringWidth(sym))/2, y + CARTE_H/2 + 10 );
 		}
 
-		// Teinte en bas à droite
-		g2.setFont( new Font("SansSerif", Font.BOLD, 11) );
-		g2.drawString( String.valueOf(carte.getTeinte()), x + CARTE_W - 18, y + CARTE_H - 8 );
 	}
 
 	private static final char  [] LETTRES_SYMBOLES = {'R','Q','U','S','T','*'};

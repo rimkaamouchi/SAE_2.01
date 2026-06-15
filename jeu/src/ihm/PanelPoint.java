@@ -20,14 +20,16 @@ public class PanelPoint extends JPanel implements ActionListener
 	private JFrame        frame;
 	private JButton       btnFin;
 	private int           score;
+	
 
 	//setter
 	public void setBtnFin(JButton btnFin){ this.btnFin = btnFin;}
 
 	public PanelPoint(FrameJeu frame, ControleurJeu ctrl)
 	{
-		this.ctrl = ctrl;
-		this.frame = frameJeu;
+		this.ctrl        = ctrl;
+		this.frame       = frameJeu;
+
 		ctrl.calculerScorePoint();
 		this.setLayout( new FlowLayout() );
 
@@ -61,7 +63,7 @@ public class PanelPoint extends JPanel implements ActionListener
 	public void afficherBtnFin()
 	{
 		this.score = ctrl.calculerScorePoint();
-		btnFin.setVisible(true);
+		this.btnFin.setVisible(true);
 		revalidate();
 		repaint();
 	}
