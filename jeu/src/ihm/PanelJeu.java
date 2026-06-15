@@ -185,7 +185,7 @@ public class PanelJeu extends JPanel
 			}
 			else
 			{
-				messageErreur = "Déplacement invalide : voisin non adjacent, symbole incorrect ou sommet déjà visité.";
+				messageErreur = "Déplacement invalide : voisin non adjacent, symbole incorrect ou tracé non autorisé.";
 			}
 			extremiteSelectionnee = null;
 			repaint();

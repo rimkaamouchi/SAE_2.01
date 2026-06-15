@@ -1,6 +1,7 @@
 package jeu.src.ihm;
 
 import java.awt.BasicStroke;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -29,11 +30,22 @@ public class PanelPioche extends JPanel implements ActionListener
 	private boolean       piocheVide;
 
 	private JButton btnPasse;
+	private JPanel  panelBtn;
 
 	// Dimensions des cartes
 	private static final int CARTE_W = 80;
 	private static final int CARTE_H = 120;
 	private static final int MARGE   = 20;
+
+	private static final char [] CODES_COULEURS  = {'V',               'W',                    'X',              'Y',                  'Z'             };
+	private static final Color[] COULEURS_TRAITS = {new Color(139,0,0), new Color(255,105,180), new Color(0,0,139), new Color(139,69,19), new Color(70,130,180)};
+
+	private Color getCouleurTrait( char couleur )
+	{
+		for ( int i = 0; i < CODES_COULEURS.length; i++ )
+			if ( CODES_COULEURS[i] == couleur ) return COULEURS_TRAITS[i];
+		return Color.WHITE;
+	}
 
 	public PanelPioche( ControleurJeu ctrl )
 	{
@@ -43,27 +55,30 @@ public class PanelPioche extends JPanel implements ActionListener
 
 		this.setPreferredSize( new Dimension( 220, 400 ) );
 		this.setBackground( new Color(40, 40, 50) );
+		this.setLayout(new BorderLayout());
 
 		/*-------------------------------*/
 		/*    Création des composants    */
 		/*-------------------------------*/
 
+		this.panelBtn = new JPanel();
 		this.btnPasse = new JButton( "Passez mon tour" );
+		this.panelBtn.setBackground(new Color(40, 40, 50) );
+		this.setLayout(new BorderLayout());
 
         /*-------------------------------*/
 		/* Positionnement des composants */
 		/*-------------------------------*/
-
-		this.add( this.btnPasse   );
+		this.panelBtn.add( this.btnPasse, BorderLayout.SOUTH);
+		this.add( this.panelBtn, BorderLayout.SOUTH);
 
         /*-------------------------------*/
 		/*   Activation des composants   */
 		/*-------------------------------*/ 
-
 		this.btnPasse.addActionListener( this );
 
 		// Clic sur la zone de la carte-dos -> tirer une carte
-		this.addMouseListener( new MouseAdapter()
+		this.addMouseListener( new MouseAdapter() 
 		{
 			@Override
 			public void mouseClicked( MouseEvent e )
@@ -79,10 +94,13 @@ public class PanelPioche extends JPanel implements ActionListener
 		});
 	}
 
-	@Override
     public void actionPerformed(ActionEvent e)
 	{
-        System.out.println("Un clic a été détecté !");
+        if ( e.getSource() == this.btnPasse )
+		{
+			JOptionPane.showMessageDialog( this, "Vous avez passé votre tour." );
+		}
+		
 	}
 
 	private void piocherCarte()
@@ -94,6 +112,10 @@ public class PanelPioche extends JPanel implements ActionListener
 				"Tour terminé ! Passage à la couleur suivante.",
 				"Fin du tour", JOptionPane.INFORMATION_MESSAGE );
 			ctrl.passerAuTourSuivant();
+			if ( ctrl.getJeu().isPartieFinie() )
+			{
+    			ctrl.getFrameJeu().getPanelPoint().afficherBtnFin();
+			}
 			this.piocheVide    = false;
 			this.carteActuelle = null;
 			this.repaint();
@@ -171,11 +193,16 @@ public class PanelPioche extends JPanel implements ActionListener
 
 
 		// Tour actuel
-		String couleur = String.valueOf( ctrl.getCouleurActuelle() );
+		char couleurActuelle = ctrl.getCouleurActuelle();
+		Color couleurRond = getCouleurTrait( couleurActuelle );
 		g2.setColor( Color.WHITE );
 		g2.setFont( new Font("SansSerif", Font.BOLD, 13) );
-		g2.drawString( "Tour : couleur " + couleur, MARGE, y + CARTE_H + 80 );
-		g2.drawString( "Restantes : " + ctrl.getJeu().getNbCartesRestantes(), MARGE, y + CARTE_H + 100 );
+		g2.drawString( "Tour actuel :", MARGE, y + CARTE_H + 80 );
+		g2.setColor( couleurRond );
+		g2.fillOval( MARGE + 110, y + CARTE_H + 68, 20, 20 );
+		g2.setColor( Color.WHITE );
+		g2.setStroke( new BasicStroke(1) );
+		g2.drawOval( MARGE + 110, y + CARTE_H + 68, 20, 20 );
 	}
 
 	/** Dessine une carte face cachée (dos décoré) */
@@ -225,10 +252,14 @@ public class PanelPioche extends JPanel implements ActionListener
 		g2.setStroke( new BasicStroke(2) );
 		g2.draw( new RoundRectangle2D.Float(x, y, CARTE_W, CARTE_H, 12, 12) );
 
-		// Teinte (N / B) en petit en haut à gauche
-		g2.setColor( texte );
-		g2.setFont( new Font("SansSerif", Font.BOLD, 11) );
-		g2.drawString( String.valueOf(carte.getTeinte()), x + 8, y + 18 );
+		// Teinte (N / B) en petit en haut à gauche — seulement pour joker
+		if ( carte.getSymbole() == '*' )
+		{
+			g2.setColor( texte );
+			g2.setFont( new Font("SansSerif", Font.BOLD, 11) );
+			g2.drawString( String.valueOf(carte.getTeinte()), x + 8, y + 18 );
+			g2.drawString( String.valueOf(carte.getTeinte()), x + CARTE_W - 18, y + CARTE_H - 8 );
+		}
 
 		// Image du symbole au centre
 		Image img = getImageSymbole( carte.getSymbole() );
@@ -248,8 +279,8 @@ public class PanelPioche extends JPanel implements ActionListener
 		g2.drawString( String.valueOf(carte.getTeinte()), x + CARTE_W - 18, y + CARTE_H - 8 );
 	}
 
-	private static final char  [] LETTRES_SYMBOLES = {'R','Q','U','S','T'};
-	private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png","Symboles/apple.png","Symboles/cafe.png","Symboles/moto.png","Symboles/pain.png"};
+	private static final char  [] LETTRES_SYMBOLES = {'R','Q','U','S','T','*'};
+	private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png","Symboles/apple.png","Symboles/cafe.png","Symboles/moto.png","Symboles/pain.png","Symboles/montre.png"};
 
 	private Image getImageSymbole( char symbole )
 	{

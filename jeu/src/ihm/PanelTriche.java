@@ -4,12 +4,12 @@ import javax.swing.JPanel;
 
 import jeu.src.ControleurJeu;
 
-public class PanelDefausse extends JPanel
+public class PanelTriche extends JPanel
 {
     private ControleurJeu ctrl;
     private PanelPioche   panelPioche;
 
-    public PanelDefausse( ControleurJeu ctrl )
+    public PanelTriche( ControleurJeu ctrl )
     {
         this.ctrl = ctrl;
 

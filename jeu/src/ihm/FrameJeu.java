@@ -11,27 +11,31 @@ public class FrameJeu extends JFrame
 	private ControleurJeu ctrl;
 	private PanelJeu      panelJeu;
 	private PanelPioche   panelPioche;
+	private PanelPoint    panelPoint;
 	//private PanelDefausse panelDefausse;
 
 	//getter
-	public PanelJeu getPanelJeu() { return this.panelJeu; }
+	public PanelJeu   getPanelJeu()   { return this.panelJeu;   }
+	public PanelPoint getPanelPoint() { return this.panelPoint; }
 
 	public FrameJeu( ControleurJeu ctrl )
 	{
 		this.ctrl = ctrl;
 
 		this.setTitle        ( "L'armateur étranger" );
-		this.setExtendedState( JFrame.MAXIMIZED_BOTH   );
-		this.setLayout       ( new BorderLayout()      );
-		this.setJMenuBar(MenuBar.creerMenu(this, ctrl));
+		this.setExtendedState( JFrame.MAXIMIZED_BOTH );
+		this.setLayout       ( new BorderLayout()    );
+		this.setJMenuBar     ( new MenuBar( ctrl )   );
 
-		this.panelJeu    = new PanelJeu   ( ctrl );
-		this.panelPioche = new PanelPioche( ctrl );
+		this.panelJeu    = new PanelJeu   ( ctrl     );
+		this.panelPioche = new PanelPioche( ctrl     );
+		this.panelPoint  = new PanelPoint (this, ctrl);
 		
 		this.panelJeu.setPlateau( ctrl.getTaillePlateauX(), ctrl.getTaillePlateauY() );
 
 		this.add( this.panelPioche, BorderLayout.WEST   );
 		this.add( this.panelJeu,    BorderLayout.CENTER );
+		this.add( this.panelPoint,  BorderLayout.SOUTH  );
 
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible( true );

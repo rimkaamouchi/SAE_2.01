@@ -2,10 +2,11 @@ package jeu.src.ihm;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -15,52 +16,82 @@ import javax.swing.JTextArea;
 
 import jeu.src.ControleurJeu;
 
-public class MenuBar
+public class MenuBar extends JMenuBar implements ActionListener
 {
     private ControleurJeu ctrl;
+    private FrameJeu      frmJeu;
 
-    public static JMenuBar creerMenu(JFrame frame, ControleurJeu ctrl)
+    private JMenuItem menuiAideRegle;
+    private JMenuItem menuiNouvellePartie;
+
+    public MenuBar( ControleurJeu ctrl )
     {
-        JMenuBar menuBar = new JMenuBar();
+        this.ctrl = ctrl;
+
+        /*-------------------------------*/
+		/*    Création des composants    */
+		/*-------------------------------*/
+        JMenuBar  menuBar = new JMenuBar();
         menuBar.setBackground(new Color(30, 30, 38));
         menuBar.setBorder(BorderFactory.createEmptyBorder(4, 8, 4, 8));
 
-        // Menu Aide 
-        JMenu menuAide = new JMenu("Aide");
-        menuAide.setForeground(Color.WHITE);
+        //éléments de la barre de menu
+        JMenu menuAide   = new JMenu( "Aide"   );
+        JMenu menuPartie = new JMenu( "Partie" );
 
-        JMenuItem itemRegles = new JMenuItem("Règles du jeu");
-        itemRegles.addActionListener(e -> afficherAide(frame));
-        menuAide.add(itemRegles);
+        menuAide  .setMnemonic( 'A' );
+        menuPartie.setMnemonic( 'P' );
 
-        // Menu Partie 
-        JMenu menuPartie = new JMenu("Partie");
-        menuPartie.setForeground(Color.WHITE);
+        //les items des menus Aide et Partie
+        this.menuiAideRegle      = new JMenuItem( "Règles du jeu"   );
+        this.menuiNouvellePartie = new JMenuItem( "Nouvelle partie" );
 
-        JMenuItem itemNouvelle = new JMenuItem("Nouvelle partie");
-        itemNouvelle.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(frame,
+        this.menuiAideRegle     .setMnemonic( 'R' );
+        this.menuiNouvellePartie.setMnemonic( 'N' );
+
+        /*-------------------------------*/
+		/* Positionnement des composants */
+		/*-------------------------------*/
+        menuAide  .add( this.menuiAideRegle );
+        menuPartie.add( this.menuiNouvellePartie );
+
+        this.add( menuAide   );
+        this.add( menuPartie );
+
+
+        /*-------------------------------*/
+		/*   Activation des composants   */
+		/*-------------------------------*/
+        this.menuiAideRegle     .addActionListener( this );
+        this.menuiNouvellePartie.addActionListener( this );
+    }
+
+    public void actionPerformed( ActionEvent e )
+    {
+       if ( e.getSource() == this.menuiAideRegle )
+       {
+            this.afficherAide( frmJeu );
+       }
+
+       if ( e.getSource() == this.menuiNouvellePartie )
+       {
+            int confirm = JOptionPane.showConfirmDialog( this,
                 "Recommencer une nouvelle partie ?", "Nouvelle partie",
-                JOptionPane.YES_NO_OPTION);
+                JOptionPane.YES_NO_OPTION );
+
             if (confirm == JOptionPane.YES_OPTION)
             {
                 ctrl.reset();
             }
-        });
-        menuPartie.add(itemNouvelle);
-
-        menuBar.add(menuAide);
-        menuBar.add(menuPartie);
-
-        return menuBar;
+       }
     }
-
+    
     // Frame qui s'ouvre quand on clic sur Aide
-    private static void afficherAide(JFrame frame)
+    public static void afficherAide( FrameJeu frmJeu )
     {
-        JDialog dialog = new JDialog(frame, "Règles du jeu", true);
+        JDialog dialog = new JDialog( frmJeu, "Règles du jeu", true);
         dialog.setSize(480, 400);
-        dialog.setLocationRelativeTo(frame);
+        dialog.setLocationRelativeTo( frmJeu );
 
         JTextArea texte = new JTextArea();
         texte.setEditable(false);

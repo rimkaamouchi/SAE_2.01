@@ -81,6 +81,9 @@ public class ControleurJeu
 	public boolean peutJouer()           { return this.jeu.peutJouer();          }
 	public void    signalerJoue()        { this.jeu.signalerJoue();              }
 	public void    passerAuTourSuivant() { this.jeu.passerAuTourSuivant();       }
+	
+	public int calculerScoreCouleur( char couleur )  { return this.jeu.calculerScoreCouleur( couleur ); }
+	public int calculerScore()                       { return this.jeu.calculerScore();                 }
 
 
 	public static void main(String[] args)

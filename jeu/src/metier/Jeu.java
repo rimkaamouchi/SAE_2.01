@@ -51,7 +51,7 @@ public class Jeu
 	public ArrayList<Chemin>    getChemins()           { return this.chemins;                                          }
 	//public ArrayList<Character> getPioche()          { return this.pioche;                                           }
 	public Plateau              getPlateau()           { return this.plateau;                                          }
-	public int                  getNbCartesRestantes() { return Math.max( 0, this.pioche.length - this.indexPioche );}
+	public int                  getNbCartesRestantes() { return Math.max( 0, this.pioche.length - this.indexPioche );  }
 	public char                 getSymbolePourCouleur( char couleur )
 	{
 		for ( int i = 0; i < COULEURS_VERS_SYMBOLES_CLE.length; i++ )
@@ -176,7 +176,10 @@ public class Jeu
 		// Passer à la couleur suivante
 		this.couleurActuelle++;
 		if ( this.couleurActuelle >= this.couleurs.length )
+		{
 			this.partieFinie = true;
+			this.couleurActuelle = this.couleurs.length - 1; 
+		}
 	}
 
 	/** Crée un chemin vide pour chaque couleur, démarrant au sommet correspondant */
@@ -193,7 +196,7 @@ public class Jeu
 	public static Carte[] Melanger(Carte[] cartes) 
 	{
 		Carte[] melange = cartes.clone();
-		Random rand = new Random();
+		Random  rand    = new Random();
 		
 		for (int i = melange.length - 1; i > 0; i--) 
 		{
@@ -251,39 +254,79 @@ public class Jeu
 		}
 	}
 
-	/** Calcule le score : nombre total de cases atteintes par tous les chemins */
+	public int calculerScoreCouleur( char couleur )
+	{
+		Chemin chemin = getCheminPourCouleur( couleur );
+		if ( chemin == null ) return 0;
+
+		ArrayList<Cellule> etapes = chemin.getEtapes();
+
+		// Lister les zones et compter
+		ArrayList<Character> zones        = new ArrayList<>();
+		ArrayList<Integer>   nbParZone    = new ArrayList<>();
+
+		for ( Cellule c : etapes )
+		{
+			char zone  = c.getZone();
+			boolean trouve = false;
+			for ( int i = 0; i < zones.size(); i++ )
+			{
+				if ( zones.get(i) == zone )
+				{
+					nbParZone.set( i, nbParZone.get(i) + 1 );
+					trouve = true;
+					break;
+				}
+			}
+			if ( !trouve )
+			{
+				zones.add( zone );
+				nbParZone.add( 1 );
+			}
+		}
+
+		int nbZones    = zones.size();
+		int maxSommets = 0;
+		for ( int nb : nbParZone )
+			if ( nb > maxSommets ) maxSommets = nb;
+
+		return nbZones * maxSommets;
+	}
+
 	public int calculerScore()
 	{
 		int score = 0;
+		for ( char coul : this.couleurs )
+			score += calculerScoreCouleur( coul );
 		return score;
 	}
 	
 	public void reset()
-    {
-        // Remettre les symboles et les index à zéro
-        this.partieFinie     = false;
-        this.tourActuel      = 0;
-        this.couleurActuelle = 0;
-        this.indexPioche     = 0;
-        this.aJoue           = false;
+	{
+		// Remettre les symboles et les index à zéro
+		this.partieFinie     = false;
+		this.tourActuel      = 0;
+		this.couleurActuelle = 0;
+		this.indexPioche     = 0;
+		this.aJoue           = false;
 
-        // Vider les listes de cartes
-        this.defausse.clear();
+		// Vider les listes de cartes
+		this.defausse.clear();
 
-        // Réinitialiser les chemins
-        this.chemins.clear();
-        this.initialiserChemins(); // Re-crée les chemins de départ depuis le plateau
+		// Réinitialiser les chemins
+		this.chemins.clear();
+		this.initialiserChemins(); // Re-crée les chemins de départ depuis le plateau
 
-        // Mélanger et distribuer une new pioche
-        this.pioche      = Melanger( ToutesLesCartes );
-    	this.indexPioche = 0;
-    }
+		// Mélanger et distribuer une new pioche
+		this.pioche      = Melanger( ToutesLesCartes );
+		this.indexPioche = 0;
+	}
 
 	public boolean isPartieFinie()     { return this.partieFinie;                       }
 	public boolean isPiocheVide()      { return this.indexPioche >= this.pioche.length; }
 	public void    reinitialiserJoue() { this.aJoue = false;                            }
 	public boolean piocheVide()        { return this.indexPioche >= this.pioche.length; }
-	/** Le joueur passe son tour pour la couleur actuelle */
+	/* Le joueur passe son tour pour la couleur actuelle */
 	public void    passerTour()        { verifierFinTour(); /*On avance simplement sans déplacer*/}
 	private void   initialiserPioche() { this.pioche = Melanger(ToutesLesCartes);       }
 	public boolean peutJouer()         { return !aJoue;                                 }

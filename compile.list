@@ -14,7 +14,17 @@ conception/src/ihm/PanelDimension.java
 
 
 jeu/src/ControleurJeu.java
-jeu/src/ihm/PanelPioche.java
+
+jeu/src/metier/Carte.java
+jeu/src/metier/Cellule.java
 jeu/src/metier/Chemin.java
 jeu/src/metier/Jeu.java
+jeu/src/metier/Plateau.java
+jeu/src/metier/Point.java
 jeu/src/metier/ScanJeu.java
+
+jeu/src/ihm/FrameJeu.java
+jeu/src/ihm/MenuBar.java
+jeu/src/ihm/PanelJeu.java
+jeu/src/ihm/PanelPioche.java
+jeu/src/ihm/PanelPoint.java
