@@ -35,15 +35,11 @@ public class Jeu
 	public static Carte[] PiocheTriche = new Carte[]{
 		new Carte('B','R'),
 		new Carte('B','Q'),
-		new Carte('B','U'),
 		new Carte('B','S'),
-		new Carte('B','T'),
 		new Carte('B','*'),
 		new Carte('N','R'),
 		new Carte('N','Q'),
-		new Carte('N','U'),
 		new Carte('N','S'),
-		new Carte('N','T'),
 		new Carte('N','*')
 	};
 
