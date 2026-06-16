@@ -14,8 +14,8 @@ public class Jeu
 	public static final char JOKER = '*';
 	public static final int  NB_CARTES_PAR_COULEUR = 5;
 
-	private Plateau        plateau;       // plateau chargé depuis le .data
-	private Carte          carteActuelle;
+	private Plateau              plateau;       // plateau chargé depuis le .data
+	private Carte                carteActuelle;
 	private ArrayList<Character> piocheR; // cartes restantes
 	private ArrayList<Character> defausse;
 

@@ -2,110 +2,107 @@ Test
 9
 8
 3
-A A A F F F F B 
-A A A A F F B B 
-G G G G C F F B 
-G G G C C F B B 
-G D D C C C E B 
-D D D C C E E B 
-D D D E E E B B 
-D D D E E H H H 
-D D D H H H H H 
-LIENS 97
-0 0 0 2 e Q R
-0 0 2 2 d Q S
-0 0 1 0 s Q R
-0 2 0 4 e R Q
-0 2 1 3 d R Q
-0 2 2 2 s R S
-0 4 0 5 e Q S
-0 4 2 6 d Q W
-0 4 1 4 s Q S
-0 4 1 3 q Q Q
-0 5 4 5 s S R
-0 5 1 4 q S S
-1 0 1 3 e R Q
-1 0 2 1 d R V
-1 0 3 0 s R R
-1 3 1 4 e Q S
-1 3 4 6 d Q S
-1 3 2 3 s Q R
-1 3 2 2 q Q S
-1 4 1 7 e S Q
-1 4 3 4 s S Q
-1 4 2 3 q S R
-1 7 5 7 s Q R
-1 7 2 6 q Q W
-2 1 2 2 e V S
-2 1 5 4 d V R
-2 1 3 1 s V Q
-2 1 3 0 q V R
-2 2 2 3 e S R
-2 2 3 3 d S S
-2 2 4 2 s S R
-2 2 3 1 q S Q
-2 3 2 6 e R W
-2 3 3 4 d R Q
-2 3 3 3 s R S
-2 6 4 6 s W S
-2 6 5 3 q W S
-3 0 3 1 e R Q
-3 0 6 3 d R S
-3 0 4 0 s R S
-3 1 3 3 e Q S
-3 1 4 2 d Q R
-3 1 5 1 s Q Q
-3 1 4 0 q Q S
-3 3 3 4 e S Q
-3 3 5 3 s S S
-3 3 4 2 q S R
-3 4 4 5 d Q R
-3 4 5 4 s Q R
-3 4 6 1 q Q R
-4 0 4 2 e S R
-4 0 5 1 d S Q
-4 0 6 0 s S R
-4 2 4 5 e R R
-4 2 5 3 d R S
-4 2 7 2 s R S
-4 2 5 1 q R Q
-4 5 4 6 e R S
-4 5 6 5 s R S
-4 5 5 4 q R R
-4 6 5 7 d S R
-4 6 7 6 s S Q
-4 6 7 3 q S Q
-5 1 5 3 e Q S
-5 1 7 3 d Q Q
-5 1 6 1 s Q R
-5 1 6 0 q Q R
-5 3 5 4 e S R
-5 3 8 6 d S R
-5 3 6 3 s S S
-5 3 8 0 q S Q
-5 4 5 7 e R R
-5 4 6 5 d R S
-5 4 7 4 s R X
-5 4 6 3 q R S
-5 7 8 7 s R S
-5 7 8 4 q R Q
-6 0 6 1 e R R
-6 0 8 0 s R Q
-6 1 6 3 e R S
-6 1 7 2 d R S
-6 3 6 5 e S S
-6 3 7 4 d S X
-6 3 7 3 s S Q
-6 3 7 2 q S S
-6 5 7 6 d S Q
-6 5 7 4 q S X
-7 2 7 3 e S Q
-7 3 7 4 e Q X
-7 3 8 4 d Q Q
-7 4 7 6 e X Q
-7 4 8 4 s X Q
-7 6 8 7 d Q S
-7 6 8 6 s Q R
-8 0 8 4 e Q Q
-8 4 8 6 e Q R
-8 6 8 7 e R S
+H H D D D A A A 
+H H H D A A A A 
+H H H D E A A H 
+H H H D E A H H 
+H D D D E E H H 
+H H H H H H H H 
+G G G C C C C H 
+B B B C C F H H 
+B B B B F F F H 
+LIENS 94
+0 0 0 1 e R Q
+0 0 1 1 d R R
+0 0 3 0 s R Q
+0 1 0 3 e Q R
+0 1 1 2 d Q S
+0 1 1 1 s Q R
+0 3 0 5 e R Q
+0 3 1 4 d R S
+0 3 2 3 s R Q
+0 3 1 2 q R S
+0 5 0 7 e Q R
+0 5 1 5 s Q R
+0 5 1 4 q Q S
+0 7 1 7 s R Q
+1 1 1 2 e R S
+1 1 2 1 s R V
+1 2 1 4 e S S
+1 2 2 3 d S Q
+1 2 3 2 s S R
+1 2 2 1 q S V
+1 4 1 5 e S R
+1 4 2 4 s S R
+1 4 2 3 q S Q
+1 5 1 7 e R Q
+1 5 2 6 d R S
+1 5 4 5 s R R
+1 5 2 4 q R R
+1 7 3 7 s Q S
+1 7 2 6 q Q S
+2 1 2 3 e V Q
+2 1 3 2 d V R
+2 1 5 1 s V S
+2 1 3 0 q V Q
+2 3 2 4 e Q R
+2 3 4 5 d Q R
+2 3 5 3 s Q Q
+2 3 3 2 q Q R
+2 4 2 6 e R S
+2 4 5 7 d R Q
+2 4 6 4 s R S
+2 4 4 2 q R Q
+2 6 3 7 d S S
+2 6 5 6 s S S
+2 6 5 3 q S Q
+3 0 3 2 e Q R
+3 0 6 3 d Q S
+3 0 4 0 s Q S
+3 2 3 7 e R S
+3 2 8 7 d R R
+3 2 4 2 s R Q
+3 7 5 7 s S Q
+3 7 6 4 q S S
+4 0 4 2 e S Q
+4 0 5 1 d S S
+4 0 6 0 s S Q
+4 2 4 5 e Q R
+4 2 5 3 d Q Q
+4 2 6 2 s Q R
+4 2 5 1 q Q S
+4 5 5 6 d R S
+4 5 7 5 s R W
+4 5 6 3 q R S
+5 1 5 3 e S Q
+5 1 6 2 d S R
+5 1 7 1 s S Q
+5 1 6 0 q S Q
+5 3 5 6 e Q S
+5 3 6 4 d Q S
+5 3 6 3 s Q S
+5 3 6 2 q Q R
+5 6 5 7 e S Q
+5 6 8 3 q S Q
+5 7 8 7 s Q R
+5 7 7 5 q Q W
+6 0 6 2 e Q R
+6 0 7 1 d Q Q
+6 0 8 0 s Q R
+6 2 6 3 e R S
+6 2 8 4 d R S
+6 2 8 2 s R S
+6 2 7 1 q R Q
+6 3 6 4 e S S
+6 3 8 3 s S Q
+6 4 7 5 d S W
+6 4 8 4 s S S
+6 4 8 2 q S S
+7 1 7 5 e Q W
+7 1 8 2 d Q S
+7 1 8 0 q Q R
+7 5 8 4 q W S
+8 0 8 2 e R S
+8 2 8 3 e S Q
+8 3 8 4 e Q S
+8 4 8 7 e S R

@@ -73,9 +73,44 @@ public class Point
 
 	public int calculerScore()
 	{
-		int nbContinents = getNbContinentsVisites();
-		int maxPays      = getMaxPaysRelier();
+		int total = 0;
 
-		return maxPays * nbContinents;
+		for (Chemin chemin : this.jeu.getChemins())
+		{
+			ArrayList<Character> zones     = new ArrayList<>();
+			ArrayList<Integer>   nbParZone = new ArrayList<>();
+
+			for (Cellule c : chemin.getEtapes())
+			{
+				char zone = c.getZone();
+				if (zone == 0) continue;
+
+				boolean trouve = false;
+				for (int i = 0; i < zones.size(); i++)
+				{
+					if (zones.get(i) == zone)
+					{
+						nbParZone.set(i, nbParZone.get(i) + 1);
+						trouve = true;
+						break;
+					}
+				}
+				if (!trouve)
+				{
+					zones.add(zone);
+					nbParZone.add(1);
+				}
+			}
+
+			// Score de ce chemin = max pays dans une zone * nb de zones visitées
+			int maxPays = 0;
+			for (int nb : nbParZone)
+				if (nb > maxPays) maxPays = nb;
+
+			int nbZones = zones.size();
+			total += maxPays * nbZones;
+		}
+
+		return total;
 	}
 }

@@ -36,12 +36,12 @@ public class PanelJeu extends JPanel
 	//images & lettres correspondants aux symboles non-colorés
 	private static final char  [] LETTRES_SYMBOLES = {'R'                    ,'Q'                 ,'S'                      /* ,'U'                     ,'T'               */                                             };
 	private static final String[] IMAGES_SYMBOLES  = {"Symboles/orange.png"  ,"Symboles/apple.png","Symboles/moto.png"      /* ,"Symboles/cafe.png"     ,"Symboles/pain.png"*/                                           };
-//images & lettres correspondants aux symboles colorés
+	//images & lettres correspondants aux symboles colorés
 	private static final char  [] LETTRES_COULEURS = {'V'                    ,'W'                 ,'X'                      /* ,'Y'                     ,'Z'              */                                              };
-private static final String[] IMAGES_COULEURS  = {"Symboles/bordeaux.png","Symboles/rose.png" ,"Symboles/bleu_fonce.png"/* ,"Symboles/marron.png"   ,"Symboles/bleu.png" */                                           };
+	private static final String[] IMAGES_COULEURS  = {"Symboles/bordeaux.png","Symboles/rose.png" ,"Symboles/bleu_fonce.png"/* ,"Symboles/marron.png"   ,"Symboles/bleu.png" */                                           };
 	// Couleurs des traits par couleur de chemin
-	private static final char [] CODES_COULEURS    = {'V',               'W',                    'X',              'Y',                  'Z'                                                                         };
-	private static final Color[] COULEURS_TRAITS   = {new Color(139,0,0), new Color(255,105,180), new Color(0,0,139)/* , new Color(139,69,19), new Color(70,130,180)*/              };
+	private static final char [] CODES_COULEURS    = {'V',               'W',                    /*'X',            /*  'Y',                  'Z'  */                                                                       };
+	private static final Color[] COULEURS_TRAITS   = {new Color(139,0,0), new Color(255,105,180), /*new Color(0,0,139)/* , new Color(139,69,19), new Color(70,130,180)*/              };
 	
 	//getter
 	private Color getCouleurTrait( char couleur )
